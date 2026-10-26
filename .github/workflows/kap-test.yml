@@ -1,8 +1,0 @@
-name: KAP erişim testi
-on: workflow_dispatch
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: python3 bekci/kap_test.py
