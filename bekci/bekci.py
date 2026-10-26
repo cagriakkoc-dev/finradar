@@ -46,7 +46,10 @@ def main():
             print(t, "KAP hatası:", repr(e)[:200])
     if TOKEN and not st.get("chat_id"):
         try:
-            for u in reversed(tg("getUpdates").get("result", [])):
+            print("bot:", tg("getMe").get("result", {}).get("username"))
+            ups = tg("getUpdates").get("result", [])
+            print("telegram güncelleme sayısı:", len(ups))
+            for u in reversed(ups):
                 m = u.get("message") or {}
                 if m.get("chat", {}).get("type") == "private":
                     st["chat_id"] = m["chat"]["id"]; break
@@ -72,7 +75,7 @@ def main():
     elif mesajlar:
         print("Telegram ayarlı değil; mesajlar gönderilmedi.")
     st["seen"] = sorted(seen)[-1500:]
-    st["last_run"] = datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    st["last_run"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     json.dump(st, open(STATE, "w"), ensure_ascii=False, indent=1)
 
 if __name__ == "__main__":
