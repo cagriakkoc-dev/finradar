@@ -28,6 +28,31 @@ def kap(oid, gun=4):
     return http("https://www.kap.org.tr/tr/api/disclosure/members/byCriteria", json.dumps(body).encode(),
                 {"Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0 FinRadar-Bekci"})
 
+KUYRUK = os.path.join(os.path.dirname(__file__), "kuyruk.json")
+BILDIR = os.path.join(os.path.dirname(__file__), "bildirimler.json")
+GELEN = os.path.join(os.path.dirname(__file__), "gelen")
+UA = {"User-Agent": "Mozilla/5.0 FinRadar-Bekci"}
+
+def indir(i):
+    """Bildirim sayfasını ve eklerini bekci/gelen/<id>/ altına kaydeder."""
+    d = os.path.join(GELEN, str(i)); os.makedirs(d, exist_ok=True)
+    req = urllib.request.Request(f"https://www.kap.org.tr/tr/Bildirim/{i}", headers=UA)
+    html = urllib.request.urlopen(req, timeout=60).read()
+    open(os.path.join(d, "bildirim.html"), "wb").write(html)
+    ekler = sorted(set(re.findall(rb"file/download/([0-9a-f]{32})", html)))
+    out = []
+    for oid in ekler[:6]:
+        oid = oid.decode()
+        try:
+            r = urllib.request.urlopen(urllib.request.Request(f"https://www.kap.org.tr/tr/api/file/download/{oid}", headers=UA), timeout=90)
+            b = r.read()
+            if len(b) > 40_000_000: continue
+            ext = ".pdf" if b[:4] == b"%PDF" else ".bin"
+            open(os.path.join(d, oid + ext), "wb").write(b); out.append(oid + ext)
+        except Exception as e:
+            print("ek indirilemedi", i, oid, repr(e)[:120])
+    return ["bildirim.html"] + out
+
 def tg(method, **params):
     return http(f"https://api.telegram.org/bot{TOKEN}/{method}", json.dumps(params).encode(), {"Content-Type": "application/json"})
 
@@ -56,6 +81,8 @@ def main():
         except Exception as e:
             print("Telegram getUpdates hatası:", repr(e)[:200])
     mesajlar = []
+    kuyruk = json.load(open(KUYRUK)) if os.path.exists(KUYRUK) else []
+    bekleyen_bildirim = json.load(open(BILDIR)) if os.path.exists(BILDIR) else []
     if TOKEN and st.get("chat_id") and not st.get("welcomed"):
         mesajlar.append("FinRadar Bekçi çalışmaya başladı. AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
         st["welcomed"] = True
@@ -64,7 +91,27 @@ def main():
             fr = d.get("disclosureClass") == "FR"
             etiket = "Finansal rapor" if fr else ("Önemli" if ONEMLI.search((d.get("summary") or "") + " " + (d.get("subject") or "")) else "Bildirim")
             donem = f" · {d['year']} {d['ruleType']}" if fr and d.get("year") else ""
+            if etiket in ("Finansal rapor", "Önemli") and "Sorumluluk Beyan" not in (d.get("summary") or ""):
+                try:
+                    dosyalar = indir(d["disclosureIndex"])
+                except Exception as e:
+                    dosyalar = []; print("indirme hatası", d["disclosureIndex"], repr(e)[:150])
+                kuyruk.append({"id": d["disclosureIndex"], "hisse": t, "tur": etiket, "ozet": d.get("summary") or d.get("subject"),
+                               "tarih": d.get("publishDate"), "yil": d.get("year"), "donem": d.get("ruleType"), "durum": "bekliyor", "dosyalar": dosyalar})
             mesajlar.append(f"{t} · {etiket}{donem}\n{d.get('summary') or d.get('subject')}\n{d.get('publishDate','')}\nhttps://www.kap.org.tr/tr/Bildirim/{d['disclosureIndex']}")
+    # elle kuyruğa ekleme (test / geçmiş bildirim): KUYRUGA_EKLE="ANHYT:1687664,AKSA:123"
+    for parca in filter(None, os.environ.get("KUYRUGA_EKLE", "").replace(" ", "").split(",")):
+        t, i = parca.split(":"); i = int(i)
+        if any(k["id"] == i for k in kuyruk): continue
+        try:
+            d = next((x for x in kap(SIRKETLER[t], gun=30) if x["disclosureIndex"] == i), {})
+            kuyruk.append({"id": i, "hisse": t, "tur": "Finansal rapor" if d.get("disclosureClass") == "FR" else "Önemli",
+                           "ozet": d.get("summary") or d.get("subject"), "tarih": d.get("publishDate"), "yil": d.get("year"),
+                           "donem": d.get("ruleType"), "durum": "bekliyor", "dosyalar": indir(i)})
+            print("elle kuyruğa eklendi", t, i)
+        except Exception as e:
+            print("elle ekleme hatası", parca, repr(e)[:150])
+    mesajlar += bekleyen_bildirim
     print(f"yeni bildirim: {len(yeni)}, ilk çalışma: {ilk}, mesaj: {len(mesajlar)}")
     if mesajlar and TOKEN and st.get("chat_id"):
         for m in mesajlar:
@@ -74,6 +121,9 @@ def main():
                 print("Telegram gönderim hatası:", repr(e)[:200])
     elif mesajlar:
         print("Telegram ayarlı değil; mesajlar gönderilmedi.")
+    if bekleyen_bildirim and TOKEN and st.get("chat_id"):
+        json.dump([], open(BILDIR, "w"))
+    json.dump(kuyruk, open(KUYRUK, "w"), ensure_ascii=False, indent=1)
     st["seen"] = sorted(seen)[-1500:]
     st["last_run"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     json.dump(st, open(STATE, "w"), ensure_ascii=False, indent=1)
