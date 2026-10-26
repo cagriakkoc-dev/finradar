@@ -53,9 +53,10 @@ def main():
         except Exception as e:
             print("Telegram getUpdates hatası:", repr(e)[:200])
     mesajlar = []
-    if ilk:
-        mesajlar.append("FinRadar Bekçi çalışmaya başladı. AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum.")
-    else:
+    if TOKEN and st.get("chat_id") and not st.get("welcomed"):
+        mesajlar.append("FinRadar Bekçi çalışmaya başladı. AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
+        st["welcomed"] = True
+    if not ilk:
         for t, d in sorted(yeni, key=lambda x: x[1]["disclosureIndex"]):
             fr = d.get("disclosureClass") == "FR"
             etiket = "Finansal rapor" if fr else ("Önemli" if ONEMLI.search((d.get("summary") or "") + " " + (d.get("subject") or "")) else "Bildirim")
