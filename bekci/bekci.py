@@ -11,6 +11,7 @@ SIRKETLER = {
     "ISMEN": "4028e4a140f275530140f277aa100008",
     "TUPRS": "4028e4a140f2ed720140f37f139c01bc",
     "TOASO": "4028e4a140f2ed710140f328bed700a5",
+    "TTRAK": "4028e4a140f2ed720140f3790d6a01ad",
 }
 ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|sermaye|geri alım|birleşme|devral|satın al|kapasite|genel müdür|finansal takvim|beklenti|yeni iş|teşvik|dava|derecelendirme|ortaklık yapısı|pay satış|bedelsiz|bedelli", re.I)
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
