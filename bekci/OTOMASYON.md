@@ -7,9 +7,14 @@ Bu dosyayı zamanlanmış Claude görevi her çalıştığında izler. Kısa ve 
 "durum": "bekliyor" olan kayıt yoksa HİÇBİR ŞEY YAPMA, kısa bir cümleyle bitir (dosya okuma, Mac, proje yok).
 
 ## 1. Hazırlık (yalnız iş varsa)
-- Mac (device_bash): `git clone` https://github.com/cagriakkoc-dev/sonar → `$HOME/fr-oto` (varsa `git pull --rebase`).
-  Token: `$HOME/mnt/sonar/.gizli/github_token` (iCloud sonar klasörü). Push: `git -c http.extraHeader="Authorization: Basic $(printf 'x-access-token:%s' $TOKEN | base64 -w0)" push origin main`.
+İki depo var (27 Eki 2026'dan beri):
+- **cagriakkoc-dev/sonar** (açık): KAP bekçisi. `bekci/kuyruk.json`, `bekci/gelen/<id>/`, `bekci/bildirimler.json`, `bekci/araclar/kap_oku.py`, bu dosya. Site buradan yayınlanır ama yalnız `public/` klasörü (otomatik üretilir, ELLE DÜZENLEME).
+- **cagriakkoc-dev/sonar-site** (özel): site kaynağı `index.html` (taslaklar, X/Substack, geliştirici notları dahil), `icerik/`, `bekci/araclar/site.py`. Buraya her push'ta `yayin.yml` açık siteyi ve şifreli yönetim panelini derleyip `sonar/public/`'e yazar.
+
+- Mac (device_bash): `git clone` https://github.com/cagriakkoc-dev/sonar → `$HOME/fr-oto` ve https://github.com/cagriakkoc-dev/sonar-site → `$HOME/fr-site` (varsa ikisinde de `git pull --rebase`).
+  Token: `$HOME/mnt/sonar/.gizli/github_token` (iCloud sonar klasörü). Klonlama/push: `git -c http.extraHeader="Authorization: Basic $(printf 'x-access-token:%s' $TOKEN | base64 -w0)" …`.
 - Yazım dili: proje dokümanı `claude/smartcuzdan-yazim-dili.md` (Projects aracı varsa oku). Yoksa aşağıdaki kurallar yeterli.
+- Bildirim dosyalarını `$HOME/fr-oto/bekci/gelen/<id>/` altından oku; `site.py` komutlarını `$HOME/fr-site` içinde çalıştır.
 
 ## 2. Her kayıt için
 Dosyalar: `bekci/gelen/<id>/bildirim.html` (+ PDF ekler).
@@ -38,7 +43,9 @@ X kısmı ikili seri düzeninde: `"social": {"mode": "ikili", "tweets": [...]}`.
 ## 3. Bitiş
 - `bekci/kuyruk.json`: işlenen kayıtların "durum"unu "hazir" yap (+ "hazir_zaman").
 - `bekci/bildirimler.json` listesine ekle: "<HİSSE> · <başlık> özeti hazır · https://sonar.smartcuzdan.io/#haber-<hisse küçük>-<id>" (dönem özeti için `#ozet-<hisse küçük>`). Bekçi bir sonraki çalışmada Telegram'a yollar.
-- Commit (Render yayınlasın diye [skip render] YAZMA), `git pull --rebase`, push.
+- `$HOME/fr-site`: index.html değişikliğini commit + `git pull --rebase` + push (yayın otomatik, 1-2 dk).
+- `$HOME/fr-oto`: kuyruk.json ve bildirimler.json değişikliğini commit (mesaja `[skip render]` ekle) + `git pull --rebase` + push.
+- Taslaklar (X, Substack) açık sitede görünmez; Cagri onları https://sonar.smartcuzdan.io/yonetim.html panelinden görür.
 - İçeriği iCloud'a da kaydet: `$HOME/mnt/sonar/icerik/<HİSSE>/<YYYY-Qn veya haber-<id>>/x-zinciri.txt` (dönem özetinde "Seri n / Ana tweet / Yanıt" başlıklarıyla).
 
 ## Kurallar (yazım dili)

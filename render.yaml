@@ -3,7 +3,10 @@ services:
     name: sonar
     runtime: static
     buildCommand: ""
-    staticPublishPath: .
+    staticPublishPath: public
+    buildFilter:
+      paths:
+        - public/**
     headers:
       - path: /*
         name: Cache-Control
