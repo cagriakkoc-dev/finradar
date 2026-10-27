@@ -51,7 +51,7 @@ async function open_(raw){
   const b=new Uint8Array(await r.arrayBuffer());
   const d=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12));
   const P=JSON.parse(new TextDecoder().decode(d));
-  const inj=`<meta name="robots" content="noindex,nofollow"><script>window.__SP=${JSON.stringify({k:b64(raw),f:P.files})};<\/script><script>(${hook.toString()})();<\/script>`;
+  const inj=`<meta name="robots" content="noindex,nofollow"><script>window.__SP=${JSON.stringify({k:b64(raw),f:P.files,w:P.w||''}).replace(/</g,'\\u003c')};<\/script><script>(${hook.toString()})();<\/script>`;
   const html=P.html.replace(/<head([^>]*)>/i,m=>m+inj);
   document.open();document.write(html);document.close();
 }
