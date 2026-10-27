@@ -1,0 +1,20 @@
+name: İstek (push ile dış veri)
+# bekci/istek/dis.txt satırları "ad|url" biçiminde; dosya değişince indirilir (API erişimi olmadan tetikleme yolu).
+on:
+  push:
+    paths: ['bekci/istek/dis.txt']
+permissions:
+  contents: write
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          DIS=$(grep -v '^#' bekci/istek/dis.txt | grep '|' | paste -sd';' | sed 's/;/;;/g')
+          DIS="$DIS" python3 bekci/araclar/dis_cek.py
+      - run: |
+          git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
+          git add bekci/dis
+          git diff --cached --quiet || (git commit -q -m "Dış veri (istek) [skip render]" && for n in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done)
