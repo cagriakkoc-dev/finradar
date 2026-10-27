@@ -28,7 +28,10 @@ for i in filter(None, os.environ.get("XBRL_IDS", "").replace(" ", "").split(",")
     if os.path.exists(p): continue
     try:
         raw = urllib.request.urlopen(urllib.request.Request(f"https://www.kap.org.tr/tr/Bildirim/{i}", headers=UA), timeout=90).read().decode("utf-8", "ignore")
-        r = rows(raw); json.dump({"id": int(i), "rows": r}, open(p, "w"), ensure_ascii=False)
+        r = rows(raw)
+        if not r:
+            open(os.path.join(OUT, f"raw_{i}.html"), "w").write(raw); print(i, "satır bulunamadı, ham sayfa kaydedildi", len(raw)); continue
+        json.dump({"id": int(i), "rows": r}, open(p, "w"), ensure_ascii=False)
         print(i, len(r), "satır")
     except Exception as e:
         print(i, "hata", repr(e)[:150])
