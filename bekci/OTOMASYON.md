@@ -24,6 +24,11 @@ JSON (bkz. şema) yaz, `python3 bekci/araclar/site.py ekle-haber <HİSSE> haber.
  "social": {"tweets": [{"t": "<tweet>", "card": {"type": "facts", "head": "<HİSSE> · KAP · GG.AA.YYYY", "title": "<kısa başlık>", "rows": [["etiket", "değer"], …]}}, …, {"t": "<son tweet>", "card": null}]},
  "note": "Bu özet KAP açıklaması temel alınarak Claude tarafından yazıldı."}
 
+#### Kâr payı / temettü bildirimi (Kar Dağıtım Önerisi, Kar Payı Dağıtımına İlişkin Bildirim)
+Haber özetine ek olarak şirket sayfasındaki Temettü tablosu güncellenir (index.html veri JSON'u, şirketin `div` dizisi, ödeme yılı satırı):
+- Yönetim kurulu önerisi (GK onayı bekliyor): o yılın satırına `"prop": {"g": brüt TL/pay, "n": net TL/pay (A grubu/işlem gören), "gy": brüt verim %, "ny": net verim %, "badge": "Öneri · GK GG.AA", "note": "<öneri tarihi, kaynak (dönem kârı/yedekler), GK tarihi, hak kullanım/ödeme tarihleri>", "src": [KAP linkleri], "news": <bildirim no>}`. Verim, satırdaki referans fiyatla hesaplanır (gy = g / (satırın g / gy)).
+- GK onaylayıp ödeme kesinleşince: `prop` kaldırılır, tutar satırın `g`/`n`/`gy`/`ny` değerlerine eklenir, `src`'ye KAP linki eklenir.
+
 ### "Finansal rapor" → dönem özeti
 Aynı hisse+dönemin bütün FR kayıtlarını birlikte işle (finansal rapor + faaliyet raporu). Şablon: `python3 bekci/araclar/site.py ornek ANHYT` (ANHYT 2026-09 özeti).
 Yıllık = geçen yılın aynı çeyreği (XBRL "önceki 3 ay"), çeyreklik = bir önceki çeyrek (sitedeki c.fin tek çeyrek değeri veya önceki raporun 3 aylık sütunu).
