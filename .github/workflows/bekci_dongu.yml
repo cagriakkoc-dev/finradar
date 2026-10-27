@@ -1,6 +1,7 @@
 name: Sonar Bekçi (döngü)
 # GitHub'ın zamanlanmış (cron) çalıştırmaları saatlerce gecikebiliyor. Bu iş tek bir çalıştırma içinde
 # ~5 saat 40 dakika boyunca bekçiyi düzenli aralıklarla çalıştırır, bitince kendini yeniden başlatır.
+# Beklemelerde Telegram dinlenir (bekci/bekle.py): /kontrol yazınca hemen kontrol eder, /durum kuyruğu söyler.
 # Zincir koparsa aşağıdaki seyrek cron yeniden başlatır. Eşzamanlılık grubu yüzünden aynı anda tek döngü olur.
 on:
   workflow_dispatch:
@@ -26,7 +27,7 @@ jobs:
           BITIS=$(( $(date +%s) + 340*60 ))
           while [ "$(date +%s)" -lt "$BITIS" ]; do
             git pull -q --rebase || git rebase --abort || true
-            python3 bekci/bekci.py || echo "bekçi hatası"
+            TETIK=${TETIK:-0} python3 bekci/bekci.py || echo "bekçi hatası"
             git add bekci/
             ADDED=$(git diff --cached --numstat | awk '{s+=$1} END {print s+0}')
             FILES=$(git diff --cached --name-only | grep -v '^bekci/state.json$' | wc -l)
@@ -40,7 +41,9 @@ jobs:
             H=$(date -u +%H); H=$((10#$H))
             if [ $H -ge 5 ] && [ $H -le 20 ]; then ARA=600; else ARA=3600; fi
             KALAN=$(( BITIS - $(date +%s) )); [ $KALAN -le 0 ] && break
-            sleep $(( ARA < KALAN ? ARA : KALAN ))
+            # bekleme süresince Telegram dinlenir; /kontrol gelirse bekleme erken biter
+            RC=0; python3 bekci/bekle.py $(( ARA < KALAN ? ARA : KALAN )) || RC=$?
+            if [ "$RC" -eq 10 ]; then TETIK=1; else TETIK=0; fi
           done
       - name: Sonraki döngüyü başlat
         if: always()

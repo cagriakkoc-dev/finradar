@@ -127,6 +127,13 @@ def main():
         except Exception as e:
             print("elle ekleme hatası", parca, repr(e)[:150])
     mesajlar += bekleyen_bildirim
+    try:
+        import datetime
+        open("/tmp/sonar_son_kontrol", "w").write((datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"))
+    except Exception:
+        pass
+    if os.environ.get("TETIK") == "1" and not mesajlar:
+        mesajlar.append("Kontrol tamam: yeni KAP bildirimi yok.")
     print(f"yeni bildirim: {len(yeni)}, ilk çalışma: {ilk}, mesaj: {len(mesajlar)}")
     if mesajlar and TOKEN and st.get("chat_id"):
         for m in mesajlar:
