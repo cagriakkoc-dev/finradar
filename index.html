@@ -333,7 +333,7 @@ function metricsOf(c){return ORDER.filter(m=>c.fin[m])}
 /* ---------- tickers ---------- */
 function renderTickers(){
   const nav=$('#tickers');
-  nav.innerHTML=`<button class="tk view" role="tab" data-v="GIRIS" aria-selected="${state.view==='GIRIS'}">Ana sayfa</button>`+COS.map(c=>`<button class="tk" role="tab" data-v="${c.t}" style="--c:${c.color}" aria-selected="${state.view===c.t}"><i class="dot"></i>${c.t}</button>`).join('')+
+  nav.innerHTML=`<button class="tk view" role="tab" data-v="GIRIS" aria-selected="${state.view==='GIRIS'}">Ana sayfa</button><button class="tk view" role="tab" data-v="HABERLER" aria-selected="${state.view.startsWith('HABER')}">Haberler</button>`+COS.map(c=>`<button class="tk" role="tab" data-v="${c.t}" style="--c:${c.color}" aria-selected="${state.view===c.t}"><i class="dot"></i>${c.t}</button>`).join('')+
    `<button class="tk view" role="tab" data-v="OZET" aria-selected="${state.view.startsWith('OZET')||state.view.startsWith('KARS-')}">Dönem özetleri</button><button class="tk view" role="tab" data-v="KARSILASTIR" aria-selected="${state.view==='KARSILASTIR'}">Karşılaştır</button><button class="tk view" role="tab" data-v="DENETIM" aria-selected="${state.view==='DENETIM'}">Veri denetimi</button>`;
   nav.querySelectorAll('.tk').forEach(b=>b.onclick=()=>go(b.dataset.v));
 }
