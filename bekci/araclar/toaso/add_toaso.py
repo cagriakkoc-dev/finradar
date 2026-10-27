@@ -15,7 +15,7 @@ c={"t":"TOASO","name":"Tofaş","sector":"Otomotiv · üretim ve dağıtım","col
   ["Stellantis ile üretim sözleşmeleri","Yeni model (K0, K9 ticari araç) yatırımları ve mevcut modellerin üretim süreleri gelecekteki hacmi belirler. Sözleşme, kredi ve kapasite bilgileri KAP açıklamalarından izlenir."],
   ["Finans sektörü faaliyetleri","Konsolide gelirin bir bölümü Koç Fiat Kredi'nin finansman faaliyetlerinden gelir. Bu sitede hasılat ve satışların maliyeti bu kalemlerle birlikte gösterilir."]],
  "kap":"https://www.kap.org.tr/tr/sirket-bildirimleri/1096-tofas-turk-otomobil-fabrikasi-a-s",
- "rat":rat['rat'],"mix":mix,"div":rat['div'],"kpi":SEC["kpi"],"kpiNotes":SEC["kpiNotes"],"ms":SEC["ms"],"periods":fin['periods'],"fin":fin['fin']}
+ "rat":rat['rat'],"mix":mix,"div":rat['div'],"peerOther":"FROTO","peerNote":"Rakip: Ford Otosan (FROTO), BIST'te doğrudan kıyas. Tofaş hasılatı Koç Fiat Kredi'nin finans gelirini ve Mayıs 2025'ten itibaren Stellantis-Türkiye dağıtım satışlarını içerir; Ford Otosan hasılatı üretim ve ihracat ağırlıklıdır.","kpi":SEC["kpi"],"kpiNotes":SEC["kpiNotes"],"ms":SEC["ms"],"periods":fin['periods'],"fin":fin['fin']}
 D['companies']=[x for x in D['companies'] if x['t']!='TOASO']+[c]
 D['companies'].sort(key=lambda x:x['t'])
 s=s[:a]+json.dumps(D,ensure_ascii=False,separators=(",",":")).replace("</","<\\/")+s[b:]
