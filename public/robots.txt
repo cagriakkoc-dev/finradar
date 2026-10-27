@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /yonetim.html
+Disallow: /yonetim.bin
+Disallow: /y/
