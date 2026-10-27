@@ -1132,7 +1132,7 @@ function drawCardAt(c,i,cv){const g=cv.getContext('2d'),S=c.summary,T=S.social.t
   const tw=(s,sz,w)=>{g.font=`${w} ${Math.round(sz*SC)}px ${F}`;return g.measureText(s).width};
   const rr=(x,y,w,h,r,col)=>{g.fillStyle=col;g.beginPath();g.roundRect?g.roundRect(x,y,w,h,r):g.rect(x,y,w,h);g.fill()};
   const pc=(a,b)=>{const p=pchg(a,b);return p==null?null:(b>=a?'+':'−')+'%'+nf(Math.abs(p),Math.abs(p)>=100?0:1)};
-  const num=v=>nf(v,1);
+  const num=v=>nf(v,1);const sgc=v=>/^\s*[−–-]/.test(String(v))?dn:up;
   g.fillStyle='#0f141c';g.fillRect(0,0,W,H);g.fillStyle=co;g.fillRect(0,0,W,12);
   t(C.head||(c.t+' · '+S.p.slice(0,4)+'/'+(+S.p.slice(5,7))+' bilanço'),M,96,30,700,co);
   if(S.social.mode!=='ikili'){rr(W-M-110,60,110,52,26,pn);t((i+1)+' / '+T.length,W-M-55,96,26,700,fg,'center')}
@@ -1180,9 +1180,9 @@ function drawCardAt(c,i,cv){const g=cv.getContext('2d'),S=c.summary,T=S.social.t
       bars(C.rows,C.labels,M,W-M,y,BOT)}
   }
   if(C.type==='stats'){const nb=C.big.length;
-    if(land){const xm=W*0.5;C.big.forEach((b,k)=>{const x=M+k*((xm-M)/nb),w=(xm-M)/nb-24;rr(x,y,w,360,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+190,96,800,fg);t(b[1]+' → '+b[2],x+28,y+250,26,500,mu);t(b[3],x+28,y+300,26,800,up)});
+    if(land){const xm=W*0.5;C.big.forEach((b,k)=>{const x=M+k*((xm-M)/nb),w=(xm-M)/nb-24;rr(x,y,w,360,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+190,96,800,fg);t(b[1]+' → '+b[2],x+28,y+250,26,500,mu);t(b[3],x+28,y+300,26,800,sgc(b[3]))});
       let yy=y+20;t('Pazar payı · '+C.asof,xm+20,yy,26,700,fg);yy+=36;const mg=(BOT-yy)/C.meters.length;C.meters.forEach(m=>{t(m[0],xm+20,yy+36,28,500,mu);t('%'+nf(m[1],1),W-M,yy+36,36,800,fg,'right');rr(xm+20,yy+58,W-M-xm-20,32,16,pn);rr(xm+20,yy+58,(W-M-xm-20)*m[1]/25,32,16,co);yy+=mg})}
-    else{C.big.forEach((b,k)=>{const x=M+k*((W-2*M+20)/nb),w=(W-2*M+20)/nb-20;rr(x,y,w,300,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+150,80,800,fg);t(b[1]+' → '+b[2],x+28,y+206,26,500,mu);t(b[3],x+28,y+256,26,800,up)});y+=370;
+    else{C.big.forEach((b,k)=>{const x=M+k*((W-2*M+20)/nb),w=(W-2*M+20)/nb-20;rr(x,y,w,300,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+150,80,800,fg);t(b[1]+' → '+b[2],x+28,y+206,26,500,mu);t(b[3],x+28,y+256,26,800,sgc(b[3]))});y+=370;
       t('Pazar payı · '+C.asof,M,y,26,700,fg);y+=40;const mg=Math.min(150,(BOT-y)/C.meters.length);C.meters.forEach(m=>{t(m[0],M,y+32,28,500,mu);t('%'+nf(m[1],1),W-M,y+32,34,800,fg,'right');rr(M,y+52,W-2*M,30,15,pn);rr(M,y+52,(W-2*M)*m[1]/25,30,15,co);y+=mg})}
   }
   if(C.type==='peers'){const P=c.peers.filter(p=>p.key===C.key).sort((x,y)=>(y.co===c.t)-(x.co===c.t)),oc=P[1]&&BY[P[1].co]?lift(BY[P[1].co].color):'#f2b55c',cols=[co,oc===co?'#f2b55c':oc];const per=[...new Set(P.flatMap(p=>Object.keys(p.s)))].sort();
@@ -1194,10 +1194,10 @@ function drawCardAt(c,i,cv){const g=cv.getContext('2d'),S=c.summary,T=S.social.t
       if(last){const lv=P.map(pp=>{const ks=Object.keys(pp.s).sort();return pp.s[ks[ks.length-1]]});const top=lv[k]>=Math.max(...lv);g.fillStyle=cols[k];g.beginPath();g.arc(X(last[0]),Y(last[1]),8,0,7);g.fill();t(nf(last[1],0),X(last[0])+14,Y(last[1])+(top?-30:30),24,800,cols[k]);t(QS(last[2]),X(last[0])+14,Y(last[1])+(top?-6:54),18,500,mu)}});
   }
   if(C.type==='facts'){const n=C.rows.length,cols=land&&n>2?2:1,gap=20,w=(W-2*M-gap*(cols-1))/cols,rows=Math.ceil(n/cols),h=Math.min(230,(BOT-y-gap*(rows-1))/rows);
-    C.rows.forEach((r,k)=>{const x=M+(k%cols)*(w+gap),yy=y+Math.floor(k/cols)*(h+gap);rr(x,yy,w,h,18,pn);g.fillStyle=co;g.fillRect(x,yy,6,h);t(r[0],x+30,yy+h/2-18,24,500,mu);
+    C.rows.forEach((r,k)=>{const x=M+(k%cols)*(w+gap),yy=y+Math.floor(k/cols)*(h+gap);rr(x,yy,w,h,18,pn);g.fillStyle=co;g.fillRect(x,yy,6,h);const lm=/^(.*?)\s*·\s*([+−–-]\s*%?[\d.,]+.*)$/.exec(r[0]);if(lm){t(lm[1]+' · ',x+30,yy+h/2-18,24,500,mu);t(lm[2],x+30+tw(lm[1]+' · ',24,500),yy+h/2-18,24,800,sgc(lm[2]))}else t(r[0],x+30,yy+h/2-18,24,500,mu);
       let fs=48;while(fs>24&&tw(r[1],fs,800)>w-60)fs-=2;t(r[1],x+30,yy+h/2+fs*0.9,fs,800,fg)})}
   g.fillStyle='#273243';g.fillRect(M,H-112,W-2*M,2);
-  t('@SmartCuzdan',M,H-56,30,800,fg);t('Kaynak: KAP',W-M,H-56,22,500,mu,'right');
+  t('Kaynak: KAP',W-M,H-56,22,500,mu,'right');
 }
 function substackHTML(c){const U=c.summary.substack;
   const body=U.blocks.map(b=>b.h?`<h3>${esc(b.h)}</h3>`:b.p?`<p>${esc(b.p)}</p>`:b.cta?`<p class="subcta">${esc(b.cta)} <span>[Abone ol]</span></p>`:b.url?`<figure><img src="${esc(b.url)}" alt="${esc(b.alt||'')}" referrerpolicy="no-referrer"></figure>`:`<figure><img data-subimg="${b.img}" alt="Görsel ${b.img+1}"></figure>`).join('');
