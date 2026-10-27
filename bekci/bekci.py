@@ -15,6 +15,10 @@ ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|serma
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
 TOKEN = os.environ.get("TELEGRAM_TOKEN", "").strip()
 
+# Rutin bildirimler: Telegram'a "Bildirim" olarak gider, özet kuyruğuna girmez
+RUTIN = {"ISMEN": re.compile(r"varant|sertifika|piyasa yapıcılı", re.I)}
+AD = {"ISMEN": re.compile(r"İş Yatırım|IS YATIRIM|İŞ YATIRIM", re.I)}
+
 def http(url, data=None, headers=None):
     req = urllib.request.Request(url, data=data, headers=headers or {})
     with urllib.request.urlopen(req, timeout=40) as r:
@@ -90,7 +94,10 @@ def main():
     if not ilk:
         for t, d in sorted(yeni, key=lambda x: x[1]["disclosureIndex"]):
             fr = d.get("disclosureClass") == "FR"
-            etiket = "Finansal rapor" if fr else ("Önemli" if ONEMLI.search((d.get("summary") or "") + " " + (d.get("subject") or "")) else "Bildirim")
+            metin = (d.get("summary") or "") + " " + (d.get("subject") or "")
+            rutin = not fr and t in RUTIN and RUTIN[t].search(metin)
+            if t in AD: metin = AD[t].sub(" ", metin)  # şirket adındaki "Yatırım" Önemli sayılmasın
+            etiket = "Finansal rapor" if fr else ("Önemli" if not rutin and ONEMLI.search(metin) else "Bildirim")
             donem = f" · {d['year']} {d['ruleType']}" if fr and d.get("year") else ""
             if etiket in ("Finansal rapor", "Önemli") and "Sorumluluk Beyan" not in (d.get("summary") or ""):
                 try:
