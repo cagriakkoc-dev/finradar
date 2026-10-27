@@ -1,0 +1,677 @@
+{
+ "p": "2026-09",
+ "prev": "2026-06",
+ "yago": "2025-09",
+ "date": "27.10.2026",
+ "headline": "Net zarar 83,0 Mn TL. Geçen yıla göre farkı brüt kârdaki düşüş ve azalan parasal kazanç belirledi; önceki çeyreğe göre fark vergiden: Ç2'deki ertelenmiş vergi geliri bu çeyrek yok.",
+ "basis": "Tek çeyrek değerler, milyon TL; her sütun kendi raporunun fiyat esasında (TMS 29).",
+ "kpis": [
+  {
+   "k": "Net kâr",
+   "m": "net_profit",
+   "icon": "coin",
+   "y": 367.84,
+   "q": 695.86,
+   "c": -82.96
+  },
+  {
+   "k": "Hasılat",
+   "m": "revenue",
+   "icon": "chart",
+   "y": 14652.25,
+   "q": 12919.05,
+   "c": 11741.23
+  },
+  {
+   "k": "Brüt kâr",
+   "m": "gross_profit",
+   "icon": "growth",
+   "y": 2378.87,
+   "q": 1164.35,
+   "c": 1474.47
+  },
+  {
+   "k": "Esas faaliyet kârı",
+   "m": "operating_profit",
+   "icon": "shield",
+   "y": 734.18,
+   "q": -92.87,
+   "c": 269.47
+  }
+ ],
+ "bridge": {
+  "yoy": {
+   "from": "2025 Ç3",
+   "to": "2026 Ç3",
+   "a": 367.84,
+   "b": -82.96,
+   "steps": [
+    [
+     "Brüt kâr",
+     -904.4
+    ],
+    [
+     "Faaliyet giderleri",
+     81.7
+    ],
+    [
+     "Diğer faaliyet gelir/gideri",
+     358.0
+    ],
+    [
+     "Yatırım faaliyetleri",
+     -8.4
+    ],
+    [
+     "Finansman (net)",
+     495.8
+    ],
+    [
+     "Net parasal pozisyon",
+     -453.4
+    ],
+    [
+     "Vergi",
+     -20.1
+    ]
+   ],
+   "take": "Yıllık −451 Mn TL'lik farkın büyük kalemleri brüt kârdaki 904 Mn TL ve net parasal pozisyon kazancındaki 453 Mn TL düşüş. Net finansman gideri 496 Mn TL, diğer faaliyet gelir/gideri 358 Mn TL iyileşerek farkın bir kısmını kapattı."
+  },
+  "qoq": {
+   "from": "2026 Ç2",
+   "to": "2026 Ç3",
+   "a": 695.86,
+   "b": -82.96,
+   "steps": [
+    [
+     "Brüt kâr",
+     310.1
+    ],
+    [
+     "Faaliyet giderleri",
+     27.3
+    ],
+    [
+     "Diğer faaliyet gelir/gideri",
+     24.9
+    ],
+    [
+     "Yatırım faaliyetleri",
+     -2.0
+    ],
+    [
+     "Finansman (net)",
+     36.7
+    ],
+    [
+     "Net parasal pozisyon",
+     -85.1
+    ],
+    [
+     "Vergi",
+     -1090.7
+    ]
+   ],
+   "take": "Çeyreklik −779 Mn TL'lik farkın tamamından fazlası vergiden: Ç2'de 969 Mn TL ertelenmiş vergi geliri vardı, bu çeyrek 122 Mn TL vergi gideri var. Brüt kâr ise 310 Mn TL arttı."
+  }
+ },
+ "cards": [
+  {
+   "icon": "chart",
+   "title": "Satışlar ve adetler",
+   "take": "Hasılat geçen yılın aynı çeyreğine göre %19,9 azalarak 11.741 Mn TL; önceki çeyreğe göre %9,1 az. Tek çeyrekte yurt içi traktör satışı 2.840 adetten 2.379 adede, ihracat 3.001 adetten 2.661 adede inmiş. Brüt marj %16,2'den %12,6'ya düşmüş; önceki çeyrekte %9,0'du.",
+   "rows": [
+    [
+     "Hasılat",
+     14652.25,
+     12919.05,
+     11741.23
+    ],
+    [
+     "Satışların maliyeti",
+     12273.38,
+     11754.7,
+     10266.76,
+     {
+      "exp": 1
+     }
+    ],
+    [
+     "Brüt kâr",
+     2378.87,
+     1164.35,
+     1474.47,
+     {
+      "b": 1
+     }
+    ],
+    [
+     "Brüt marj",
+     16.2,
+     9.0,
+     12.6,
+     {
+      "pp": 1
+     }
+    ]
+   ],
+   "facts": [
+    [
+     "Yurt içi traktör satışı · Ç3",
+     "2.379 adet"
+    ],
+    [
+     "Traktör ihracatı · Ç3",
+     "2.661 adet"
+    ],
+    [
+     "Traktör üretimi · Ç3",
+     "4.898 adet"
+    ],
+    [
+     "Ç2: yurt içi · ihracat · üretim",
+     "2.126 · 3.764 · 4.980"
+    ]
+   ],
+   "s": [
+    {
+     "l": "KAP · TürkTraktör 2026 Ç3 finansal rapor",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687653"
+    },
+    {
+     "l": "2026 Ç3 faaliyet raporu (adetler)",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687656"
+    },
+    {
+     "l": "2026 Ç2 finansal rapor",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1642532"
+    }
+   ]
+  },
+  {
+   "icon": "growth",
+   "title": "Faaliyet giderleri ve esas faaliyet kârı",
+   "take": "Genel yönetim, pazarlama ve Ar-Ge giderleri toplamı 1.436 Mn TL'den 1.355 Mn TL'ye gerilemiş. Esas faaliyetlerden diğer gelir/gider dengesi −208 Mn TL'den +150 Mn TL'ye dönmüş. Esas faaliyet kârı yine de 734 Mn TL'den 269 Mn TL'ye inmiş; önceki çeyrekte −93 Mn TL'ydi.",
+   "rows": [
+    [
+     "Genel yönetim giderleri",
+     384.71,
+     477.01,
+     449.94,
+     {
+      "exp": 1
+     }
+    ],
+    [
+     "Pazarlama giderleri",
+     811.52,
+     637.48,
+     633.79,
+     {
+      "exp": 1
+     }
+    ],
+    [
+     "Ar-Ge giderleri",
+     240.03,
+     267.34,
+     270.82,
+     {
+      "exp": 1
+     }
+    ],
+    [
+     "Esas faaliyetlerden diğer gelirler",
+     914.87,
+     656.16,
+     727.22
+    ],
+    [
+     "Esas faaliyetlerden diğer giderler",
+     1123.3,
+     531.55,
+     577.66,
+     {
+      "exp": 1
+     }
+    ],
+    [
+     "Esas faaliyet kârı",
+     734.18,
+     -92.87,
+     269.47,
+     {
+      "b": 1
+     }
+    ],
+    [
+     "Esas faaliyet marjı",
+     5.0,
+     -0.7,
+     2.3,
+     {
+      "pp": 1
+     }
+    ]
+   ],
+   "s": [
+    {
+     "l": "KAP · TürkTraktör 2026 Ç3 finansal rapor",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687653"
+    },
+    {
+     "l": "2026 Ç2 finansal rapor",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1642532"
+    }
+   ]
+  },
+  {
+   "icon": "coin",
+   "title": "Finansman, parasal kazanç ve vergi",
+   "take": "Net finansman gideri 1.335 Mn TL'den 839 Mn TL'ye gerilemiş. Net parasal pozisyon kazancı 1.062 Mn TL'den 608 Mn TL'ye inmiş. Vergi öncesi kâr 39 Mn TL; 122 Mn TL ertelenmiş vergi giderinden sonra dönem net zararı 83 Mn TL. Faaliyet raporuna göre TL kredilerde ağırlıklı ortalama faiz %33,92.",
+   "rows": [
+    [
+     "Finansman gelirleri",
+     635.87,
+     546.82,
+     355.59
+    ],
+    [
+     "Finansman giderleri",
+     1970.52,
+     1422.39,
+     1194.45,
+     {
+      "exp": 1
+     }
+    ],
+    [
+     "Net parasal pozisyon kazancı",
+     1061.69,
+     693.38,
+     608.26
+    ],
+    [
+     "Vergi öncesi kâr",
+     469.61,
+     -273.06,
+     38.86
+    ],
+    [
+     "Vergi geliri (gideri)",
+     -101.77,
+     968.91,
+     -121.82
+    ],
+    [
+     "Net kâr",
+     367.84,
+     695.86,
+     -82.96,
+     {
+      "b": 1
+     }
+    ]
+   ],
+   "s": [
+    {
+     "l": "KAP · TürkTraktör 2026 Ç3 finansal rapor",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687653"
+    },
+    {
+     "l": "2026 Ç3 faaliyet raporu",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687656"
+    }
+   ]
+  },
+  {
+   "icon": "globe",
+   "title": "9 ay: yurt içi daralma, ihracat artışı",
+   "take": "Ocak–Eylül döneminde yurt içi traktör satışı %51 azalarak 6.176 adede inerken ihracat %13 artarak 9.225 adede çıkmış; üretim %30 azalmış. Brüt yurt dışı satışlar %10,6 artmış, brüt yurt içi satışlar %43,8 azalmış. 9 aylık net sonuç 789 Mn TL zarar (geçen yılın aynı döneminde 1.189 Mn TL kâr).",
+   "facts": [
+    [
+     "Yurt içi traktör satışı · 9A · −%51",
+     "6.176 adet"
+    ],
+    [
+     "Traktör ihracatı · 9A · +%13",
+     "9.225 adet"
+    ],
+    [
+     "Traktör üretimi · 9A · −%30",
+     "14.913 adet"
+    ],
+    [
+     "Brüt yurt dışı satış · 9A · +%10,6",
+     "17.474 Mn TL"
+    ],
+    [
+     "Brüt yurt içi satış · 9A · −%43,8",
+     "27.932 Mn TL"
+    ],
+    [
+     "9 aylık net kâr · 2025: +1.189",
+     "−789 Mn TL"
+    ]
+   ],
+   "s": [
+    {
+     "l": "KAP · 2026 Ç3 faaliyet raporu",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687656"
+    },
+    {
+     "l": "KAP · 2026 Ç3 finansal rapor",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687653"
+    }
+   ]
+  },
+  {
+   "icon": "shield",
+   "title": "Bilanço, borç ve yatırım",
+   "take": "30 Eylül itibarıyla finansal borç 13.134 Mn TL; 2025 sonunda (Eylül 2026 fiyatlarıyla) 19.297 Mn TL'ydi. Nakit 8.340 Mn TL'den 5.154 Mn TL'ye, stoklar 11.743 Mn TL'den 8.958 Mn TL'ye inmiş. 9 ayda 8,2 milyar TL kredi kullanılmış, 10,7 milyar TL ve 3,9 milyon EUR geri ödenmiş. Yatırım harcaması 1.481 Mn TL. 2025 kârından temettü dağıtılmadı.",
+   "facts": [
+    [
+     "Finansal borç · 2025 sonu 19.297",
+     "13.134 Mn TL"
+    ],
+    [
+     "Nakit · 2025 sonu 8.340",
+     "5.154 Mn TL"
+    ],
+    [
+     "Net finansal borç · 2025 sonu 10.957",
+     "7.980 Mn TL"
+    ],
+    [
+     "Stoklar · 2025 sonu 11.743",
+     "8.958 Mn TL"
+    ],
+    [
+     "Özkaynak · 2025 sonu 20.779",
+     "19.941 Mn TL"
+    ],
+    [
+     "Yatırım harcaması · 9A",
+     "1.481 Mn TL"
+    ]
+   ],
+   "s": [
+    {
+     "l": "KAP · 2026 Ç3 finansal rapor (bilanço)",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687653"
+    },
+    {
+     "l": "2026 Ç3 faaliyet raporu",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1687656"
+    },
+    {
+     "l": "Kâr dağıtımı (genel kurul)",
+     "u": "https://www.kap.org.tr/tr/Bildirim/1569214"
+    }
+   ]
+  }
+ ],
+ "note": "Bu özet, sayfadaki veriler ile KAP'taki finansal rapor ve faaliyet raporu temel alınarak Claude tarafından yazıldı. Geçen yılın aynı çeyreği 2026 Ç3 raporundaki karşılaştırma sütunundan (Eylül 2026 fiyatlarıyla), önceki çeyrek 2026 Ç2 raporunun üç aylık sütunundan alındı. Adetler faaliyet raporundaki birikimli tablolardan hesaplandı. Raporda nedeni açıklanmayan değişimler için yorum yapılmadı. TTRAK için rakip karşılaştırması yapılmaz.",
+ "social": {
+  "mode": "ikili",
+  "tweets": [
+   {
+    "t": "TTRAK 2026/9'da 83,0 milyon TL net zarar açıkladı. Geçen yılın aynı çeyreğinde 367,8 milyon TL, bir önceki çeyrekte 695,9 milyon TL net kâr vardı.\n\n2026/9 bilançosunu Substack'te özetledim. Okumak için👇🏻",
+    "card": {
+     "type": "cover",
+     "title": "Net kâr",
+     "unit": "Mn TL · tek çeyrek"
+    }
+   },
+   {
+    "t": "TTRAK'ta geçen yılla kıyaslayınca hasılat %19,9 azalmış: 14.652 milyon TL'den 11.741 milyon TL'ye. Brüt kâr 2.379 milyon TL'den 1.474 milyon TL'ye inmiş, brüt marj %16,2'den %12,6'ya düşmüş.\n\nTTRAK bilançosunu Substack'te detaylı özetledim. Linki yorumda👇",
+    "card": {
+     "type": "compare",
+     "title": "Satışlar ve brüt kâr",
+     "unit": "Mn TL · tek çeyrek",
+     "hero": [
+      "Brüt marj",
+      "%16,2",
+      "%12,6",
+      "#ff7d6e"
+     ],
+     "labels": [
+      "2025 Ç3",
+      "2026 Ç3"
+     ],
+     "rows": [
+      [
+       "Hasılat",
+       14652.25,
+       11741.23
+      ],
+      [
+       "Satışların maliyeti",
+       12273.38,
+       10266.76,
+       {
+        "exp": 1
+       }
+      ],
+      [
+       "Brüt kâr",
+       2378.87,
+       1474.47,
+       {
+        "b": 1
+       }
+      ]
+     ]
+    }
+   },
+   {
+    "t": "TTRAK'ta 9 ayın adetleri iki farklı yöne gidiyor: yurt içi traktör satışı %51 azalarak 6.176 adede inmiş, ihracat 🟢%13 artarak 9.225 adede çıkmış. Üretim %30 azalarak 14.913 adet.\n\nTTRAK bilançosunu Substack'te detaylı özetledim. Linki yorumda👇",
+    "card": {
+     "type": "facts",
+     "title": "9 ayda adetler",
+     "rows": [
+      [
+       "Yurt içi traktör satışı · −%51",
+       "6.176 adet"
+      ],
+      [
+       "Traktör ihracatı · +%13",
+       "9.225 adet"
+      ],
+      [
+       "Traktör üretimi · −%30",
+       "14.913 adet"
+      ],
+      [
+       "Brüt yurt dışı satış · +%10,6",
+       "17.474 Mn TL"
+      ]
+     ]
+    }
+   },
+   {
+    "t": "TTRAK'ta önceki çeyrekle kıyaslayınca brüt kâr 🟢%26,6 artmış, esas faaliyet kârı da yeniden artıya geçmiş: −93 milyon TL'den 269 milyon TL'ye.\n\nNet kârdaki düşüşün nedeni vergi: 2026 Ç2'de 969 milyon TL ertelenmiş vergi geliri vardı, bu çeyrek 122 milyon TL vergi gideri var.\n\nTTRAK bilançosunu Substack'te detaylı özetledim. Linki yorumda👇",
+    "card": {
+     "type": "compare",
+     "title": "Önceki çeyrekle",
+     "unit": "Mn TL · tek çeyrek",
+     "labels": [
+      "2026 Ç2",
+      "2026 Ç3"
+     ],
+     "rows": [
+      [
+       "Brüt kâr",
+       1164.35,
+       1474.47
+      ],
+      [
+       "Esas faaliyet kârı",
+       -92.87,
+       269.47
+      ],
+      [
+       "Vergi geliri (gideri)",
+       968.91,
+       -121.82
+      ],
+      [
+       "Net kâr",
+       695.86,
+       -82.96,
+       {
+        "b": 1
+       }
+      ]
+     ]
+    }
+   },
+   {
+    "t": "TTRAK'ta net finansman gideri geçen yılın aynı çeyreğine göre 🟢%37 azalmış: 1.335 milyon TL'den 839 milyon TL'ye. Net parasal pozisyon kazancı ise 1.062 milyon TL'den 608 milyon TL'ye inmiş.\n\nFinansal borç 2025 sonundaki 19.297 milyon TL'den 13.134 milyon TL'ye gerilemiş.\n\nTTRAK bilançosunu Substack'te detaylı özetledim. Linki yorumda👇",
+    "card": {
+     "type": "compare",
+     "title": "Finansman ve parasal kazanç",
+     "unit": "Mn TL · tek çeyrek",
+     "labels": [
+      "2025 Ç3",
+      "2026 Ç3"
+     ],
+     "rows": [
+      [
+       "Finansman gelirleri",
+       635.87,
+       355.59
+      ],
+      [
+       "Finansman giderleri",
+       1970.52,
+       1194.45,
+       {
+        "exp": 1
+       }
+      ],
+      [
+       "Net parasal pozisyon kazancı",
+       1061.69,
+       608.26
+      ],
+      [
+       "Vergi öncesi kâr",
+       469.61,
+       38.86,
+       {
+        "b": 1
+       }
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "substack": {
+  "title": "TTRAK 2026/9 Bilanço Özeti",
+  "subtitle": "[Alt başlık: TTRAK ile ilişkini anlatan kendi cümlen]",
+  "blocks": [
+   {
+    "p": "Türk Traktör (TTRAK) 2026'nın üçüncü çeyrek finansal raporunu KAP'ta yayımladı. Göze çarpan kısa notlar şu şekilde:"
+   },
+   {
+    "cta": "Yatırım yolculuğumu birlikte izlemek için abone olabilirsiniz:"
+   },
+   {
+    "h": "Kısaca"
+   },
+   {
+    "p": "Üçüncü çeyrekte 83,0 milyon TL net zarar var. Geçen yılın aynı çeyreğinde 367,8 milyon TL, bir önceki çeyrekte 695,9 milyon TL net kâr vardı. Geçen yılla farkı brüt kârdaki düşüş ve azalan parasal kazanç belirliyor; önceki çeyrekle farkın kaynağı ise vergi."
+   },
+   {
+    "img": 0
+   },
+   {
+    "h": "Geçen yılla kıyaslayınca: satışlar ve marj"
+   },
+   {
+    "p": "Hasılat %19,9 azalarak 14.652 milyon TL'den 11.741 milyon TL'ye inmiş. Brüt kâr 2.379 milyon TL'den 1.474 milyon TL'ye düşmüş, brüt marj %16,2'den %12,6'ya gerilemiş."
+   },
+   {
+    "p": "Tek çeyrekte yurt içi traktör satışı 2.840 adetten 2.379 adede, ihracat 3.001 adetten 2.661 adede inmiş. Üretim 5.681 adetten 4.898 adede düşmüş."
+   },
+   {
+    "img": 1
+   },
+   {
+    "h": "9 ayda yurt içi daralma, ihracatta artış"
+   },
+   {
+    "p": "Ocak–Eylül döneminde yurt içi traktör satışı %51 azalarak 6.176 adede inmiş, ihracat ise %13 artarak 9.225 adede çıkmış. Üretim %30 azalmış. Tutar tarafında brüt yurt dışı satışlar %10,6 artmış, brüt yurt içi satışlar %43,8 azalmış."
+   },
+   {
+    "img": 2
+   },
+   {
+    "h": "Önceki çeyrekle kıyaslayınca: fark vergiden"
+   },
+   {
+    "p": "Brüt kâr %26,6 artmış, esas faaliyet kârı −93 milyon TL'den 269 milyon TL'ye dönmüş. Net kârdaki düşüşün kaynağı vergi: 2026 Ç2'de 969 milyon TL ertelenmiş vergi geliri vardı, bu çeyrek 122 milyon TL vergi gideri var."
+   },
+   {
+    "img": 3
+   },
+   {
+    "h": "Finansman gideri azalmış, parasal kazanç da"
+   },
+   {
+    "p": "Net finansman gideri geçen yılın aynı çeyreğindeki 1.335 milyon TL'den 839 milyon TL'ye gerilemiş. Net parasal pozisyon kazancı 1.062 milyon TL'den 608 milyon TL'ye inmiş. Finansal borç 2025 sonundaki 19.297 milyon TL'den (Eylül 2026 fiyatlarıyla) 13.134 milyon TL'ye düşmüş; faaliyet raporuna göre TL kredilerde ağırlıklı ortalama faiz %33,92."
+   },
+   {
+    "img": 4
+   },
+   {
+    "h": "Diğer notlar"
+   },
+   {
+    "p": "9 ayda yatırım harcaması 1.481 milyon TL. 2025 kârından temettü dağıtılmadı; net dönem kârı geçmiş yıl kârlarına aktarıldı."
+   },
+   {
+    "h": "Dönemin Makro Görünümü"
+   },
+   {
+    "p": "[Öneri] Eylül 2026'da yıllık TÜFE %29,73, TCMB politika faizi %37 (sitedeki makro veriler). Faaliyet raporu kâr kalemlerindeki değişimi bu gelişmelere doğrudan bağlamıyor."
+   },
+   {
+    "h": "Neyi takip edeceğim?"
+   },
+   {
+    "p": "[Öneri, kendi notunla değiştir] Yurt içi traktör satışlarının toparlanıp toparlanmayacağı, ihracattaki artışın sürüp sürmediği ve brüt marjın yönü."
+   },
+   {
+    "h": "Son söz"
+   },
+   {
+    "p": "[Senin kapanış notun]"
+   },
+   {
+    "p": "Geleceğimiz güzel olsun. Kendinize iyi bakın!"
+   }
+  ],
+  "sources": [
+   {
+    "l": "KAP · 2026 Ç3 finansal rapor",
+    "u": "https://www.kap.org.tr/tr/Bildirim/1687653"
+   },
+   {
+    "l": "KAP · 2026 Ç3 faaliyet raporu",
+    "u": "https://www.kap.org.tr/tr/Bildirim/1687656"
+   },
+   {
+    "l": "KAP · 2026 Ç2 finansal rapor",
+    "u": "https://www.kap.org.tr/tr/Bildirim/1642532"
+   },
+   {
+    "l": "KAP · 2025 kâr dağıtımı (genel kurul)",
+    "u": "https://www.kap.org.tr/tr/Bildirim/1569214"
+   }
+  ],
+  "disclaimer": "Yatırım tavsiyesi değildir."
+ }
+}
