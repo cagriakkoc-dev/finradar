@@ -1,2 +1,2 @@
 # ad|url
-ttrak_site.html|https://www.turktraktor.com.tr/
+ttrak_logo.svg|https://www.turktraktor.com.tr/getmedia/0ddbd3b1-ca05-46f3-aaa9-cc2b29d4371f/logolar-turk-traktor.svg?ext=.svg
