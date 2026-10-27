@@ -1,0 +1,49 @@
+TTRAK 2026/9 · Faaliyet raporundan notlar · X taslakları
+Kaynak: KAP 1687656 (2026/9), 1642533 (2026/6), 1508525 (2025/9) faaliyet raporları
+Her gönderi tek tweet + kendi görseli (1080×1350). Paylaşım sırası önerisi: 1, 2, 3, sonra 4 ve 5.
+
+==================================================
+Gönderi 1 · görsel: TTRAK-2026-09-faaliyet-1-ihracat.png
+==================================================
+TTRAK'ın faaliyet raporunda dikkat çeken bir tablo var: ilk 9 ayda ihracat adedi yurt içi satışı geçti.
+
+Yurt içi traktör satışı %51 azalarak 6.176 adet, ihracat 🟢%13 artarak 9.225 adet.
+
+Satılan traktörlerin yaklaşık %60'ı artık yurt dışına gidiyor. Geçen yıl bu oran %39'du.
+
+==================================================
+Gönderi 2 · görsel: TTRAK-2026-09-faaliyet-2-uretim.png
+==================================================
+TTRAK'ta traktör üretimi iki yıldır geriliyor (ilk 9 ay):
+
+2024: 34.131
+2025: 21.244
+2026: 14.913
+
+Personel sayısı da bir yılda 2.245'ten 1.997'ye inmiş.
+
+==================================================
+Gönderi 3 · görsel: TTRAK-2026-09-faaliyet-3-temettu.png
+==================================================
+TTRAK bu yıl temettü dağıtmadı. 2025 kârı olan 454,8 milyon TL'nin tamamı geçmiş yıl kârlarına aktarıldı.
+
+Bir yıl önce 2024 kârından 5,5 milyar TL nakit temettü dağıtılmıştı.
+
+==================================================
+Gönderi 4 · görsel: TTRAK-2026-09-faaliyet-4-borc-yatirim.png
+==================================================
+TTRAK ilk 9 ayda 10,7 milyar TL kredi geri ödedi, 8,2 milyar TL yeni kredi kullandı. TL kredilerde ortalama faiz %36,07'den %33,92'ye inmiş.
+
+Aynı dönemde 1,48 milyar TL yatırım yapılmış; bunun 813 milyon TL'si ürün geliştirme.
+
+==================================================
+Gönderi 5 · görsel: TTRAK-2026-09-faaliyet-5-yonetim.png
+==================================================
+TTRAK yönetim kurulunda değişiklik var: 2010–2018 arasında genel müdürlük yapan Marco Votta artık yönetim kurulunda yok. CNH tarafını yeni üye Vincent de Lassagne temsil ediyor, icra komitesinde de o var.
+
+Kurumsal yönetim notu da 94,77'den 95,01'e çıktı.
+
+--------------------------------------------------
+Substack bağlantısı istenirse (TTRAK bilanço yazısı yayımlandıktan sonra):
+Ana tweet sonuna: "TTRAK bilançosunu Substack'te detaylı özetledim. Linki yorumda👇"
+Yanıt: "Okumak için: <Substack linki>"
