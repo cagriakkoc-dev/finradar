@@ -13,6 +13,10 @@ on:
         description: 'Var olanı yeniden üret (1)'
         required: false
         default: ''
+      ek:
+        description: 'Dosya adı eki (ör. -adet)'
+        required: false
+        default: ''
 permissions:
   contents: write
 jobs:
@@ -26,6 +30,7 @@ jobs:
           IDS: ${{ inputs.ids }}
           KELIME: ${{ inputs.kelime }}
           YENIDEN: ${{ inputs.yeniden }}
+          EK: ${{ inputs.ek }}
         run: python3 bekci/araclar/kap_pdf_metin.py
       - run: |
           git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"

@@ -8,7 +8,7 @@ KEL = re.compile(os.environ.get("KELIME", "Yurt içi satış|Yurt dışı satı�
 def get(u, t=90):
     return urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=t).read()
 for i in filter(None, os.environ.get("IDS", "").replace(" ", "").split(",")):
-    p = os.path.join(OUT, f"{i}.json")
+    p = os.path.join(OUT, f"{i}{os.environ.get('EK','')}.json")
     if os.path.exists(p) and not os.environ.get("YENIDEN"): continue
     try:
         html = get(f"https://www.kap.org.tr/tr/Bildirim/{i}")
