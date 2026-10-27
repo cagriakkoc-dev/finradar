@@ -1,0 +1,49 @@
+name: Sonar Bekçi (döngü)
+# GitHub'ın zamanlanmış (cron) çalıştırmaları saatlerce gecikebiliyor. Bu iş tek bir çalıştırma içinde
+# ~5 saat 40 dakika boyunca bekçiyi düzenli aralıklarla çalıştırır, bitince kendini yeniden başlatır.
+# Zincir koparsa aşağıdaki seyrek cron yeniden başlatır. Eşzamanlılık grubu yüzünden aynı anda tek döngü olur.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 */4 * * *'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: bekci-dongu
+  cancel-in-progress: false
+jobs:
+  dongu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - name: Döngü
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        run: |
+          git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
+          BITIS=$(( $(date +%s) + 340*60 ))
+          while [ "$(date +%s)" -lt "$BITIS" ]; do
+            git pull -q --rebase || git rebase --abort || true
+            python3 bekci/bekci.py || echo "bekçi hatası"
+            git add bekci/
+            ADDED=$(git diff --cached --numstat | awk '{s+=$1} END {print s+0}')
+            FILES=$(git diff --cached --name-only | grep -v '^bekci/state.json$' | wc -l)
+            if [ "$FILES" -gt 0 ] || [ "$ADDED" -gt 2 ]; then
+              git commit -q -m "Bekçi durumu [skip render]"
+              for n in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
+            else
+              git reset -q; git checkout -q -- bekci/state.json 2>/dev/null || true
+            fi
+            # TR 08:00–23:59 (UTC 05–20) 10 dakikada bir, gece saatte bir
+            H=$(date -u +%H); H=$((10#$H))
+            if [ $H -ge 5 ] && [ $H -le 20 ]; then ARA=600; else ARA=3600; fi
+            KALAN=$(( BITIS - $(date +%s) )); [ $KALAN -le 0 ] && break
+            sleep $(( ARA < KALAN ? ARA : KALAN ))
+          done
+      - name: Sonraki döngüyü başlat
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run bekci_dongu.yml --ref main -R ${{ github.repository }}
