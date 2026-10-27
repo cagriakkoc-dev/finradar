@@ -16,6 +16,8 @@ for i in filter(None, os.environ.get("IDS", "").replace(" ", "").split(",")):
         ekler = []
         for oid in oids[:4]:
             b = get(f"https://www.kap.org.tr/tr/api/file/download/{oid}", 180)
+            k = b.find(b"%PDF", 0, 400)  # KAP bazen PDF'i Java serileştirilmiş byte[] içinde verir
+            if k > 0: b = b[k:]
             if b[:4] != b"%PDF": ekler.append({"oid": oid, "pdf": False}); continue
             with tempfile.NamedTemporaryFile(suffix=".pdf") as f:
                 f.write(b); f.flush()
