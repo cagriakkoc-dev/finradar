@@ -155,6 +155,7 @@ select{background:var(--panel2);color:var(--fg);border:1px solid var(--line);bor
 .nwl-l{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.nwl-i{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px solid var(--line);border-left:3px solid var(--co-ui);border-radius:10px;background:var(--panel2)}.nwl-i:hover{border-color:var(--co-ui)}.nwl-i b{font-size:15px}.nwl-i span:last-child{font-size:13px;color:var(--muted);line-height:1.45}
 tr.prop td{background:color-mix(in srgb,#d58a20 8%,transparent)}
 html[data-pub="1"] .dev{display:none!important}
+.mx th.mxh{cursor:help}.mx th.mxh:hover{color:var(--co-ui)}
 .chart.zoomable{touch-action:pan-y;overscroll-behavior-x:contain;user-select:none;-webkit-user-select:none}
 .zbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;font-size:12px;color:var(--muted);min-height:26px}
 .zbar .zr{font-family:var(--f-mono);color:var(--fg)}.zbar small{color:var(--muted);font-family:var(--f-sans,inherit);margin-left:6px}.zbar .zh{margin:0}
@@ -683,8 +684,21 @@ function renderMatrix(c){
     const qna=md==='q'&&cl?.qna&&v==null;h+=`<td ${i&&p.endsWith('03')?'style="border-left:1px solid var(--line)"':''}><button class="cell ${pv==='na'||qna?'na':''}" data-m="${m}" data-p="${p}" style="--pc:${pv==='sr'?'transparent':PROV[pv][1]}" aria-label="${esc((LABEL[m]||m)+' '+QL(p))}">${pv==='na'||qna?'n/a':esc(fmtCell(v))}</button></td>`});h+='</tr>'});
   h+='</tbody></table>';const mx=$('#mx');mx.innerHTML=h;mx.scrollLeft=mx.scrollWidth;
   mx.querySelectorAll('.cell').forEach(b=>b.onclick=()=>{state.sel={m:b.dataset.m,p:b.dataset.p};renderMatrixSel()});
+  mx.querySelectorAll('tbody th[scope="row"]').forEach((th,i)=>{const m=ms[i];th.classList.add('mxh');
+    th.addEventListener('mouseenter',e=>showTip(e,rowSpark(c,m,md)));th.addEventListener('mousemove',e=>showTip(e,rowSpark(c,m,md)));th.addEventListener('mouseleave',hideTip)});
   renderMatrixSel();
 }
+/* matris satır başlığı: kalemin kronolojik mini çizgi grafiği */
+function rowSpark(c,m,md){const P=c.periods,vs=P.map(p=>val(c,m,p,md)),pts=vs.map((v,i)=>[i,v]).filter(x=>x[1]!=null);
+  const bal=BAL.has(m)||c.fin[m]?.[P[0]]?.kind==='b',ttl=`${esc(LABEL[m]||m)} · ${bal?'dönem sonu':md==='q'?'tek çeyrek':'birikimli'}`;
+  if(pts.length<2)return `<div class="eyebrow">${ttl}</div><div class="note" style="margin:4px 0 0">Grafik için yeterli veri yok.</div>`;
+  const W=240,H=78,pl=4,pr=4,pt=8,pb=8,ys=pts.map(x=>x[1]),mn=Math.min(...ys),mx=Math.max(...ys),z=mn<0&&mx>0;
+  const X=i=>pl+i*(W-pl-pr)/(P.length-1),Y=v=>pt+(mx===mn?.5:(mx-v)/(mx-mn))*(H-pt-pb);
+  let d='',on=false;vs.forEach((v,i)=>{if(v==null){on=false;return}d+=(on?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1);on=true});
+  const f=pts[0],l=pts[pts.length-1],ch=f[1]>0&&l[1]!=null?(l[1]/f[1]-1)*100:null;
+  return `<div class="eyebrow">${ttl}</div><svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;margin:6px 0 4px" aria-hidden="true">${z?`<line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--line)" stroke-dasharray="3 3"/>`:''}<path d="${d}" fill="none" stroke="var(--co-ui)" stroke-width="2" stroke-linejoin="round"/><circle cx="${X(f[0])}" cy="${Y(f[1])}" r="2.6" fill="var(--muted)"/><circle cx="${X(l[0])}" cy="${Y(l[1])}" r="3.2" fill="var(--co-ui)"/></svg>
+  <div style="display:flex;justify-content:space-between;gap:14px;font:500 11.5px var(--f-mono)"><span style="color:var(--muted)">${QS(P[f[0]])} ${esc(fmtCell(f[1]))}</span><span><b>${QS(P[l[0]])} ${esc(fmtCell(l[1]))}</b></span></div>
+  <div style="font-size:11.5px;color:var(--muted);margin-top:3px;white-space:nowrap">Aralık ${esc(fmtCell(mn))} – ${esc(fmtCell(mx))}${ch==null?'':` · <span class="${ch>=0?'up':'down'}">${ch>=0?'▲':'▼'} %${nf(Math.abs(ch),0)}</span>`}</div>`}
 function renderMatrixSel(){
   const c=BY[state.view];if(!c||!state.sel){$('#drawer')&&($('#drawer').innerHTML='');return}
   document.querySelectorAll('.cell.sel').forEach(x=>x.classList.remove('sel'));
