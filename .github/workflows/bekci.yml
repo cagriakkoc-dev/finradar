@@ -1,4 +1,4 @@
-name: FinRadar Bekçi
+name: Sonar Bekçi
 on:
   schedule:
     - cron: '*/10 5-20 * * *'
@@ -27,7 +27,7 @@ jobs:
         run: python3 bekci/bekci.py
       - name: Durumu kaydet
         run: |
-          git config user.name "FinRadar Bekçi"; git config user.email "bekci@users.noreply.github.com"
+          git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
           git add bekci/
           ADDED=$(git diff --cached --numstat | awk '{s+=$1} END {print s+0}')
           FILES=$(git diff --cached --name-only | grep -v '^bekci/state.json$' | wc -l)

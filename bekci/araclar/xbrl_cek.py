@@ -30,7 +30,7 @@ def rows(raw):
     if h and len(out) % 2 == 0 and out[:h] == out[h:]: out = out[:h]
     return out
 
-UA = {"User-Agent": "Mozilla/5.0 FinRadar-Bekci"}
+UA = {"User-Agent": "Mozilla/5.0 Sonar-Bekci"}
 OUT = os.path.join(os.path.dirname(__file__), "..", "xbrl")
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)

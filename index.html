@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>FinRadar Alternate</title>
+<title>Sonar</title>
+<link rel="icon" href="marka/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="marka/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="marka/apple-touch-icon.png">
+<meta name="theme-color" content="#0B2545">
+<meta property="og:title" content="Sonar">
+<meta property="og:description" content="Borsa İstanbul şirketleri: finansal tablolar, dönem özetleri ve KAP haberleri. Her değerin kaynağı görünür.">
+<meta property="og:image" content="marka/og-1200x630.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -44,7 +51,7 @@ body,button,select,table,svg text{font-variant-numeric:tabular-nums}
 .rail .wrap{display:flex;align-items:center;gap:18px;padding-block:10px}
 .brand{display:flex;align-items:center;gap:10px;flex:none}
 .brand svg{width:28px;height:28px}
-.brand b{font-family:var(--f-display);font-weight:800;letter-spacing:.02em;font-size:15px}
+.brand b{font-family:var(--f-display);font-weight:800;letter-spacing:-.02em;font-size:19px;text-transform:none}
 .brand i{font-style:normal;color:var(--muted);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-top:-2px}
 .tickers{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
 .tickers::-webkit-scrollbar{display:none}
@@ -223,9 +230,9 @@ table.t th:first-child,table.t td:first-child{text-align:left}
 <aside class="side" id="side" aria-label="Gezinme"></aside>
 <header class="rail">
   <div class="wrap">
-    <div class="brand" aria-label="FinRadar Alternate">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-opacity=".35"/><circle cx="16" cy="16" r="8.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M16 16 L28 9" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><circle cx="23" cy="12" r="2.2" fill="var(--accent)"/></svg>
-      <div><b>FINRADAR</b><i>Alternate · boşluksuz veri</i></div>
+    <div class="brand" aria-label="Sonar">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><clipPath id="snc1"><rect x="3" y="3" width="58" height="58" rx="15"/></clipPath></defs><rect x="3" y="3" width="58" height="58" rx="15" fill="#0B2545"/><g clip-path="url(#snc1)" fill="none" stroke="#fff" stroke-width="2.5" opacity=".2"><circle cx="12" cy="52" r="14"/><circle cx="12" cy="52" r="27"/><circle cx="12" cy="52" r="40"/></g><rect x="3" y="3" width="58" height="58" rx="15" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path stroke="#fff" fill="none" stroke-width="2.5" stroke-linecap="round" d="M20 33V50M32 26V50"/><rect x="16.5" y="38" width="7" height="8" rx="2" fill="#fff"/><rect x="28.5" y="30" width="7" height="12" rx="2" fill="#fff"/><path stroke="#19C3B1" fill="none" stroke-width="2.5" stroke-linecap="round" d="M44 14V50"/><rect x="40" y="19" width="8" height="20" rx="2" fill="#19C3B1"/></svg>
+      <div><b>sonar</b><i>boşluksuz veri</i></div>
     </div>
     <nav class="tickers" id="tickers" role="tablist" aria-label="Şirketler"></nav>
     <button class="themebtn" id="themebtn" type="button" aria-label="Açık / koyu tema"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M5.2 18.8l1.6-1.6M17.2 6.8l1.6-1.6"/></g></svg><span id="themelbl">Açık tema</span></button>
@@ -970,7 +977,7 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 function renderSide(){
   const el=$('#side');if(!el)return;const v=state.view;{const tb0=$('#themebtn');if(tb0&&el.contains(tb0))$('.rail .wrap').appendChild(tb0)}
   const secs=[];document.querySelectorAll('#app .hero, #app .panel').forEach((x,i)=>{let t=x.classList.contains('hero')?'Özet':(x.querySelector('.ph h2')?.textContent||'').split(' · ')[0];if(!t)return;x.id=x.id||('s-'+i);secs.push([x.id,t]);if(v.startsWith('KARS-')&&x.id==='ozsub')x.querySelectorAll('.subart h3').forEach((h,j)=>{h.id='kh-'+j;secs.push([h.id,'· '+h.textContent.split(':')[0]])})});secs.push(['macro','Makro çerçeve']);
-  el.innerHTML=`<div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-opacity=".35"/><circle cx="16" cy="16" r="8.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M16 16 L28 9" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><circle cx="23" cy="12" r="2.2" fill="var(--accent)"/></svg><div><b>FINRADAR</b><i>Alternate</i></div></div>
+  el.innerHTML=`<div class="brand"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><clipPath id="snc2"><rect x="3" y="3" width="58" height="58" rx="15"/></clipPath></defs><rect x="3" y="3" width="58" height="58" rx="15" fill="#0B2545"/><g clip-path="url(#snc2)" fill="none" stroke="#fff" stroke-width="2.5" opacity=".2"><circle cx="12" cy="52" r="14"/><circle cx="12" cy="52" r="27"/><circle cx="12" cy="52" r="40"/></g><rect x="3" y="3" width="58" height="58" rx="15" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path stroke="#fff" fill="none" stroke-width="2.5" stroke-linecap="round" d="M20 33V50M32 26V50"/><rect x="16.5" y="38" width="7" height="8" rx="2" fill="#fff"/><rect x="28.5" y="30" width="7" height="12" rx="2" fill="#fff"/><path stroke="#19C3B1" fill="none" stroke-width="2.5" stroke-linecap="round" d="M44 14V50"/><rect x="40" y="19" width="8" height="20" rx="2" fill="#19C3B1"/></svg><div><b>sonar</b></div></div>
   <nav><button class="sl" data-v="GIRIS" aria-current="${v==='GIRIS'}">Ana sayfa</button><button class="sl" data-v="HABERLER" aria-current="${v.startsWith('HABER')}">Haberler</button></nav>
   <div><h5>Şirketler</h5><nav>${COS.map(c=>`<button class="sl" data-v="${c.t}" style="--c:${c.color}" aria-current="${v===c.t}"><i class="dot"></i>${esc(c.name.replace(' Emeklilik','').replace(' Akrilik',''))}<small>${c.t}</small></button>`).join('')}</nav></div>
   <div><h5>Görünümler</h5><nav><button class="sl" data-v="OZET" aria-current="${v.startsWith('OZET')}">Dönem özetleri</button>${KARS.map(K=>`<button class="sl" data-v="KARS-${K.id}" aria-current="${v==='KARS-'+K.id}"><i class="dot" style="background:${BY[K.a].color}"></i>${K.a}–${K.b} ${K.p.slice(0,4)}/${+K.p.slice(5,7)}<small>yazı</small></button>`).join('')}<button class="sl" data-v="KARSILASTIR" aria-current="${v==='KARSILASTIR'}">Karşılaştır</button><button class="sl" data-v="DENETIM" aria-current="${v==='DENETIM'}">Veri denetimi</button></nav></div>
@@ -995,7 +1002,7 @@ function renderHome(){
      <div class="chipline">${k.pend?`<span class="badge" style="color:#f2b55c">${k.pend} hücre kaynak bekliyor</span>`:'<span class="badge" style="color:var(--up)">Boş hücre 0</span>'}${filled?`<span class="badge" style="color:var(--p-kap)">${filled} hücre tamamlandı</span>`:''}${k.na?`<span class="badge" style="color:var(--muted)">${k.na} kural gereği yok</span>`:''}</div>
      <span class="go">Şirketi incele →</span></button>`};
   const cards=COS.map(card).join('');
-  app.innerHTML=`<section class="home-hero"><div class="eyebrow">FinRadar Alternate · 2021 Ç1 – ${QL(COS.flatMap(c=>c.periods).sort().pop())}</div><h1>Şirketi tanı.<br><em>Aktif</em> takip et.</h1><p>${NUMTR(COS.length)} Borsa İstanbul şirketinin finansal tabloları, gelir kırılımları, oranları ve temettüleri. SmartRadar verisi KAP ile tek tek doğrulandı; eksik dönemler KAP ve şirket raporlarından tamamlandı. Her değerin kaynağı görünür.</p></section>
+  app.innerHTML=`<section class="home-hero"><div class="eyebrow">Sonar · 2021 Ç1 – ${QL(COS.flatMap(c=>c.periods).sort().pop())}</div><h1>Şirketi tanı.<br><em>Aktif</em> takip et.</h1><p>${NUMTR(COS.length)} Borsa İstanbul şirketinin finansal tabloları, gelir kırılımları, oranları ve temettüleri. SmartRadar verisi KAP ile tek tek doğrulandı; eksik dönemler KAP ve şirket raporlarından tamamlandı. Her değerin kaynağı görünür.</p></section>
   <div class="cards">${cards}</div>
   <div class="home-views"><button class="hv-card" data-go="KARSILASTIR"><b>Karşılaştır →</b><span>${NUMTR(COS.length)} şirket yan yana: son dört çeyrek hasılat ve kâr, PD/DD, F/K, marjlar.</span></button>${KARS.slice(-1).map(K=>`<button class="hv-card" data-go="KARS-${K.id}"><b>${K.a}–${K.b} karşılaştırma →</b><span>${esc(K.headline)}</span></button>`).join('')}<button class="hv-card" data-go="DENETIM"><b>Veri denetimi →</b><span>${all.kap+all.pdf+all.calc} hücre tamamlandı, ${all.fix} hücre düzeltildi, ${all.na} kalem gerekçesiyle işaretlendi. Yöntem ve tam liste.</span></button></div>
   <p class="note" style="margin-bottom:8px">2021'den itibaren açıklanan veriler. Tutarlar milyon TL ve her raporun kendi fiyat esasında. Eksik değer sıfırla doldurulmaz; kural gereği bulunmayan kalemler gerekçesiyle gösterilir.</p>`;

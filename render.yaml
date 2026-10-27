@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: finradar
+    name: sonar
     runtime: static
     buildCommand: ""
     staticPublishPath: .

@@ -1,4 +1,4 @@
-"""FinRadar Bekçi: KAP'ta 6 şirketin yeni bildirimlerini izler, Telegram'a yollar.
+"""Sonar Bekçi: KAP'ta 6 şirketin yeni bildirimlerini izler, Telegram'a yollar.
 Claude kullanmaz; GitHub Actions'ta çalışır. Durum: bekci/state.json"""
 import json, os, re, urllib.request, datetime
 
@@ -31,12 +31,12 @@ def kap(oid, gun=4):
             "subjectList": [], "srcCategory": "", "index": "", "market": "", "isLate": "", "term": "",
             "ruleType": "", "period": "", "year": "", "disclosureClass": ""}
     return http("https://www.kap.org.tr/tr/api/disclosure/members/byCriteria", json.dumps(body).encode(),
-                {"Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0 FinRadar-Bekci"})
+                {"Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0 Sonar-Bekci"})
 
 KUYRUK = os.path.join(os.path.dirname(__file__), "kuyruk.json")
 BILDIR = os.path.join(os.path.dirname(__file__), "bildirimler.json")
 GELEN = os.path.join(os.path.dirname(__file__), "gelen")
-UA = {"User-Agent": "Mozilla/5.0 FinRadar-Bekci"}
+UA = {"User-Agent": "Mozilla/5.0 Sonar-Bekci"}
 
 def indir(i):
     """Bildirim sayfasını ve eklerini bekci/gelen/<id>/ altına kaydeder."""
@@ -89,7 +89,7 @@ def main():
     kuyruk = json.load(open(KUYRUK)) if os.path.exists(KUYRUK) else []
     bekleyen_bildirim = json.load(open(BILDIR)) if os.path.exists(BILDIR) else []
     if TOKEN and st.get("chat_id") and not st.get("welcomed"):
-        mesajlar.append("FinRadar Bekçi çalışmaya başladı. AGESA, AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
+        mesajlar.append("Sonar Bekçi çalışmaya başladı. AGESA, AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
         st["welcomed"] = True
     if not ilk:
         for t, d in sorted(yeni, key=lambda x: x[1]["disclosureIndex"]):
