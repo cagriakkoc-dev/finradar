@@ -152,6 +152,11 @@ body,button,select,table,svg text{font-variant-numeric:tabular-nums}
 select{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:500 12.5px var(--f-body)}
 .chart{width:100%;position:relative}
 .chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart.zoomable{touch-action:pan-y;overscroll-behavior-x:contain;user-select:none;-webkit-user-select:none}
+.zbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;font-size:12px;color:var(--muted);min-height:26px}
+.zbar .zr{font-family:var(--f-mono);color:var(--fg)}.zbar small{color:var(--muted);font-family:var(--f-sans,inherit);margin-left:6px}.zbar .zh{margin:0}
+.zbar .zb{display:flex;gap:4px}.zbar button{font:inherit;font-size:12px;min-width:26px;height:26px;padding:0 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel,transparent);color:var(--fg);cursor:pointer}.zbar button:disabled{opacity:.35;cursor:default}
+@media (pointer:coarse){.zbar .zh{display:none}}
 .axis text{fill:var(--muted);font:11px var(--f-mono)}
 .gridline{stroke:var(--line);stroke-width:1}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
@@ -432,8 +437,39 @@ function spark(vals,{w=200,h=30,color='var(--co-ui)',dots,labels,unit}={}){
 }
 function niceTicks(mn,mx,n=4){if(mn===mx){mx=mn+1}const span=mx-mn,step0=span/n,mag=Math.pow(10,Math.floor(Math.log10(step0))),f=step0/mag,step=(f<1.5?1:f<3?2:f<7?5:10)*mag;const t=[];let v=Math.floor(mn/step+1e-9)*step;for(let i=0;i<60;i++){t.push(+v.toFixed(10));if(v>=mx-step*1e-6)break;v+=step}return t}
 
+
+/* ---------- yakınlaştır / kaydır (tüm zaman grafikleri) ---------- */
+const ZS={};
+function zoomable(el,n,minN,draw,lab,{anchor=null,unit='dönem'}={}){
+  const key=(typeof state!=='undefined'?state.view:'')+'|'+(el.id||'')+'|'+n+'|'+(lab?lab(0)+'~'+lab(n-1):'');
+  const z=ZS[key]||(ZS[key]={a:0,b:n});z.n=n;z.minN=Math.min(minN,n);z.anchor=anchor;
+  const clamp=(a,b)=>{if(a<0){b-=a;a=0}if(b>n){a-=b-n;b=n}return [Math.max(0,a),Math.min(n,b)]};
+  const paint=()=>{const a=Math.round(z.a),b=Math.max(a+1,Math.round(z.b));draw(a,b);
+    if(n<=z.minN)return;const zoomed=a>0||b<n;const t=document.createElement('div');t.className='zbar';
+    t.innerHTML=`<span class="zr">${zoomed?esc(lab(a)+' – '+lab(b-1))+` <small>${b-a} / ${n} ${unit}</small>`:`<small class="zh">Tekerlekle yakınlaştır · yatay kaydır veya sürükle: ileri-geri</small>`}</span><span class="zb"><button type="button" data-z="-1" aria-label="Uzaklaştır" ${!zoomed?'disabled':''}>−</button><button type="button" data-z="1" aria-label="Yakınlaştır" ${b-a<=z.minN?'disabled':''}>+</button>${zoomed?'<button type="button" data-z="0">Tümünü göster</button>':''}</span>`;
+    t.querySelectorAll('[data-z]').forEach(bt=>bt.onclick=()=>{const k=+bt.dataset.z;if(!k){z.a=0;z.b=n}else zoomBy(k>0?.7:1/.7,anchor==null?.5:anchor);paint()});el.appendChild(t)};
+  const zoomBy=(f,fx)=>{const sp=z.b-z.a,ns=Math.max(z.minN,Math.min(n,sp*f));if(Math.abs(ns-sp)<1e-6)return false;const pv=z.a+fx*sp;[z.a,z.b]=clamp(pv-fx*ns,pv-fx*ns+ns);return true};
+  const panBy=d=>{const sp=z.b-z.a;const [a,b]=clamp(z.a+d,z.a+d+sp);const ch=a!==z.a;z.a=a;z.b=b;return ch};
+  const rp=(a0,b0)=>{if(Math.round(z.a)!==a0||Math.round(z.b)!==b0){hideTip();paint()}};
+  el._zw={z,zoomBy,panBy,rp,anchor};paint();
+  if(el._zb)return;el._zb=1;el.classList.add('zoomable');
+  el.addEventListener('wheel',e=>{const Q=el._zw;if(!Q||Q.z.n<=Q.z.minN)return;const z=Q.z,r=el.getBoundingClientRect(),k=e.deltaMode===1?16:e.deltaMode===2?r.height:1;
+    let dx=e.deltaX*k,dy=e.deltaY*k;if(e.shiftKey&&!dx){dx=dy;dy=0}
+    const a0=Math.round(z.a),b0=Math.round(z.b);
+    if(Math.abs(dx)>Math.abs(dy)){e.preventDefault();Q.panBy(dx/r.width*(z.b-z.a));Q.rp(a0,b0);return}
+    if(!dy)return;const fx=Q.anchor==null?Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)):Q.anchor;
+    if(Q.zoomBy(Math.exp(dy*(e.ctrlKey?.01:.002)),fx)){e.preventDefault();Q.rp(a0,b0)}else if(e.ctrlKey)e.preventDefault()},{passive:false});
+  let px=null,moved=0;
+  el.addEventListener('pointerdown',e=>{if(e.button||e.target.closest('.zbar'))return;px=e.clientX;moved=0});
+  el.addEventListener('pointermove',e=>{const Q=el._zw;if(px==null||!Q)return;const d=e.clientX-px;if(!moved&&Math.abs(d)<6)return;
+    if(!moved){moved=1;try{el.setPointerCapture(e.pointerId)}catch(_){}}const z=Q.z,a0=Math.round(z.a),b0=Math.round(z.b);px=e.clientX;Q.panBy(-d/el.getBoundingClientRect().width*(z.b-z.a));Q.rp(a0,b0)});
+  const up=()=>{px=null;if(moved)el._drag=1;moved=0};el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
+  el.addEventListener('click',e=>{if(el._drag){el._drag=0;e.stopPropagation();e.preventDefault()}},true);
+}
+function barChart(el,data,o){zoomable(el,data.length,4,(a,b)=>barChart0(el,data.slice(a,b),o),i=>data[i].label)}
+function lineChart(el,seriesList,o={}){const L=o.labels||[];zoomable(el,L.length,3,(a,b)=>lineChart0(el,seriesList.map(s=>({...s,v:s.v.slice(a,b),mark:s.mark&&s.mark.slice(a,b),na:s.na&&s.na.slice(a,b)})),{...o,labels:L.slice(a,b)}),i=>L[i])}
 /* bar chart with provenance */
-function barChart(el,data,{fmt=fmtM,color='var(--co-ui)',height=260}={}){
+function barChart0(el,data,{fmt=fmtM,color='var(--co-ui)',height=260}={}){
   const W=Math.max(320,el.clientWidth||800),H=height,ml=58,mr=10,mt=12,mb=34;
   const vs=data.map(d=>d.v).filter(v=>v!=null);const mn=Math.min(0,...vs),mx=Math.max(0,...vs);const ticks=niceTicks(mn,mx);const t0=ticks[0],t1=ticks[ticks.length-1];
   const y=v=>mt+(t1-v)/(t1-t0)*(H-mt-mb);const bw=(W-ml-mr)/data.length;const x=i=>ml+i*bw;
@@ -453,7 +489,7 @@ function barChart(el,data,{fmt=fmtM,color='var(--co-ui)',height=260}={}){
   svg.addEventListener('mouseleave',hideTip);
   svg.addEventListener('click',e=>{const r=svg.getBoundingClientRect();const i=Math.floor(((e.clientX-r.left)*W/r.width-ml)/bw);if(data[i]){state.sel={m:state.metric[state.view],p:data[i].p};renderMatrixSel()}});
 }
-function lineChart(el,seriesList,{height=220,fmt=v=>nf(v),labels}={}){
+function lineChart0(el,seriesList,{height=220,fmt=v=>nf(v),labels}={}){
   const W=Math.max(320,el.clientWidth||700),H=height,ml=52,mr=12,mt=10,mb=28;const n=labels.length;
   const all=seriesList.flatMap(s=>s.v.filter(v=>v!=null));if(!all.length){el.innerHTML='<p class="note">Veri yok.</p>';return}
   const ticks=niceTicks(Math.min(...all),Math.max(...all));const t0=ticks[0],t1=ticks[ticks.length-1];
@@ -547,8 +583,10 @@ function renderMain(c){
   $('#mnote').textContent=(md==='q'&&mode!=='bal'&&diff?`${diff} çeyrek değeri raporda ayrıca verilmediği için birikimli tutarların farkından hesaplandı. `:'')+(md==='q'&&cpiN?`TMS 29 dönemindeki ${cpiN} dördüncü çeyrek, 9 aylık tutar TÜFE ile yıl sonu fiyatına taşınarak hesaplandı. `:'')+(md==='y'?'Son yıl kısmi ise açık tonla gösterilir. ':'')+(Object.values(c.fin).some(r=>Object.values(r).some(x=>x&&x.src==='sr'))?'Grafikteki renkli çubuk ve alt noktalar SmartRadar\'da eksik olup bu sürümde tamamlanan dönemlerdir.':'Bu şirketin bütün hücreleri doğrudan KAP finansal rapor bildirimlerinden (XBRL) alındı; renkli çubuk ve noktalar kaynağı gösterir.');
 }
 
-function groupedChart(el,c,m,bal){
-  const P=c.periods,years=[...new Set(P.map(p=>p.slice(0,4)))];const ny=years.length;
+function groupedChart(el,c,m,bal){const P=c.periods,Y=[...new Set(P.map(p=>p.slice(0,4)))];
+  zoomable(el,Y.length,1,(a,b)=>groupedChart0(el,c,m,bal,Y.slice(a,b)),i=>Y[i],{anchor:1,unit:'yıl'})}
+function groupedChart0(el,c,m,bal,years){
+  const P=c.periods;const ny=years.length;
   const get=(y,q)=>{const p=y+'-'+String(q*3).padStart(2,'0');if(!P.includes(p))return null;return {p,v:val(c,m,p,bal?'b':'q'),cl:c.fin[m]?.[p]}};
   const all=[];for(const y of years)for(let q=1;q<=4;q++){const d=get(y,q);if(d&&d.v!=null)all.push(d.v)}
   const W=Math.max(320,el.clientWidth||800),H=280,ml=58,mr=10,mt=12,mb=52;
