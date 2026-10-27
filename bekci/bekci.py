@@ -3,6 +3,7 @@ Claude kullanmaz; GitHub Actions'ta çalışır. Durum: bekci/state.json"""
 import json, os, re, urllib.request, datetime
 
 SIRKETLER = {
+    "AGESA": "4028e4a140e95bea0140edeb7a54015d",
     "AKSA": "4028e4a240f2ef470141175e189f0453",
     "ANHYT": "4028e4a140e95be70140ed40cb930098",
     "AVPGY": "8acae2c48c3efabf018c4824da4a0623",
@@ -84,7 +85,7 @@ def main():
     kuyruk = json.load(open(KUYRUK)) if os.path.exists(KUYRUK) else []
     bekleyen_bildirim = json.load(open(BILDIR)) if os.path.exists(BILDIR) else []
     if TOKEN and st.get("chat_id") and not st.get("welcomed"):
-        mesajlar.append("FinRadar Bekçi çalışmaya başladı. AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
+        mesajlar.append("FinRadar Bekçi çalışmaya başladı. AGESA, AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
         st["welcomed"] = True
     if not ilk:
         for t, d in sorted(yeni, key=lambda x: x[1]["disclosureIndex"]):
