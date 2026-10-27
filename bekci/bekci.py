@@ -1,4 +1,4 @@
-"""Sonar Bekçi: KAP'ta 6 şirketin yeni bildirimlerini izler, Telegram'a yollar.
+"""Sonar Bekçi: KAP'ta izlenen şirketlerin yeni bildirimlerini izler, Telegram'a yollar.
 Claude kullanmaz; GitHub Actions'ta çalışır. Durum: bekci/state.json"""
 import json, os, re, urllib.request, datetime
 
@@ -10,6 +10,7 @@ SIRKETLER = {
     "FROTO": "4028e4a140f2ed71014106890fae0138",
     "ISMEN": "4028e4a140f275530140f277aa100008",
     "TUPRS": "4028e4a140f2ed720140f37f139c01bc",
+    "TOASO": "4028e4a140f2ed710140f328bed700a5",
 }
 ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|sermaye|geri alım|birleşme|devral|satın al|kapasite|genel müdür|finansal takvim|beklenti|yeni iş|teşvik|dava|derecelendirme|ortaklık yapısı|pay satış|bedelsiz|bedelli", re.I)
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
@@ -66,14 +67,19 @@ def main():
     ilk = not st["seen"]
     seen = set(st["seen"])
     yeni = []
+    # listeye yeni eklenen şirketin geçmiş bildirimleri sessizce görülmüş sayılır (kuyruk/Telegram yok)
+    izlenen = set(st.get("izlenen") or ([] if ilk else ["AGESA", "AKSA", "ANHYT", "AVPGY", "FROTO", "ISMEN", "TUPRS"]))
     for t, oid in SIRKETLER.items():
         try:
             for d in kap(oid):
                 i = d["disclosureIndex"]
                 if i not in seen:
-                    seen.add(i); yeni.append((t, d))
+                    seen.add(i)
+                    if t in izlenen: yeni.append((t, d))
+            izlenen.add(t)
         except Exception as e:
             print(t, "KAP hatası:", repr(e)[:200])
+    st["izlenen"] = sorted(izlenen)
     if TOKEN and not st.get("chat_id"):
         try:
             print("bot:", tg("getMe").get("result", {}).get("username"))
@@ -89,7 +95,7 @@ def main():
     kuyruk = json.load(open(KUYRUK)) if os.path.exists(KUYRUK) else []
     bekleyen_bildirim = json.load(open(BILDIR)) if os.path.exists(BILDIR) else []
     if TOKEN and st.get("chat_id") and not st.get("welcomed"):
-        mesajlar.append("Sonar Bekçi çalışmaya başladı. AGESA, AKSA, ANHYT, AVPGY, FROTO, ISMEN ve TUPRS için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
+        mesajlar.append("Sonar Bekçi çalışmaya başladı. " + ", ".join(SIRKETLER) + " için KAP bildirimlerini izliyorum. Yeni bildirim geldiğinde buraya yazacağım.")
         st["welcomed"] = True
     if not ilk:
         for t, d in sorted(yeni, key=lambda x: x[1]["disclosureIndex"]):
