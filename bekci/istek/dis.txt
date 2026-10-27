@@ -1,2 +1,5 @@
 # ad|url
 ttrak_logo.svg|https://www.turktraktor.com.tr/getmedia/0ddbd3b1-ca05-46f3-aaa9-cc2b29d4371f/logolar-turk-traktor.svg?ext=.svg
+ttrak_fr_2026q3_1687656.pdf|https://www.kap.org.tr/tr/api/file/download/4028328da16c7fe501a178cb37ca4e03
+ttrak_fr_2026q2_1642533.pdf|https://www.kap.org.tr/tr/api/file/download/4028328d9f52dddc019fc8dd0d2028e1
+ttrak_fr_2025q3_1508525.pdf|https://www.kap.org.tr/tr/api/file/download/4028328c998ee9d7019a26843c79371d
