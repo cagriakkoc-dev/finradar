@@ -1,0 +1,24 @@
+name: KAP XBRL çek
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: 'Bildirim numaraları (virgülle)'
+        required: true
+permissions:
+  contents: write
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: XBRL
+        env:
+          XBRL_IDS: ${{ inputs.ids }}
+        run: python3 bekci/araclar/xbrl_cek.py
+      - name: Kaydet
+        run: |
+          git config user.name "FinRadar Bekçi"; git config user.email "bekci@users.noreply.github.com"
+          git add bekci/xbrl
+          git diff --cached --quiet || (git commit -q -m "KAP XBRL verisi [skip render]" && for n in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done)
