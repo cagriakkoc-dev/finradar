@@ -32,7 +32,7 @@ X kısmı ikili seri düzeninde: `"social": {"mode": "ikili", "tweets": [...]}`.
 
 ## 3. Bitiş
 - `bekci/kuyruk.json`: işlenen kayıtların "durum"unu "hazir" yap (+ "hazir_zaman").
-- `bekci/bildirimler.json` listesine ekle: "<HİSSE> · <başlık> özeti hazır · https://finradar-x849.onrender.com/#haber-<hisse küçük>-<id>" (dönem özeti için `#ozet-<hisse küçük>`). Bekçi bir sonraki çalışmada Telegram'a yollar.
+- `bekci/bildirimler.json` listesine ekle: "<HİSSE> · <başlık> özeti hazır · https://sonar.smartcuzdan.io/#haber-<hisse küçük>-<id>" (dönem özeti için `#ozet-<hisse küçük>`). Bekçi bir sonraki çalışmada Telegram'a yollar.
 - Commit (Render yayınlasın diye [skip render] YAZMA), `git pull --rebase`, push.
 - İçeriği iCloud'a da kaydet: `$HOME/mnt/sonar/icerik/<HİSSE>/<YYYY-Qn veya haber-<id>>/x-zinciri.txt` (dönem özetinde "Seri n / Ana tweet / Yanıt" başlıklarıyla).
 
