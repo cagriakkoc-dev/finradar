@@ -5,3 +5,5 @@ ttrak_fr_2026q2_1642533.pdf|https://www.kap.org.tr/tr/api/file/download/4028328d
 ttrak_fr_2025q3_1508525.pdf|https://www.kap.org.tr/tr/api/file/download/4028328c998ee9d7019a26843c79371d
 froto_logo.png|https://www.fordotosan.com.tr/Templates/Default/assets/img/logo.png
 froto_logo_mobile.png|https://www.fordotosan.com.tr/Templates/Default/assets/img/logo-mobile.png
+froto_logo_ford.png|https://www.fordotosan.com.tr/Templates/Default/assets/img/logo-ford.png
+froto_logo_wiki.svg|https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Otosan_logo.svg
