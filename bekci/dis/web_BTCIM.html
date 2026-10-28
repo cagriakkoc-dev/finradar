@@ -1,0 +1,1240 @@
+<!DOCTYPE HTML>
+<html lang="tr">
+<head>
+<style>
+ #videoPopup {
+        display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 90vh;
+
+            background-color: black;
+            z-index: 999;
+        }
+
+        /* responsive video element */
+        #videoPopup video {
+            width: 100%;
+            height: 100%;
+        }
+
+        #imagePopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+            cursor: pointer;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        
+        #imagePopup img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 998;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            background: #000;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+</style>
+    <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  /* background-color: #fefefe; */
+  margin: auto;
+  /* padding: 20px; */
+  /* border: 1px solid #888; */
+   width: 60vw; 
+
+
+}
+.modal-content video{
+    width: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+
+  
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 60vw; /* Genişlik ile aynı olması için */
+}
+.video-container video {
+    max-width: 100%;
+    max-height: 100%;
+}
+@media (max-width: 768px) {
+    .video-container {
+        width: 100%; /* Ekranın tamamını kaplar */
+    }
+    .modal-content {
+ width: 100%;
+ margin-top:15rem;
+
+
+}
+}
+</style>
+<style type="text/css">
+/* The Modal (background) */
+    #videoPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 90vh;
+
+            background-color: black;
+            z-index: 999;
+        }
+
+        /* responsive video element */
+        #videoPopup video {
+            width: 100%;
+            height: 100%;
+        }
+
+
+.div-ecobati{
+padding-top: 3rem; 
+padding-bottom: 7rem
+}
+.c-jumbotron__container.container span{
+color:white;
+}
+
+.ecobati_button_a{
+  color:white;
+}
+
+a img.sliderbuttonecobati {
+  display: inline-block;
+  vertical-align: middle; 
+  max-width:5rem;
+  height:auto;
+}
+
+
+
+.c-button--ecobati{
+  background-color:#B8EA1D !important;
+  border-color:#B8EA1D !important;
+  border-radius:2px;
+  color:#fff;
+  margin-right:1.5rem;
+}
+
+.c-button--ecobati:hover{
+  background-color:#AFD11E !important;
+  border-color:#AFD11E !important;
+  border-radius:2px;
+  color:#fff;
+}
+
+
+@media only screen and (max-width: 61.9375rem){
+  .c-button--ecobati{
+    margin-bottom:1rem;
+    margin-right:0rem;
+  }
+}
+
+.ecobati_button_a:hover{
+  color:white;
+  text-decoration:none;
+  font-size:1.4rem;
+}
+
+.responsive-ecobati-reverse .res-image .c-ratio__element.ecobatiimg{
+  width:auto;
+}
+
+.ecobati-span-text{
+text-align:center;
+color:white;
+font-size: 2.3rem
+}
+
+
+.ecobatibaslik1{
+color:#009145; 
+font-weight: 100; 
+margin-bottom: 0
+}
+
+.ecobatibuttonfontsize1{
+background-color:#002D9B; 
+color: white;  
+cursor:pointer; 
+border:none; 
+font-size:1.5rem; 
+border-radius: 10px; 
+width: 45%; 
+line-height: 3rem
+}
+.ecobatibuttonfontsize2{  
+ background-color:#009145; 
+ color: white; 
+ cursor:pointer; 
+ border:none; 
+ font-size:1.5rem; 
+ border-radius: 10px; 
+ width: 45%; 
+ line-height: 3rem
+}
+.res-image{
+margin-bottom : 0px;
+}
+.ecobatiimg{
+width: 15rem; 
+object-fit: contain; 
+height: auto; 
+margin-left: 100px
+
+}
+
+@media only screen and (max-width:1016px){
+.ecobatiimg{
+margin-left:0px
+}
+}
+
+@media only screen and (max-width: 991px) {
+.res-image{
+margin-bottom : 20rem !important;
+}
+.responsive-ecobati-reverse{
+flex-direction:column-reverse
+}
+.res-image{
+margin-bottom:1rem;}
+
+.div-ecobati{
+padding-top:3rem !important }
+
+.ecobati-span-text{
+font-size:1.5rem
+}
+.c-ratio__element{
+height:auto !important;
+padding:1rem;
+display:block;
+}}
+
+
+@media only screen and (max-width:800px){
+
+.ecobatibuttonfontsize1{
+font-size:1.2rem; 
+}
+.ecobatibuttonfontsize2{
+font-size:1.2rem; 
+}
+}
+
+
+
+ @media only screen and (max-width: 600px) {
+.div-ecobati{
+ padding-left : 2rem !important;
+ padding-right : 2rem !important;
+ padding-bottom: 2rem
+}
+
+.u-pad-ends-3xlarge{
+padding-top : 2rem !important;
+padding-bottom:0 !important
+}
+.res-image{
+margin-bottom : 14rem !important;
+}}
+
+@media only screen and (max-width:532px){
+.ecobatibaslik1{
+font-size:1.5rem;
+}
+.ecobatibaslik2{
+font-size:1.5rem;
+}
+.ecobatiptag{
+font-size:1rem;
+}
+.ecobatibuttonfontsize1{
+font-size:1rem; 
+}
+.ecobatibuttonfontsize2{
+font-size:1rem; 
+}
+.ecobatibuttonfontsize1{
+font-size:0.8rem; 
+}
+.ecobatibuttonfontsize2{
+font-size:0.8rem; 
+}
+.ecobati-span-text{
+font-size:1rem
+}
+
+.res-image{
+margin-bottom : 12rem !important;
+}
+
+}
+
+@media only screen and (max-width:405px){
+.ecobatibaslik1{
+font-size:1rem;
+}
+.ecobatibaslik2{
+font-size:1rem;
+}
+.ecobatiptag{
+font-size:0.7rem;
+}
+.ecobatibuttonfontsize1{
+font-size:0.7rem;
+}
+.ecobatibuttonfontsize2{
+font-size:0.7rem;
+}
+
+.res-image{
+margin-bottom : 10rem !important;
+}
+} 
+@media only screen and (max-width:328px){
+
+
+.res-image{
+margin-bottom : 7rem !important;
+}
+} 
+
+
+</style>
+  <meta charset=utf-8>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <title>Batıçim</title>
+  <meta name="description" content="">
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Batıçim">
+  <meta property="og:title" content="Batıçim" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="/build/img/og.81a7e25e.png" />
+  <link rel="image_src" href="/build/img/og.81a7e25e.png" />
+  <link rel="stylesheet" href="/build/css/styles.e40770b3.css">
+  <link rel="apple-touch-icon" sizes="120x120" href="/build/img/apple-touch-icon.9990e153.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/build/img/favicon-64x64.8902910d.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/build/img/favicon-32x32.b715e503.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/build/img/favicon-16x16.202d58a9.png">
+      <meta name="google-site-verification" content="V3TlZ8Mb6CciQ1hqELeFfGP-siiIu0VWv5QNdubZNOY" />
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]‌‌=w[l]‌‌||[]‌‌;w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-54BFXQG');</script>
+  <!-- End Google Tag Manager -->
+  </head>
+<body>
+
+<div id="imagePopup">
+    <div class="popup-inner" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); padding: 2.5rem 2rem 2rem 2rem; min-width: 320px; max-width: 380px; min-height: 320px; display: flex; flex-direction: column; align-items: center; position: relative;">
+        <div class="close-btn">&times;</div>
+        <img src="/build/img/logo.35d13aa4.svg" alt="BatıÇim" style="width: 120px; margin: 0 auto 1rem auto; display: block;" />
+        <p style="font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 10px;">
+            KEP Adreslerimiz Güncellendi
+        </p>
+		<div style="font-size: 14px; font-weight: normal; text-align: center; margin-bottom: 10px;">
+			<p>Batıçim Batı Anadolu Sanayi ve Ticaret A.Ş. ile Batıçim Çimento Sanayi A.Ş.’ye ait KEP adresleri güncellenmiştir.</p> <p><strong>Batıçim Batı Anadolu Sanayi ve Ticaret A.Ş.</strong></p> baticimbatianadolu@hs03.kep.tr<br> <p><strong>Batıçim Çimento Sanayi A.Ş.</strong></p> baticimcimento@hs03.kep.tr<br> <p>KEP yazışmalarınızda yeni adreslerimizin kullanılmasını rica ederiz.</p>
+
+        </div>
+        <div style="text-align: center; width: 100%;">
+            <a href="" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;">
+                
+            </a>
+        </div>
+    </div>
+</div>
+<div class="popup-overlay"></div>
+
+
+
+
+<div class="u-hidden">
+  <svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-arrow-left" viewBox="0 0 32 32"><path d="M28.85 17.658H7.217l8.14 7.839c.352.326.528.716.528 1.168s-.157.848-.471 1.187c-.314.339-.697.509-1.149.509s-.854-.151-1.206-.452L1.979 17.206c-.352-.326-.528-.722-.528-1.187s.176-.861.528-1.187L13.135 4.091a1.615 1.615 0 0 1 1.131-.452c.477 0 .879.176 1.206.528.326.326.483.716.471 1.168s-.182.842-.509 1.168l-8.14 7.839h21.595c.427 0 .804.151 1.131.452s.503.666.528 1.093c.025.477-.132.892-.471 1.244s-.747.528-1.225.528z"/></symbol><symbol id="icon-arrow-right" viewBox="0 0 32 32"><path d="M3.15 14.342h21.633l-8.14-7.839c-.352-.327-.528-.716-.528-1.168s.157-.848.471-1.187c.314-.339.697-.509 1.149-.509s.854.151 1.206.452l11.08 10.703c.352.326.528.722.528 1.187s-.176.861-.528 1.187L18.865 27.909a1.613 1.613 0 0 1-1.131.452c-.477 0-.879-.176-1.206-.528-.326-.326-.484-.716-.471-1.168s.182-.842.509-1.168l8.14-7.839H3.111c-.427 0-.804-.151-1.131-.452s-.503-.666-.528-1.093c-.025-.477.132-.892.471-1.244s.747-.528 1.225-.528z"/></symbol><symbol id="icon-chevron-down" viewBox="0 0 32 32"><path d="M4.002 9.359c0-.438.177-.792.532-1.063.292-.229.625-.323 1.001-.282s.678.208.907.5l9.601 11.915 9.538-11.853c.229-.292.532-.459.907-.5s.709.052 1.001.282c.292.229.459.532.5.907s-.052.709-.282 1.001L17.105 23.463c-.271.354-.625.532-1.063.532s-.792-.177-1.063-.532L4.315 10.234a1.406 1.406 0 0 1-.313-.876z"/></symbol><symbol id="icon-chevron-left" viewBox="0 0 32 32"><path d="M23.38 2.583c.487 0 .88.197 1.182.591.255.324.359.695.313 1.112s-.232.753-.556 1.008L11.078 15.963l13.172 10.6c.324.255.51.591.556 1.008s-.058.788-.313 1.112c-.255.324-.591.51-1.008.556s-.788-.058-1.112-.313L7.707 17.144c-.394-.301-.591-.695-.591-1.182s.197-.88.591-1.182L22.408 2.929c.301-.232.625-.348.973-.348z"/></symbol><symbol id="icon-chevron-right" viewBox="0 0 32 32"><path d="M8.62 29.417c-.487 0-.88-.197-1.182-.591-.255-.324-.359-.695-.313-1.112s.232-.753.556-1.008l13.241-10.669L7.75 5.437c-.324-.255-.51-.591-.556-1.008s.058-.788.313-1.112c.255-.324.591-.51 1.008-.556s.788.058 1.112.313l14.666 11.782c.394.301.591.695.591 1.182s-.197.88-.591 1.182L9.592 29.071a1.564 1.564 0 0 1-.973.348z"/></symbol><symbol id="icon-chevron-up" viewBox="0 0 32 32"><path d="M27.998 22.641c0 .438-.177.792-.532 1.063-.292.229-.625.323-1.001.282s-.678-.208-.907-.5l-9.601-11.915-9.538 11.853c-.229.292-.532.459-.907.5s-.709-.052-1.001-.282c-.292-.229-.459-.532-.5-.907s.052-.709.282-1.001L14.895 8.537c.271-.354.625-.532 1.063-.532s.792.177 1.063.532l10.664 13.229c.209.271.313.563.313.876z"/></symbol><symbol id="icon-facebook" viewBox="0 0 32 32"><path d="M23.615 1.545v4.654h-2.768c-2.168 0-2.574 1.04-2.574 2.538v3.332h5.165l-.688 5.218h-4.478v13.38h-5.394v-13.38H8.383v-5.218h4.495V8.226c0-4.46 2.732-6.893 6.716-6.893 1.904 0 3.543.141 4.019.212z"/></symbol><symbol id="icon-fax" viewBox="0 0 32 32"><path d="M7.857 9.143c1.179 0 2.143.964 2.143 2.143v14.571A2.149 2.149 0 0 1 7.857 28H6.143A2.149 2.149 0 0 1 4 25.857V11.286c0-1.179.964-2.143 2.143-2.143h1.714zm18.429 2.183A3.433 3.433 0 0 1 28 14.286v10.286a3.436 3.436 0 0 1-3.429 3.429H13a2.149 2.149 0 0 1-2.143-2.143V5.287c0-.71.576-1.286 1.286-1.286h9c.71 0 1.701.415 2.196.911l2.036 2.036c.496.496.911 1.487.911 2.196v2.183zm-9.857 13.245v-1.714a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429H16a.424.424 0 0 0 .429-.429zm0-3.428v-1.714A.424.424 0 0 0 16 19h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429H16a.424.424 0 0 0 .429-.429zm0-3.429V16a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429H16a.424.424 0 0 0 .429-.429zm3.428 6.857v-1.714a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429h1.714a.424.424 0 0 0 .429-.429zm0-3.428v-1.714a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429h1.714a.424.424 0 0 0 .429-.429zm0-3.429V16a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429h1.714a.424.424 0 0 0 .429-.429zm3.429 6.857v-1.714a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429h1.714a.424.424 0 0 0 .429-.429zm0-3.428v-1.714a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429h1.714a.424.424 0 0 0 .429-.429zm0-3.429V16a.424.424 0 0 0-.429-.429h-1.714a.424.424 0 0 0-.429.429v1.714c0 .241.188.429.429.429h1.714a.424.424 0 0 0 .429-.429zm1.285-5.143V9.142h-2.143c-.71 0-1.286-.576-1.286-1.286V5.713h-8.571v6.857h12z"/></symbol><symbol id="icon-hamburger" viewBox="0 0 32 32"><path d="M3.312 7.595c-.104-.124-.182-.253-.234-.386S3 6.921 3 6.744c0-.16.026-.31.078-.452a1.03 1.03 0 0 1 .598-.611c.138-.053.286-.08.442-.08H27.88c.156 0 .304.027.442.08a1.016 1.016 0 0 1 .598.611c.052.141.078.293.078.452 0 .177-.026.332-.078.465s-.13.262-.234.386c-.104.106-.226.186-.364.239s-.286.08-.442.08H4.118c-.156 0-.304-.027-.442-.08s-.26-.133-.364-.239zm25.376 7.58c.104.106.182.23.234.372s.078.293.078.452c0 .16-.026.31-.078.452a1.03 1.03 0 0 1-.598.611c-.138.053-.286.08-.442.08H4.12c-.156 0-.304-.027-.442-.08a1.016 1.016 0 0 1-.598-.611 1.305 1.305 0 0 1-.078-.452c0-.16.026-.31.078-.452a1.03 1.03 0 0 1 .598-.611c.138-.053.286-.08.442-.08h23.762c.156 0 .304.027.442.08s.26.133.364.239zm0 9.23c.104.106.182.23.234.372s.078.293.078.452c0 .177-.026.332-.078.465s-.13.262-.234.386c-.104.106-.226.186-.364.239s-.286.08-.442.08H4.12c-.156 0-.304-.027-.442-.08s-.26-.133-.364-.239c-.104-.124-.182-.253-.234-.386s-.078-.288-.078-.465c0-.16.026-.31.078-.452a1.03 1.03 0 0 1 .598-.611c.138-.053.286-.08.442-.08h23.762c.156 0 .304.027.442.08s.26.133.364.239z"/></symbol><symbol id="icon-info" viewBox="0 0 32 32"><path d="M17.641 25.846h1.641v.821h-6.564v-.821h1.641V13.538h-1.641v-.821h4.923v13.128zm.103-16.308c-.479.479-1.06.718-1.744.718s-1.265-.239-1.744-.718c-.479-.479-.718-1.06-.718-1.744s.239-1.265.718-1.744c.479-.479 1.06-.718 1.744-.718s1.265.239 1.744.718c.479.479.718 1.06.718 1.744s-.239 1.265-.718 1.744z"/></symbol><symbol id="icon-instagram" viewBox="0 0 32 32"><path d="M16 11.429c-2.518 0-4.571 2.054-4.571 4.571s2.054 4.571 4.571 4.571 4.571-2.054 4.571-4.571-2.054-4.571-4.571-4.571zm0-2.465c3.893 0 7.036 3.143 7.036 7.036S19.893 23.036 16 23.036 8.964 19.893 8.964 16 12.107 8.964 16 8.964zM8.679 7.036c.911 0 1.643.732 1.643 1.643s-.732 1.643-1.643 1.643-1.643-.732-1.643-1.643.732-1.643 1.643-1.643zM4.75 16c0 2-.161 6.286.554 8.089.25.625.554 1.089 1.036 1.571s.946.786 1.571 1.036c1.804.714 6.089.554 8.089.554s6.286.161 8.089-.554c.625-.25 1.089-.554 1.571-1.036s.786-.946 1.036-1.571c.714-1.804.554-6.089.554-8.089s.161-6.286-.554-8.089c-.25-.625-.554-1.089-1.036-1.571s-.946-.786-1.571-1.036C22.285 4.59 18 4.75 16 4.75s-6.286-.161-8.089.554c-.625.25-1.089.554-1.571 1.036s-.786.946-1.036 1.571C4.59 9.715 4.75 14 4.75 16zM16 2.286c1.893 0 3.768-.018 5.661.089 2.196.107 4.143.607 5.75 2.214s2.107 3.554 2.214 5.75c.107 1.893.089 3.768.089 5.661s.018 3.768-.089 5.661c-.107 2.196-.607 4.143-2.214 5.75s-3.554 2.107-5.75 2.214c-1.893.107-3.768.089-5.661.089s-3.768.018-5.661-.089c-2.196-.107-4.143-.607-5.75-2.214s-2.107-3.554-2.214-5.75c-.107-1.893-.089-3.768-.089-5.661s-.018-3.768.089-5.661c.107-2.196.607-4.143 2.214-5.75s3.554-2.107 5.75-2.214c1.893-.107 3.768-.089 5.661-.089z"/></symbol><symbol id="icon-linkedin" viewBox="0 0 32 32"><path d="M5.859 25.892h4.412V12.638H5.859v13.254zm4.698-17.34c-.019-1.299-.955-2.292-2.464-2.292s-2.502.993-2.502 2.292c0 1.26.955 2.292 2.444 2.292h.019c1.547 0 2.502-1.031 2.502-2.292zm11.172 17.34h4.412v-7.601c0-4.068-2.177-5.958-5.08-5.958-2.368 0-3.418 1.318-3.991 2.234h.038v-1.929h-4.412s.057 1.241 0 13.254h4.412v-7.41c0-.382.019-.783.134-1.069.325-.783 1.05-1.604 2.273-1.604 1.585 0 2.215 1.203 2.215 2.998v7.085zm8.938-19.059v18.333c0 3.036-2.464 5.5-5.5 5.5H6.834a5.502 5.502 0 0 1-5.5-5.5V6.833c0-3.036 2.464-5.5 5.5-5.5h18.333c3.036 0 5.5 2.464 5.5 5.5z"/></symbol><symbol id="icon-map-marker" viewBox="0 0 32 32"><path d="M10.536 6.25C12.036 4.75 13.857 4 16 4s3.964.75 5.464 2.25c1.5 1.5 2.25 3.321 2.25 5.464 0 1.786-.643 4.036-1.929 6.75s-2.571 4.982-3.857 6.804L15.999 28c-.571-.786-1.286-1.795-2.143-3.027s-2-3.304-3.429-6.214c-1.429-2.911-2.143-5.259-2.143-7.045 0-2.143.75-3.964 2.25-5.464zm3.643 7.286c.5.464 1.107.696 1.821.696s1.313-.241 1.795-.723.723-1.08.723-1.795-.241-1.313-.723-1.795-1.08-.723-1.795-.723c-.714 0-1.313.241-1.795.723s-.723 1.08-.723 1.795c0 .714.232 1.321.696 1.821z"/></symbol><symbol id="icon-pdf" viewBox="0 0 32 32"><path d="M27.234 9.438c.412.417.618.938.618 1.563v18.75c0 .625-.211 1.156-.634 1.594s-.943.656-1.561.656H6.403c-.618 0-1.149-.219-1.592-.656s-.664-.969-.664-1.594v-27.5c0-.625.221-1.156.664-1.594S5.784.001 6.403.001h10.662c.309 0 .608.063.896.188a.373.373 0 0 1 .093.063c.021 0 .062.021.124.063.165.104.319.219.464.344l8.591 8.781zm-9.024-6v6.313h6.212L18.21 3.438zm7.417 26.312V12h-7.386c-.618 0-1.149-.219-1.592-.656s-.664-.969-.664-1.594v-7.5H6.374v27.5h19.254zM10.484 18c1.586 0 2.38.646 2.38 1.938 0 .688-.221 1.203-.664 1.547s-1.004.516-1.684.516h-.68v2H8.414v-6h2.071zm-.031 2.875c.68 0 1.02-.313 1.02-.938 0-.542-.361-.813-1.082-.813h-.556v1.75h.618zM15.583 18c.927 0 1.654.245 2.179.734s.788 1.234.788 2.234-.258 1.755-.773 2.266c-.515.511-1.226.766-2.132.766h-1.792v-6h1.731zm-.093 4.844c1.072 0 1.607-.625 1.607-1.875 0-.667-.139-1.135-.417-1.406s-.675-.406-1.19-.406h-.185v3.688h.185zm7.943-3.656h-2.349v1.344h2.009v1.188h-2.009v2.281h-1.422v-6h3.77v1.188z"/></symbol><symbol id="icon-person" viewBox="0 0 32 32"><path d="M16 18.688c3.563 0 10.688 1.75 10.688 5.313v2.688H5.313v-2.688c0-3.563 7.125-5.313 10.688-5.313zM16 16c-2.938 0-5.313-2.375-5.313-5.313S13.062 5.312 16 5.312s5.313 2.438 5.313 5.375S18.938 16 16 16z"/></symbol><symbol id="icon-phone" viewBox="0 0 32 32"><path d="M26.688 20.687c.375 0 .687.125.937.375s.375.563.375.937v4.687c0 .375-.125.687-.375.937s-.563.375-.937.375c-6.292 0-11.646-2.208-16.063-6.625S4 11.602 4 5.31c0-.375.125-.687.375-.937s.563-.375.937-.375h4.687c.375 0 .687.125.937.375s.375.563.375.937c0 1.708.271 3.312.812 4.813.167.5.063.937-.312 1.312l-2.938 2.938c2 3.875 4.938 6.813 8.813 8.813l2.938-2.938c.291-.375.729-.479 1.312-.312 1.625.5 3.208.75 4.75.75z"/></symbol></svg>
+</div>
+
+<div class="c-notifier" id="cookieNotifier" hidden>
+  <button type="button" class="c-notifier__close-button js-notifier-close">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.971 47.971"><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88 c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242 C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879 s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/></svg>
+  </button>
+  Bu internet sitesinde sizlere daha iyi hizmet sunulabilmesi için çerezler kullanılmaktadır. Çerez tercihlerinizi değiştirmek ve çerezler hakkında detaylı bilgi almak için <a href="https://www.baticim.com.tr/yasal-bilgiler/cerez-politikasi" class="c-notifier__link">Çerez Politikası</a>’nı inceleyiniz. Çerez ayarlarını değiştirmeniz durumunda internet sitesinin bazı özelliklerinin işlevselliğini kaybedebileceğini dikkate alınız.
+</div>
+<div class="o-wrapper">
+  <div class="o-wrapper__body">
+    <div class="o-header " id="js-header">
+  <header class="c-header o-header__inner">
+  <div class="c-header__container">
+    <div class="c-header__logo">
+      <a href="https://www.baticim.com.tr/"><img src="/build/img/logo.35d13aa4.svg" alt="Batı Anadolu" class="u-img-fluid"></a>
+      <div class="c-header__divider u-hidden@md-down"></div>
+      <a href="//www.batianadolu.com/" class="u-hidden@md-down" target="_blank"><img src="/build/img/batianadolu-logo.1cb78bf7.svg" alt="Batı Anadolu"></a>
+    </div>
+    <div class="c-header__navigation">
+      <div class="c-languages c-header__languages">
+      <a href="https://www.baticim.com.tr/en/" class="c-languages__item">EN</a>
+  </div>
+      <div class="u-flex u-align-items-center u-justify-center">
+        <a href="#canvas-menu" class="c-header__hamburger js-canvas-menu-trigger">
+          <div class="c-hamburger">
+  <div class="c-hamburger__middle"></div>
+  <div class="c-hamburger__ends"></div>
+</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+
+<div class="c-canvas-menu " id="canvas-menu">
+  <div class="c-canvas-menu__backdrop js-canvas-menu-close"></div>
+  <div class="c-canvas-menu__canvas">
+    <div class="c-canvas-menu__content">
+      <ul class="c-nav-menu js-menu">
+  <li class="c-nav-menu__item">
+    <a href="#" class="c-nav-menu__link js-menu-trigger" data-toggle="dropdown">
+      <span>Kurumsal</span>
+      <svg class="icon c-nav-menu__icon">
+        <use xlink:href="#icon-chevron-down"></use>
+      </svg>
+    </a>
+    <ul class="c-nav-menu__submenu">
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/kurumsal/hakkimizda" class="c-nav-menu__link">Hakkımızda</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yonetim-kurulu" class="c-nav-menu__link">Yönetim Kurulu</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yasal-bilgiler" class="c-nav-menu__link">Yasal Bilgiler</a></li>
+      <li class="c-nav-menu__item"><a href="https://e-sirket.mkk.com.tr/esir/Dashboard.jsp#/sirketbilgileri/10172" target="_blank" class="c-nav-menu__link">Bilgi Toplumu Hizmetleri</a></li>
+    </ul>
+  </li>
+
+  <li class="c-nav-menu__item">
+    <a href="#" class="c-nav-menu__link js-menu-trigger" data-toggle="dropdown">
+      <span>Yatırımcı İlişkileri</span>
+      <svg class="icon c-nav-menu__icon">
+        <use xlink:href="#icon-chevron-down"></use>
+      </svg>
+    </a>
+    <ul class="c-nav-menu__submenu">
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/sirket-bilgileri" class="c-nav-menu__link">Şirket Bilgileri</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/kurumsal-yonetim" class="c-nav-menu__link">Kurumsal Yönetim</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/katilim-finans" class="c-nav-menu__link">Katılım Finans</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/ozel-durum-aciklamalari" class="c-nav-menu__link">Özel Durum Açıklamaları</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/genel-kurullar" class="c-nav-menu__link">Genel Kurullar</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/mali-bilgiler" class="c-nav-menu__link">Mali Bilgiler</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/yillik-faaliyet-raporlari" class="c-nav-menu__link">Yıllık Faaliyet Raporları</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/sermaye-artirimi" class="c-nav-menu__link">Sermaye Artırımı</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/yatirimci-sunumlari" class="c-nav-menu__link">Yatırımcı Sunumları</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/finansal-gostergeler" class="c-nav-menu__link">Finansal Göstergeler</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/hazir-beton-bolunme" class="c-nav-menu__link">Hazır Beton Bölünme</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/yatirimci-iliskileri/liman-isletmesi-bolunme" class="c-nav-menu__link">Liman İşletmesi Bölünme</a></li>
+          </ul>
+  </li>
+
+  <li class="c-nav-menu__item">
+    <a href="#" class="c-nav-menu__link js-menu-trigger" data-toggle="dropdown">
+      <span>Ürünler</span>
+      <svg class="icon c-nav-menu__icon">
+        <use xlink:href="#icon-chevron-down"></use>
+      </svg>
+    </a>
+    <ul class="c-nav-menu__submenu">
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/urunler/klinker" class="c-nav-menu__link">Klinker</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/urunler/cimento" class="c-nav-menu__link">Çimento</a></li>
+      <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/urunler/agrega" class="c-nav-menu__link">Agrega</a></li>
+    </ul>
+  </li>
+
+     <li class="c-nav-menu__item"> 
+    <a href="#" class="c-nav-menu__link js-menu-trigger" data-toggle="dropdown">
+      <span>Sürdürülebilirlik</span>
+      <svg class="icon c-nav-menu__icon">
+        <use xlink:href="#icon-chevron-down"></use>
+      </svg>
+    </a>
+    <ul class="c-nav-menu__submenu">
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/misyon_vizyon" 
+               target="_blank" class="c-nav-menu__link">
+               Vizyon &amp; Misyon &amp; Değerler
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/baskan_mesaji" 
+               target="_blank" class="c-nav-menu__link">
+               Yönetim Kurulu Başkanı&#039;nın Mesajı
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/etik_ilkeler" 
+               target="_blank" class="c-nav-menu__link">
+               Etik İlkeler
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/cevre" 
+               target="_blank" class="c-nav-menu__link">
+               Çevre
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/sosyal" 
+               target="_blank" class="c-nav-menu__link">
+               Sosyal
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/yonetisim" 
+               target="_blank" class="c-nav-menu__link">
+               Yönetişim
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/surdurulebilirlik_politikasi" 
+               target="_blank" class="c-nav-menu__link">
+               Sürdürülebilirlik Politikası
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/surdurulebilirlik_odaklari" 
+               target="_blank" class="c-nav_menu__link">
+               Sürdürülebilirlik Odakları
+            </a>
+        </li>
+        <li class="c-nav-menu__item">
+            <a style="font-size:0.95rem" 
+               href="https://www.batianadolu.com/surdurulebilirlik/surdurulebilirlik_raporlari" 
+               target="_blank" class="c-nav-menu__link">
+               Sürdürülebilirlik Raporları
+            </a>
+        </li>
+    </ul>
+</li>
+
+  <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/cevre" class="c-nav-menu__link">Çevre</a></li>
+
+  <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/ihracat" class="c-nav-menu__link">İhracat</a></li>
+
+  <li class="c-nav-menu__item">
+    <a href="#" class="c-nav-menu__link js-menu-trigger" data-toggle="dropdown">
+      <span>Online İşlemler</span>
+      <svg class="icon c-nav-menu__icon">
+        <use xlink:href="#icon-chevron-down"></use>
+      </svg>
+    </a>
+    <ul class="c-nav-menu__submenu ">
+      <li class="c-nav-menu__item"><a href="https://etedarik.batianadolu.com" target="_blank" class="c-nav-menu__link">Tedarikçi Portalı</a></li>
+      <li class="c-nav-menu__item"><a href="https://portal.batianadolu.com" target="_blank" class="c-nav-menu__link">Müşteri Portalı</a></li>
+    </ul>
+  </li>
+
+  <li class="c-nav-menu__item">
+    <a href="#" class="c-nav-menu__link js-menu-trigger" data-toggle="dropdown">
+      <span>İnsan Kaynakları</span>
+      <svg class="icon c-nav-menu__icon">
+        <use xlink:href="#icon-chevron-down"></use>
+      </svg>
+    </a>
+    <ul class="c-nav-menu__submenu ">
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/degerlerimiz" target="_blank" class="c-nav-menu__link">Değerlerimiz</a></li>
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/ik-politikamiz" target="_blank" class="c-nav-menu__link">İK Politikamız</a></li>
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/bati-anadoluda-kariyer" target="_blank" class="c-nav-menu__link">Batı Anadolu’da Kariyer</a></li>
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/staj-ve-ogrenci-programlari" target="_blank" class="c-nav-menu__link">Staj ve Öğrenci Programları</a></li>
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/bati-anadoluda-gelisim" target="_blank" class="c-nav-menu__link">Batı Anadolu’da Gelişim</a></li>
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/endustriyel-iliskiler" target="_blank" class="c-nav-menu__link">Endüstriyel İlişkiler</a></li>
+              <li class="c-nav-menu__item"><a href="https://batianadolu.com/insan-kaynaklari/bati-anadoluda-hayat" target="_blank" class="c-nav-menu__link">Batı Anadolu’da Hayat</a></li>
+            <li class="c-nav-menu__item"><a href="//www.batianadolu.com/insan-kaynaklari/kariyer" target="_blank" class="c-nav-menu__link">Batı Anadolu&#039;da Kariyer</a></li>
+    </ul>
+  </li>
+
+  <li class="c-nav-menu__item"><a href="https://www.baticim.com.tr/iletisim" class="c-nav-menu__link">İletişim</a></li>
+</ul>
+    </div>
+  </div>
+</div>
+
+                                                          <div class="c-jumbotron-slider js-slick-slider-full-width ">
+  <div class="c-jumbotron-slider__slides js-slick-slider-slides">
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/48b30e42ac5a960a913e3d9e61cadb8c20b51f0c.jpeg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">TİCARET UNVANI DEĞİŞİKLİĞİ DUYURUSU</h2>
+              
+        <span>  <p>Değerli Paydaşlarımız,<br />
+Grubumuzun s&uuml;rd&uuml;r&uuml;lebilir b&uuml;y&uuml;me vizyonu ve kurumsal yapısını g&uuml;&ccedil;lendirmek amacıyla y&uuml;r&uuml;tt&uuml;ğ&uuml;m&uuml;z birleşme s&uuml;reci kapsamında; grup şirketlerimizden<strong> Batı&ccedil;im Batı Anadolu &Ccedil;imento Sanayii A.Ş.</strong> unvanı <strong>&quot;Batı&ccedil;im Batı Anadolu Sanayi ve Ticaret A.Ş.&quot;</strong>,<strong> Batıs&ouml;ke S&ouml;ke &Ccedil;imento Sanayii T&uuml;rk A.Ş. </strong>unvanı ise <strong>&quot;Batı&ccedil;im &Ccedil;imento Sanayi A.Ş.&quot;</strong> olarak değiştirilmiştir. Tescil edilen yeni ticaret unvanlarımıza ilişkin resmi KAP bildirimini incelemek i&ccedil;in <a href="https://www.kap.org.tr/tr/Bildirim/1621202" target="_blank"><strong>tıklayınız...</strong></a></p>
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/14251503ffdc0ed59b04aa422c1e578fe2cc5969.jpeg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">Sürdürülebilirlik Raporu Yayında!</h2>
+              
+        <span>  <p>Rapora ulaşmak i&ccedil;in <a href="https://www.batianadolu.com/upload/pdf/bati_anadolu_surdurulebilirlik_raporu_2025.pdf" rel="noopener noreferrer" target="_blank">Tıklayınız...</a></p>
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/511c527075687ff1845128d6a4ec96d8bd1d288a.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">Batıçim (konsolide) ve Batısöke olarak, TSRS ile uyumlu ikinci sürdürülebilirlik raporlarımız yayında!</h2>
+              
+        <span>  <p><span style="font-size:12.0pt"><span style="font-family:&quot;Aptos&quot;,sans-serif">Rapora ulaşmak i&ccedil;in <a href="https://www.batianadolu.com/surdurulebilirlik/surdurulebilirlik_raporlari">tıklayın...</a></span></span></p>
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/c35d4be3740da7586f50a9fa59038a8bd8308656.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">ORGANİZASYONEL YAPILANMA HAKKINDA DUYURU</h2>
+              
+        <span>  <p>Değerli Yatırımcılarımız,<br />
+Bug&uuml;n, Şirketimizin k&ouml;kl&uuml; ge&ccedil;mişine yakışır bir vizyonla, geleceğimizi daha sağlam temeller &uuml;zerine kurmak adına &ouml;nemli kararlar aldık. &Uuml;retimden organizasyon yapısına, yatırım planlamasından işleyiş bi&ccedil;imimize kadar bir&ccedil;ok alanda bizi daha ileriye taşıyacak kapsamlı bir d&ouml;n&uuml;ş&uuml;m s&uuml;recine giriyoruz. Devamı i&ccedil;in&nbsp;<a href="https://drive.google.com/file/d/16en5rG6l9oWuxcJTrpF0od13wuQarO-z/view?usp=drive_link">tıklayınız...</a></p>
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/3f98baa54e09e42c3868a0b376df15c07444545a.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">çevre dostu projelerin çimentosu</h2>
+              
+        <span>  <p>Yoğun AR-GE &ccedil;alışmalarıyla geliştirdiğimiz inovatif &uuml;r&uuml;n&uuml;m&uuml;z ecoBATI CEM II C/M (L-W) 42,5 N, 2021 yılında Avrupa&rsquo;da y&uuml;r&uuml;rl&uuml;ğe giren EN 197-5 standardına uyumlu, yeni nesil &ccedil;imento &uuml;r&uuml;n&uuml;m&uuml;zd&uuml;r.</p>
+
+<p>&Uuml;r&uuml;n hakkında detaylı bilgi i&ccedil;in&nbsp;<a href="https://www.baticim.com.tr/ecobati">Tıklayınız...</a></p>
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/afad52310321d9a0fe93ab5e5e22d8f5a424ffc7.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">Ege’den Yükseldi, Türkiye ile Birlikte Büyüdü</h2>
+              
+        <span>  <p>Batı&ccedil;im, 50 yılı aşkın s&uuml;redir gerek yurti&ccedil;inde gerekse global pazarlarda m&uuml;şterilerine y&uuml;ksek kalitede g&uuml;venilir &uuml;r&uuml;nler sunmayı s&uuml;rd&uuml;rmektedir.</p>
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/240dd845fc51a711df0e113aa87585d5feeb6b5c.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">Bölge ve Ülke Ekonomisine Katma Değer Yaratıyoruz</h2>
+              
+        <span>  Sürdürülebilir üretim ve sorumlu sanayicilik ilkeleri ile faaliyet gösterdiği sektörlerde Türkiye’nin öncü firmaları arasına yeralan grup bölge ve ülke ekonomisine katkıda bulunmaya devam ediyor.
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+          <div class="c-jumbotron-slider__item">
+        <div class="c-jumbotron c-jumbotron--home" style="background-image: url(/uploads/images/general/ce0e81db4582a57e23cfdf890ac54276e5692a30.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">1966’den beri İdeolojimiz Güvenilir ve Yüksek Kaliteli Ürünler Sunmak</h2>
+              
+        <span>  30’dan fazla ülkeye ihracat yapan Batıçim, doğru insan kaynağını doğru işte değerlendirme felsefesi ile sektörde emin adımlarla yoluna devam etmektedir.
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-button c-button--primary  c-button--jumbotron">Batıçim Hakkında</a>
+              <a href="//www.batianadolu.com" target="_blank" class="c-button c-button--white u-gap-left@lg-up u-gap-top-small@md-down c-button--jumbotron">Batı Anadolu Şirketler Topluluğu&#039;nu Keşfedin</a>
+          </div>
+  </div>
+</div>      </div>
+      </div>
+  <div class="c-jumbotron-slider__dots container js-slick-slider-dots">
+  </div>
+</div>
+
+
+  <section class="u-pad-ends-3xlarge@lg-up u-pad-ends@md-down">
+    <div class="container">
+      <div class="row u-flex u-align-items-center">
+        <div class="col col--lg-6">
+          <img src="https://www.baticim.com.tr/media/cache/description_image/uploads/images/general/3239bd475d4e9dc24432284483c90bcb26ffee96.png" class="u-img-fluid">
+        </div>
+        <div class="col col--lg-6 u-gap-top-large@md-down">
+          <div class="c-quote">
+  <h3 class="c-quote__title">
+    Türkiye’nin geleceğine değer katıyor, dünyaya ilham veriyoruz!
+  </h3>
+  <p class="c-quote__description">
+    Ürettiğimiz iş gücü, yarattığımız katma değer ve gerçekleştirdiğimiz ihracatla yalnızca sürdürülebilir büyümenin bir parçası değil, onun itici gücü olmanın gururunu taşıyoruz. 50 yılı aşkın bir süredir, “önce kalite” anlayışımızla şekillendirdiğimiz doğa dostu, üstün nitelikli ürünlerimiz ve sektöre örnek olan hizmetlerimizle, Türk Çimento Endüstrisi’nin öncüsüyüz. Her ürünümüzde inovasyonun, doğaya duyulan saygının ve mükemmeliyet tutkusunun izlerini taşıyoruz. Ege Bölgesi’nin en büyük sanayi kuruluşlarından biri olarak, sadece ekonomik değil, sosyal ve kültürel alanlarda da gücümüzü hissettiriyoruz. Bugünü aydınlatan başarılarımızla, yarınlara ilham taşıyan bir yükseliş hikâyesi yazmaya devam edeceğiz.
+  </p>
+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <hr class="u-clear-gap-ends">
+
+  <section class="u-pad-top-3xlarge@lg-up u-pad-ends@md-down">
+    <div class="u-gap-bottom-large ">
+  <div class="container u-text-center">
+      <span class="u-block c-section-subtitle u-gap-bottom-2xsmall ">Batı Anadolu Şirketler Topluluğu</span>
+        <h3 class="h1 u-clear-gap-ends u-font-weight-semibold ">Ürünlerimiz</h3>
+      </div>
+</div>
+
+    <div class="container-fluid">
+      <div class="row row--small-gutter">
+        <div class="col col--lg-4">
+          <a href="https://www.baticim.com.tr/urunler/klinker" class="c-overlay-card ">
+  <div class="c-ratio c-ratio--1-1">
+    <img class="c-overlay-card__image c-ratio__element" src="/build/img/img-home-products-3.6f5fdc85.jpg">
+  </div>
+  <div class="c-overlay-card__body">
+    <h4 class="c-overlay-card__title">Klinker</h4>
+  </div>
+</a>
+        </div>
+        <div class="col col--lg-4 u-gap-top@md-down">
+          <a href="https://www.baticim.com.tr/urunler/cimento" class="c-overlay-card ">
+  <div class="c-ratio c-ratio--1-1">
+    <img class="c-overlay-card__image c-ratio__element" src="/build/img/img-home-products-1.0fcec075.jpg">
+  </div>
+  <div class="c-overlay-card__body">
+    <h4 class="c-overlay-card__title">Çimento</h4>
+  </div>
+</a>
+        </div>
+        <div class="col col--lg-4 u-gap-top@md-down">
+          <a href="https://www.baticim.com.tr/urunler/agrega" class="c-overlay-card ">
+  <div class="c-ratio c-ratio--1-1">
+    <img class="c-overlay-card__image c-ratio__element" src="/build/img/img-home-products-2.dad8e56e.jpg">
+  </div>
+  <div class="c-overlay-card__body">
+    <h4 class="c-overlay-card__title">Agrega</h4>
+  </div>
+</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="u-pad-ends-3xlarge@lg-up u-pad-ends@md-down">
+    <div class="u-gap-bottom-large ">
+  <div class="container u-text-center">
+      <span class="u-block c-section-subtitle u-gap-bottom-2xsmall ">Batıçim’den Dünya’ya</span>
+        <h3 class="h1 u-clear-gap-ends u-font-weight-semibold ">Batı Anadolu Şirketler Topluluğu</h3>
+        <p class=" u-font-size-medium">1966 yılından bu yana 30’dan fazla ülkeye klinker üreten bir firma olarak; ihracat alanında genişlemeye, büyümeye ve Türkiye ekonomisine değer katmaya devam ediyoruz. <a href="https://www.baticim.com.tr/ihracat">Daha fazla bilgi</a> için ihracat sayfamızı ziyaret edebilirsiniz.</p>
+    </div>
+</div>
+
+    <div class="container u-text-center u-gap-bottom-large">
+            <a class="c-link-primary-upper" href="mailto:export@baticim.com.tr">Bizimle İletişime Geçin&nbsp;<svg class="icon"><use xlink:href="#icon-arrow-right"></use></svg></a>
+    </div>
+
+    <div class="container">
+      <div class="c-world-map">
+        <img class="c-world-map__image" src="/build/img/worldmap.037431af.png">
+        <div class="c-world-map__points">
+          <div class="c-world-map__point" style="top:47%;left:27%;"></div>
+          <div class="c-world-map__point" style="top:56%;left:31%;"></div>
+          <div class="c-world-map__point" style="top:64%;left:31%;"></div>
+          <div class="c-world-map__point" style="top:71%;left:35%;"></div>
+          <div class="c-world-map__point" style="top:64%;left:52%;"></div>
+          <div class="c-world-map__point" style="top:52%;left:54%;"></div>
+          <div class="c-world-map__point" style="top:58%;left:46%;"></div>
+          <div class="c-world-map__point" style="top:35%;left:52%;"></div>
+          <div class="c-world-map__point" style="top:39%;left:47%;"></div>
+        </div>
+        <div class="c-world-map__layer u-gap-top">
+          <div class="row">
+            <div class="col col--lg-4 col--offset-lg-2">
+              <span class="c-highlight-title">
+  4 Farklı Kıta
+</span>
+            </div>
+            <div class="col col--lg-4 u-gap-top@md-down">
+              <span class="c-highlight-title">
+  30&#039;dan Fazla Ülkeye İhracat
+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
+  <section class="u-pad-ends-3xlarge@lg-up u-pad-ends@md-down">
+    <div class="u-gap-bottom-large ">
+  <div class="container u-text-center">
+      <span class="u-block c-section-subtitle u-gap-bottom-2xsmall ">Batı Anadolu Şirketler Topluluğu</span>
+        <h3 class="h1 u-clear-gap-ends u-font-weight-semibold ">Batı Anadolu’da Hayat</h3>
+      </div>
+</div>
+    <div class="container">
+      <div class="row">
+        <div class="col col--xl-6 col--lg-12 u-flex u-flex-column u-gap-bottom@lg-down">
+                                  <div class="c-card ">
+  <a href=http://batianadoluhayatdolu.com target="_blank" class="c-card__image c-ratio c-ratio--1-1">
+    <img src="https://www.baticim.com.tr/media/cache/card_4/uploads/images/general/bati-anadolu-hayat-dolu_5c769b79e35c0.png" class="c-ratio__element">
+  </a>
+  <hr class="u-clear-gap-ends">
+  <div class="c-card__body u-flex u-align-items-center@lg-up u-flex-column@lg-down u-pad-sides-small u-pad-ends-xsmall">
+    <div class="c-card__heading">
+      <h3 class="c-card__title">
+        <a href=http://batianadoluhayatdolu.com target="_blank" class="c-card__title-link c-link-tertiary">Batı Anadolu Hayat Dolu</a>
+      </h3>
+      <p class="c-card__content">Batı Anadolu’nun renkli dünyasını keşfedin.</p>
+    </div>
+    <div class="c-card__options u-gap-left-auto@lg-up u-gap-top@md-down u-flex u-align-items-center">
+      <a href=http://batianadoluhayatdolu.com target="_blank" class="c-link-primary-upper">
+        <span>Detaylar</span>
+        <svg class="icon u-gap-left-2xsmall">
+          <use xlink:href="#icon-arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+                  </div>
+        <div class="col col--xl-6 col--lg-12 u-flex u-flex-column">
+          <div class="row u-flex-grow-full">
+                          <div class="col col--xl-12 col--lg-6 col--md-12 u-flex ">
+                <div class="c-card c-card--horizontal u-flex u-flex-column-reverse@md-down ">
+  <div class="c-card__body c-card__body--flex u-pad-sides-small u-pad-ends-xsmall">
+    <div class="c-card__heading">
+      <h3 class="h3 c-card__title">
+        <a href=https://www.batianadolu.com/insan-kaynaklari/degerlerimiz target="_blank" class="c-card__title-link c-link-tertiary">Batı Anadolu&#039;da Kariyer</a>
+      </h3>
+      <p class="c-card__content u-gap-top-xsmall">Başvurabileceğiniz aktif iş ilanlarımıza ulaşın.</p>
+      <a href=https://www.batianadolu.com/insan-kaynaklari/degerlerimiz target="_blank" class="u-inline-block c-link-primary-upper u-gap-top">
+        <span>Detaylar</span>
+        <svg class="icon u-gap-left-xsmall">
+          <use xlink:href="#icon-arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="c-card__image-container u-flex-no-shrink">
+    <a href=https://www.batianadolu.com/insan-kaynaklari/degerlerimiz target="_blank" class="c-card__image c-ratio c-ratio--vertical c-ratio--4-5">
+      <img src="https://www.baticim.com.tr/media/cache/card_3/uploads/images/general/bati-anadoluda-kariyer_5c764952dc458.png" class="c-ratio__element">
+    </a>
+  </div>
+</div>
+              </div>
+                      </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="c-jumbotron c-jumbotron--footer" style="background-image: url(/build/img/img-home-footer-jumbotron.54c9e497.jpg)">
+  <div class="c-jumbotron__container container">
+    <div class="c-jumbotron__caption">
+            <h2 class="c-jumbotron__title">Kurumsal Sosyal Sorumluluk Faaliyetlerimiz</h2>
+              
+        <span>  Sosyal sanayicilik bilinci ile toplumsal sorumluluklarımızı ön planda tutarak Türkiye’nin geleceğine değer katmak için çalışıyoruz.
+     </span>
+          </div>
+    <div class="c-jumbotron__buttons">
+              <a href="https://www.batianadoluhayatdolu.com/" target="_blank" class="c-button c-button--white  c-button--jumbotron">Renkli Dünyamızı Keşfedin</a>
+          </div>
+  </div>
+</div>
+  </div>
+  <div class="o-wrapper__footer">
+    <footer class="u-bg-silhouette">
+  <hr class="u-clear-gap-top" />
+  <div class="container">
+    <div class="row u-gap-ends-large u-flex u-align-items-center">
+      <div class="col col--lg-2 u-gap-bottom-small@md-down">
+        <a href="https://www.baticim.com.tr/"><img src="/build/img/logo.35d13aa4.svg" width="95" alt="Batı Anadolu"/></a>
+      </div>
+      <div class="col col--lg-10">
+        <p class="u-clear-gap u-font-size-small">
+          1966 yılında, %100 Türk sermayesi ile kurulan Batı Anadolu Çimento Sanayii A.Ş., bugün Türk Çimento Endüstrisi’nin güçlü işletmelerini çatısı altında bulunduran Batı Anadolu Şirketler Topluluğu’nda yoluna devam ediyor.
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row">
+      <div class="col col--lg-2 col--sm-6">
+        <div class="">
+  <h3 class="c-footer-menu-heading u-gap-bottom-small">Kurumsal</h3>
+  <ul class="c-footer-menu" aria-label="Kurumsal">
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/kurumsal/hakkimizda" target="_self" class="c-footer-menu__link">Hakkımızda</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yonetim-kurulu" target="_self" class="c-footer-menu__link">Yönetim Kurulu</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yasal-bilgiler" target="_self" class="c-footer-menu__link">Yasal Bilgiler</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://e-sirket.mkk.com.tr/esir/Dashboard.jsp#/sirketbilgileri/10172" target="_blank" class="c-footer-menu__link">Bilgi Toplumu Hizmetleri</a>
+      </li>
+      </ul>
+</div>
+      </div>
+      <div class="col col--lg-2 col--sm-6 u-gap-top@md-down">
+        <div class="">
+  <h3 class="c-footer-menu-heading u-gap-bottom-small">Yatırımcı İlişkileri</h3>
+  <ul class="c-footer-menu" aria-label="Yatırımcı İlişkileri">
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/sirket-bilgileri" target="_self" class="c-footer-menu__link">Şirket Bilgileri</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/kurumsal-yonetim" target="_self" class="c-footer-menu__link">Kurumsal Yönetim</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/katilim-finans" target="_self" class="c-footer-menu__link">Katılım Finans</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/ozel-durum-aciklamalari" target="_self" class="c-footer-menu__link">Özel Durum Açıklamaları</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/genel-kurullar" target="_self" class="c-footer-menu__link">Genel Kurullar</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/mali-bilgiler" target="_self" class="c-footer-menu__link">Mali Bilgiler</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/yillik-faaliyet-raporlari" target="_self" class="c-footer-menu__link">Yıllık Faaliyet Raporları</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/sermaye-artirimi" target="_self" class="c-footer-menu__link">Sermaye Artırımı</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/yatirimci-sunumlari" target="_self" class="c-footer-menu__link">Yatırımcı Sunumları</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/finansal-gostergeler" target="_self" class="c-footer-menu__link">Finansal Göstergeler</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/hazir-beton-bolunme" target="_self" class="c-footer-menu__link">Hazır Beton Bölünme</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/yatirimci-iliskileri/liman-isletmesi-bolunme" target="_self" class="c-footer-menu__link">Liman İşletmesi Bölünme</a>
+      </li>
+      </ul>
+</div>
+      </div>
+      <div class="col col--lg-2 col--sm-6 u-gap-top@md-down">
+        <div class="">
+  <h3 class="c-footer-menu-heading u-gap-bottom-small">Ürünler</h3>
+  <ul class="c-footer-menu" aria-label="Ürünler">
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/urunler/klinker" target="_self" class="c-footer-menu__link">Klinker</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/urunler/cimento" target="_self" class="c-footer-menu__link">Çimento</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://www.baticim.com.tr/urunler/agrega" target="_self" class="c-footer-menu__link">Agrega</a>
+      </li>
+      </ul>
+</div>
+      </div>
+      <div class="col col--lg-2 col--sm-6 u-gap-top@md-down">
+        <div class="">
+  <h3 class="c-footer-menu-heading u-gap-bottom-small">Online İşlemler</h3>
+  <ul class="c-footer-menu" aria-label="Online İşlemler">
+          <li class="c-footer-menu__item">
+        <a href="https://etedarik.batianadolu.com" target="_blank" class="c-footer-menu__link">Tedarikçi Portalı</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://portal.batianadolu.com" target="_blank" class="c-footer-menu__link">Müşteri Portalı</a>
+      </li>
+      </ul>
+</div>
+      </div>
+      <div class="col col--lg-2 col--sm-6 u-gap-top@md-down">
+                                                                                                                                                              <div class="">
+  <h3 class="c-footer-menu-heading u-gap-bottom-small">İnsan Kaynakları</h3>
+  <ul class="c-footer-menu" aria-label="İnsan Kaynakları">
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/degerlerimiz" target="_blank" class="c-footer-menu__link">Değerlerimiz</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/ik-politikamiz" target="_blank" class="c-footer-menu__link">İK Politikamız</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/bati-anadoluda-kariyer" target="_blank" class="c-footer-menu__link">Batı Anadolu’da Kariyer</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/staj-ve-ogrenci-programlari" target="_blank" class="c-footer-menu__link">Staj ve Öğrenci Programları</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/bati-anadoluda-gelisim" target="_blank" class="c-footer-menu__link">Batı Anadolu’da Gelişim</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/endustriyel-iliskiler" target="_blank" class="c-footer-menu__link">Endüstriyel İlişkiler</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="https://batianadolu.com/insan-kaynaklari/bati-anadoluda-hayat" target="_blank" class="c-footer-menu__link">Batı Anadolu’da Hayat</a>
+      </li>
+          <li class="c-footer-menu__item">
+        <a href="//www.batianadolu.com/insan-kaynaklari/kariyer" target="_blank" class="c-footer-menu__link">Batı Anadolu&#039;da Kariyer</a>
+      </li>
+      </ul>
+</div>
+      </div>
+      <div class="col col--lg-2 col--sm-6 u-gap-top@md-down">
+        <ul class="c-footer-menu">
+          <li class="c-footer-menu__item">
+            <a href="https://www.baticim.com.tr/cevre" class="c-footer-menu__link"><h3 class="c-footer-menu-heading">Çevre</h3></a>
+          </li>
+          <li class="c-footer-menu__item">
+            <a href="https://www.baticim.com.tr/ihracat" class="c-footer-menu__link"><h3 class="c-footer-menu-heading">İhracat</h3></a>
+          </li>
+          <li class="c-footer-menu__item">
+            <a href="https://www.baticim.com.tr/iletisim" class="c-footer-menu__link"><h3 class="c-footer-menu-heading">İletişim</h3>
+          </li>
+        </ul>
+
+        <div class="u-gap-top">
+          <a href="//www.instagram.com/batianadolusirketlertoplulugu" target="_blank" class="u-inline-flex u-align-items-center u-bg-primary u-color-white u-circle u-pad-2xsmall u-gap-right-2xsmall">
+            <svg class="icon"><use xlink:href="#icon-instagram"></use></svg>
+          </a>
+          <a href="//www.linkedin.com/company/bati-im-bat-anadolu-company/" target="_blank" class="u-inline-flex u-align-items-center u-bg-primary u-color-white u-circle u-pad-2xsmall u-gap-right-2xsmall">
+            <svg class="icon"><use xlink:href="#icon-linkedin"></use></svg>
+          </a>
+          <a href="//facebook.com/baticim/" target="_blank" class="u-inline-flex u-align-items-center u-bg-primary u-color-white u-circle u-pad-2xsmall u-gap-right-2xsmall">
+            <svg class="icon"><use xlink:href="#icon-facebook"></use></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+</div>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54BFXQG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18358948-80"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-18358948-80');
+</script>
+<script>
+    // Ana sayfada her seferinde gösterilecek
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sayfa URL'sini kontrol et - sadece ana sayfada göster
+        var isHomePage = window.location.pathname === '/' || 
+                         window.location.pathname === '/tr' || 
+                         window.location.pathname === '/tr/';
+        
+        var imagePopup = document.getElementById('imagePopup');
+        var overlay = document.querySelector('.popup-overlay');
+        var closeBtn = document.querySelector('.close-btn');
+        
+        // Sadece ana sayfadaysak her seferinde göster
+        if (isHomePage) {
+            imagePopup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+        
+        // Close popup when clicking the close button
+        closeBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            imagePopup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+        
+        // Close popup when clicking outside
+        overlay.addEventListener('click', function() {
+            imagePopup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    });
+</script>
+
+<script>
+(function() {
+  function initModal() {
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    if (span) {
+      span.onclick = function() {
+        if (modal) modal.style.display = "none";
+      };
+    }
+    if (modal) {
+      window.addEventListener('click', function(event) {
+        if (event.target === modal) modal.style.display = "none";
+      });
+    }
+  }
+  function initVideoPopup() {
+    var popup = document.getElementById('videoPopup');
+    var closeBtn = document.getElementById('closeBtn');
+    if (popup) popup.style.display = "block";
+    function closePopup() {
+      if (popup) popup.style.display = "none";
+    }
+    document.addEventListener('click', function(event) {
+      if (popup && (event.target === popup || event.target === closeBtn)) {
+        popup.style.display = 'none';
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initModal();
+      initVideoPopup();
+    });
+  } else {
+    initModal();
+    initVideoPopup();
+  }
+})();
+</script>
+
+<!-- Javascript Files -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="vendors/jquery.min.js?v2.1.3"><\/script>')</script>
+<script src="/build/js/scripts.d5c36d4c.js"></script>
+ <script>
+        // get the popup and close button elements
+        var popup = document.getElementById('videoPopup');
+        popup.style.display = "block"
+        var closeBtn = document.getElementById('closeBtn');
+        function closePopup() {
+            popup.style.display = "none";
+        }
+        // add a click event listener to the document
+        document.addEventListener('click', function (event) {
+            // check if the click happened outside of the popup container or the close button
+            if (event.target == popup || event.target == closeBtn) {
+                popup.style.display = 'none';
+            }
+        });
+
+
+    </script>
+</body>
+</html>
