@@ -25,13 +25,20 @@ SIRKETLER = {
     "LMKDC": "8acae2c58b2fa64e018d8cfe461558d3",
     "NUHCM": "4028e4a141558bdd014156053d9f04b2",
     "OYAKC": "4028e4a140f2ed720140f32377aa016c",
+    "A1CAP": "4028e4a1416e696301416f37201c5f2e",
+    "GEDIK": "4028e4a140e95bea0140ee1edd700174",
+    "GLBMD": "4028e4a140e95bea0140ee21b10d0188",
+    "INFO": "4028e4a2416e696c01416edd30ca3148",
+    "OSMEN": "4028e4a240ee37a30140ee408ef80002",
+    "OYYAT": "4028e4a14158e41f01415a5e854d4441",
+    "TERA": "4028e4a141733b56014178115f7e51e7",
 }
 ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|sermaye|geri alım|birleşme|devral|satın al|kapasite|genel müdür|finansal takvim|beklenti|yeni iş|teşvik|dava|derecelendirme|ortaklık yapısı|pay satış|bedelsiz|bedelli", re.I)
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
 TOKEN = os.environ.get("TELEGRAM_TOKEN", "").strip()
 
 # Rutin bildirimler: Telegram'a "Bildirim" olarak gider, özet kuyruğuna girmez
-RUTIN = {"ISMEN": re.compile(r"varant|sertifika|piyasa yapıcılı", re.I)}
+RUTIN = {t: re.compile(r"varant|sertifika|piyasa yapıcılı|ihraç belgesi|borçlanma aracı|faiz oranı|kupon", re.I) for t in ("ISMEN", "A1CAP", "GEDIK", "GLBMD", "INFO", "OSMEN", "OYYAT", "TERA")}
 AD = {"ISMEN": re.compile(r"İş Yatırım|IS YATIRIM|İŞ YATIRIM", re.I)}
 
 def http(url, data=None, headers=None):
