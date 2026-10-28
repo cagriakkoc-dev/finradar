@@ -118,8 +118,9 @@
 #oyak_tcclogo.png|https://www.oyakcimento.com/tcclogo.png
 #oyak_og.jpg|https://assets.oyakcimento.com/contents/jpg/202220/79991642760618673628.jpg
 #oyak_en.html|https://www.oyakcimento.com/en
-oyak_hakkimizda.html|https://www.oyakcimento.com/tr/hakkimizda
-oyak_kk1.html|https://www.oyakcimento.com/tr/kurumsal-kimlik
-oyak_kk2.html|https://www.oyakcimento.com/tr/hakkimizda/kurumsal-kimlik
-oyak_haberler.html|https://www.oyakcimento.com/tr/haberler
-oyak_css.css|https://www.oyakcimento.com/css/style.css
+#oyak_hakkimizda.html|https://www.oyakcimento.com/tr/hakkimizda
+#oyak_kk1.html|https://www.oyakcimento.com/tr/kurumsal-kimlik
+#oyak_kk2.html|https://www.oyakcimento.com/tr/hakkimizda/kurumsal-kimlik
+#oyak_haberler.html|https://www.oyakcimento.com/tr/haberler
+#oyak_css.css|https://www.oyakcimento.com/css/style.css
+oyak_kimlik.pdf|https://assets.oyakcimento.com/contents/pdf/202225/80071643201972797822.pdf
