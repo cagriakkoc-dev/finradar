@@ -171,6 +171,7 @@
 #kapco_osmen.html|https://www.kap.org.tr/tr/sirket-bilgileri/genel/4028e4a240ee37a30140ee408ef80002
 #kapco_glbmd.html|https://www.kap.org.tr/tr/sirket-bilgileri/genel/4028e4a140e95bea0140ee21b10d0188
 #kapco_info.html|https://www.kap.org.tr/tr/sirket-bilgileri/ozet/1489-info-yatirim-menkul-degerler-a-s
-kapb_skymd.html|https://www.kap.org.tr/tr/Bildirim/1222124
-kapb_info1.html|https://www.kap.org.tr/tr/Bildirim/1657805
-kapb_info2.html|https://www.kap.org.tr/tr/Bildirim/1634025
+#kapb_skymd.html|https://www.kap.org.tr/tr/Bildirim/1222124
+#kapb_info1.html|https://www.kap.org.tr/tr/Bildirim/1657805
+#kapb_info2.html|https://www.kap.org.tr/tr/Bildirim/1634025
+isy_aksa.json|https://www.isyatirim.com.tr/_layouts/15/IsYatirim.Website/Common/Data.aspx/MaliTablo?companyCode=AKSA&exchange=TRY&financialGroup=XI_29&year1=2026&period1=6&year2=2026&period2=3&year3=2025&period3=12&year4=2025&period4=9
