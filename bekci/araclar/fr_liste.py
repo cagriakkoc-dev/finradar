@@ -25,5 +25,9 @@ for parca in filter(None, os.environ.get("FR", "").split(";;")):
             except Exception as e: print(t, a, "hata", repr(e)[:120]); time.sleep(5)
         time.sleep(0.5)
     if not L: print(t, "boş liste, yazılmadı"); continue
-    json.dump(L, open(os.path.join(OUT, f"fr_{t}.json"), "w"), ensure_ascii=False)
+    f = os.path.join(OUT, f"fr_{t}.json")
+    if os.path.exists(f):  # önceki çekimle birleştir (zaman aşımı boşlukları sonraki çekimde dolar)
+        L += json.load(open(f))
+    L = list({x["disclosureIndex"]: x for x in L}.values())
+    json.dump(L, open(f, "w"), ensure_ascii=False)
     print(t, len(L))
