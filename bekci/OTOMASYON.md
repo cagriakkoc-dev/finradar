@@ -42,9 +42,10 @@ X kısmı ikili seri düzeninde: `"social": {"mode": "ikili", "tweets": [...]}`.
 
 ## 3. Bitiş
 - `bekci/kuyruk.json`: işlenen kayıtların "durum"unu "hazir" yap (+ "hazir_zaman").
-- `bekci/bildirimler.json` listesine ekle: "<HİSSE> · <başlık> özeti hazır · https://sonar.smartcuzdan.io/#haber-<hisse küçük>-<id>" (dönem özeti için `#ozet-<hisse küçük>`). Bekçi bir sonraki çalışmada Telegram'a yollar.
+- `bekci/bildirimler.json` listesine ekle: "<HİSSE> · <başlık> özeti hazır (gizli, panelden düzeltip yayına al) · https://sonar.smartcuzdan.io/yonetim.html#haber-<hisse küçük>-<id>" (dönem özeti için `#ozet-<hisse küçük>`). Bekçi bir sonraki çalışmada Telegram'a yollar.
 - `$HOME/fr-site`: index.html değişikliğini commit + `git pull --rebase` + push (yayın otomatik, 1-2 dk).
 - `$HOME/fr-oto`: kuyruk.json ve bildirimler.json değişikliğini commit (mesaja `[skip render]` ekle) + `git pull --rebase` + push.
+- `site.py ekle-haber/ekle-ozet` yeni içeriği **gizli** ekler (`"gizli": true`); Cagri panelde düzeltip "Yayına al" der. Var olan içeriği güncellerken mevcut durum korunur. Sen yayına alma.
 - Taslaklar (X, Substack) açık sitede görünmez; Cagri onları https://sonar.smartcuzdan.io/yonetim.html panelinden görür.
 - İçeriği iCloud'a da kaydet: `$HOME/mnt/sonar/icerik/<HİSSE>/<YYYY-Qn veya haber-<id>>/x-zinciri.txt` (dönem özetinde "Seri n / Ana tweet / Yanıt" başlıklarıyla).
 
