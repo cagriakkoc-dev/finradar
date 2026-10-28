@@ -124,9 +124,10 @@
   "tarih": "28.10.2026 13:38:19",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html"
-  ]
+  ],
+  "hazir_zaman": "28.10.2026 14:25:41"
  }
 ]
