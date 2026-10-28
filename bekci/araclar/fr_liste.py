@@ -18,7 +18,9 @@ for parca in filter(None, os.environ.get("FR", "").split(";;")):
     for y in range(2021, datetime.date.today().year + 1):
         for a_, b_ in (("02-01", "03-18"), ("03-19", "05-04"), ("05-05", "06-20"), ("07-15", "08-31"), ("10-10", "11-25")):
             a, b = datetime.date.fromisoformat(f"{y}-{a_}"), datetime.date.fromisoformat(f"{y}-{b_}")
-            if a < datetime.date.today(): W.append((a.isoformat(), min(b, datetime.date.today()).isoformat()))
+            while a < min(b, datetime.date.today()):  # çok bildirimli şirketlerde API sonuç sınırına takılmamak için ~16 günlük parçalar
+                e = min(a + datetime.timedelta(days=15), b, datetime.date.today())
+                W.append((a.isoformat(), e.isoformat())); a = e + datetime.timedelta(days=1)
     for a, b in W:
         for k in range(3):
             try: L += [x for x in kap(oid, a, b) if x.get('disclosureClass') == 'FR']; break
