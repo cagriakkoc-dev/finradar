@@ -9,11 +9,11 @@ permissions:
 jobs:
   cek:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
-      - run: python3 bekci/araclar/url_metin.py
+      - run: timeout 38m python3 -u bekci/araclar/url_metin.py || true
       - run: |
           git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
           git add bekci/metin

@@ -13,7 +13,7 @@ for u in open(os.path.join(B, 'istek', 'metin_url.txt')):
         continue
     try:
         q = urllib.parse.quote(u, safe=':/?&=%#~+,;@!$\'()*')
-        b = urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=120).read()
+        b = urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=60).read()
         k = b.find(b'%PDF', 0, 400)
         if k > 0: b = b[k:]
         if b[:4] != b'%PDF':
