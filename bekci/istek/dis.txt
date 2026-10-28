@@ -153,3 +153,4 @@
 kap_test.html|https://www.kap.org.tr/tr/Bildirim/1688363
 tupras_yat.html|https://www.tupras.com.tr/yatirimci-iliskileri
 tupras_fin.html|https://www.tupras.com.tr/finansal-raporlar
+tupras_2606.pdf|https://www.tupras.com.tr/assets/uploads/finansal-rapor/tupras-konsolide-spk-30062026.pdf
