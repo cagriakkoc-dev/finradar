@@ -140,5 +140,11 @@
 #tc_aylik.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&filter=%7B%22category%22%3A%7B%22_eq%22%3A%22aylik-veriler%22%7D%7D
 #tc_veriler.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&filter=%7B%22category%22%3A%7B%22_eq%22%3A%22veriler%22%7D%7D
 #tc_satis2025.bin|https://www.turkcimento.org.tr/api/public/files/7db4f410-08f2-4eef-90b7-6de9653f76b3/raw
-tc_o100.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&offset=100
-tc_o200.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&offset=200
+#tc_o100.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&offset=100
+#tc_o200.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&offset=200
+tc_aylik_2021.bin|https://www.turkcimento.org.tr/api/public/files/f33ff9a4-0c0b-4f10-8bf4-daeeeb311a61/raw
+tc_aylik_2022.bin|https://www.turkcimento.org.tr/api/public/files/5efaad7e-a8fe-4a08-9e3f-47ad495bb167/raw
+tc_aylik_2023.bin|https://www.turkcimento.org.tr/api/public/files/9f75ea9a-81f4-4969-9b3b-9403543406ae/raw
+tc_aylik_2024.bin|https://www.turkcimento.org.tr/api/public/files/7e17cf2e-ee1a-4c76-ba3d-e9230a138313/raw
+tc_aylik_2025.bin|https://www.turkcimento.org.tr/api/public/files/57989e9c-5668-4523-8ca0-62709cbf1e26/raw
+tc_aylik_2026.bin|https://www.turkcimento.org.tr/api/public/files/ae93cef2-7ab6-40c4-bbf2-1f29ee9e94ba/raw
