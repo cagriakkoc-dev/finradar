@@ -148,5 +148,8 @@
 #tc_aylik_2024.bin|https://www.turkcimento.org.tr/api/public/files/7e17cf2e-ee1a-4c76-ba3d-e9230a138313/raw
 #tc_aylik_2025.bin|https://www.turkcimento.org.tr/api/public/files/57989e9c-5668-4523-8ca0-62709cbf1e26/raw
 #tc_aylik_2026.bin|https://www.turkcimento.org.tr/api/public/files/ae93cef2-7ab6-40c4-bbf2-1f29ee9e94ba/raw
-thbb_2609_g1.png|https://www.thbb.org/media/1027828/grafik-1-web.png
-thbb_2609_g2.png|https://www.thbb.org/media/1027829/grafik-2-web.png
+#thbb_2609_g1.png|https://www.thbb.org/media/1027828/grafik-1-web.png
+#thbb_2609_g2.png|https://www.thbb.org/media/1027829/grafik-2-web.png
+kap_test.html|https://www.kap.org.tr/tr/Bildirim/1688363
+tupras_yat.html|https://www.tupras.com.tr/yatirimci-iliskileri
+tupras_fin.html|https://www.tupras.com.tr/finansal-raporlar
