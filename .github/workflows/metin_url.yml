@@ -1,0 +1,20 @@
+name: PDF metni (URL listesi)
+# bekci/istek/metin_url.txt değişince listedeki PDF'lerin sayfa metinleri bekci/metin/u_*.json olarak eklenir.
+on:
+  push:
+    paths: ['bekci/istek/metin_url.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - run: python3 bekci/araclar/url_metin.py
+      - run: |
+          git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
+          git add bekci/metin
+          git diff --cached --quiet || (git commit -q -m "PDF metni (URL) [skip render]" && for n in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done)
