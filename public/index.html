@@ -413,6 +413,14 @@ const COS=DATA.companies, BY=Object.fromEntries(COS.map(c=>[c.t,c]));
 const INS=c=>!!(c&&c.ins);const PEERN={ANHYT:'Anadolu Hayat',AGESA:'AgeSA'};const NUMTR=n=>['Sıfır','Bir','İki','Üç','Dört','Beş','Altı','Yedi','Sekiz','Dokuz','On'][n]||String(n);
 /* dönem özetleri arşivi: c.summaries (eski→yeni); c.summary = gösterilen (varsayılan en yeni) */
 COS.forEach(c=>{if(!c.summaries)c.summaries=c.summary?[c.summary]:[];c.summaries.sort((a,b)=>a.p<b.p?-1:1);c.summary=c.summaries[c.summaries.length-1]||null});
+/* kırılım: gelir ve kâr görünümleri — eksik olanlar gelir tablosundan türetilir (tek çeyrek) */
+const MIXG=['revenue','segment_revenue','operating_revenue','operating_revenue_detail','rent','calc_gelir'],MIXK=['adjusted_segment_ebitda','segment_gross_profit','segment_operating_profit','segment_net_profit','property_revaluation','calc_kar','calc_teknik'];
+COS.forEach(c=>{c.mix=c.mix||[];const q=(m,p)=>{const cl=c.fin[m]?.[p];return cl?.q??null};const add=(meas,g,p)=>{if(Object.values(g).some(v=>v!=null))c.mix.push({p,k:'q',meas,g:Object.fromEntries(Object.entries(g).filter(([,v])=>v!=null)),u:'TRY',calc:1})};
+  c.periods.forEach(p=>{
+    if(c.fin.revenue&&c.fin.cost_of_sales&&c.fin.gross_profit&&c.fin.operating_profit){const r=q('revenue',p),cs=q('cost_of_sales',p),gp=q('gross_profit',p),op=q('operating_profit',p);
+      if(r!=null&&cs!=null&&gp!=null&&op!=null)add('calc_kar',{'Esas faaliyet kârı':op,'Faaliyet giderleri (net)':gp-op},p)}
+    if(c.fin.life_technical_profit){add('calc_teknik',{'Hayat teknik kârı':q('life_technical_profit',p),'Emeklilik teknik kârı':q('pension_technical_profit',p),'Yatırım gelirleri (teknik olmayan)':q('investment_income',p)},p);
+      if(!c.mix.some(m=>MIXG.includes(m.meas)&&!m.calc))add('calc_gelir',{'Net kazanılmış prim':q('net_earned_premiums',p),'Yatırım gelirleri':q('investment_income',p)},p)}})});
 function setSum(c,p){c.summary=(p&&c.summaries.find(s=>s.p===p))||c.summaries[c.summaries.length-1]||null;return c.summary}
 const tip=$('#tip');
 function showTip(e,html){tip.innerHTML=html;tip.hidden=false;const w=tip.offsetWidth,h=tip.offsetHeight;tip.style.left=Math.max(8,Math.min(e.clientX+14,innerWidth-w-8))+'px';tip.style.top=Math.max(8,Math.min(e.clientY+14,innerHeight-h-8))+'px'}
@@ -622,7 +630,7 @@ function groupedChart0(el,c,m,bal,years){
 }
 function bridgeHTML(c){
   const P=c.periods;if(!state.br)state.br={};if(!state.br[c.t]||!P.includes(state.br[c.t].p))state.br[c.t]={p:P[P.length-1],m:'q',z:c.t==='ISMEN'};const b=state.br[c.t];
-  return `<div class="panel s12" id="bridge"><div class="ph"><h2>Net kâra köprü</h2><div class="controls" role="group" aria-label="Köprü dönemi">
+  return `<div class="panel s12" id="bridge"><div class="ph"><h2>Net Kâr Köprüsü</h2><div class="controls" role="group" aria-label="Köprü dönemi">
    <button class="chip" data-bm="q" aria-pressed="${b.m==='q'}">Tek çeyrek</button><button class="chip" data-bm="ytd" aria-pressed="${b.m==='ytd'}">Yılbaşından birikimli</button>${INS(c)?'':`<button class="chip" id="brz" aria-pressed="${!!b.z}" title="Hasılat ve maliyeti gizleyip brüt kârdan başlar">Brüt kârdan başlat</button>`}
    <button class="chip" id="brprev" aria-label="Önceki dönem">◀</button><select id="brsel" aria-label="Dönem">${P.slice().reverse().map(p=>`<option value="${p}" ${p===b.p?'selected':''}>${QL(p)}</option>`).join('')}</select><button class="chip" id="brnext" aria-label="Sonraki dönem">▶</button></div></div>
    <div class="chart" id="brchart"></div><div class="tw" id="brtable"></div><p class="note" id="brnote"></p></div>`;
@@ -659,7 +667,7 @@ function renderBridge(c){
   const ext=bars.flatMap(x=>[x.y0,x.y1]);const tk=niceTicks(Math.min(0,...ext),Math.max(0,...ext),5);const t0=tk[0],t1=tk[tk.length-1];
   const W=Math.max(320,el.clientWidth||900),H=340,ml=62,mr=10,mt=40,mb=58;const y=v=>mt+(t1-v)/(t1-t0)*(H-mt-mb);const bw=(W-ml-mr)/bars.length;
   const col=x=>x.t==='total'?'var(--co-ui)':x.t==='sub'?'color-mix(in srgb,var(--co-ui) 55%,var(--panel2))':x.v>=0?'var(--up)':'var(--down)';
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Net kâra köprü grafiği">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Net Kâr Köprüsü grafiği">`;
   tk.forEach(t=>{s+=`<line class="gridline" x1="${ml}" x2="${W-mr}" y1="${y(t)}" y2="${y(t)}"/><g class="axis"><text x="${ml-8}" y="${y(t)+4}" text-anchor="end">${esc(fmtC(t))}</text></g>`});
   s+=`<line x1="${ml}" x2="${W-mr}" y1="${y(0)}" y2="${y(0)}" stroke="var(--muted)"/>`;
   bars.forEach((x,j)=>{const bx=ml+j*bw+bw*.14,w=bw*.72;const top=Math.min(y(x.y0),y(x.y1)),h=Math.max(1.5,Math.abs(y(x.y1)-y(x.y0)));
@@ -742,16 +750,27 @@ function divPriceChart(el,c){
 function divHTML(c){
   const D=c.div||[];if(!D.length)return '';
   return `<div class="panel s5"><div class="ph"><h2>Temettü</h2><span class="sub">Ödeme yılına göre brüt pay başı tutar (sütun) ve verime esas fiyat: bir önceki yılın son işlem günü kapanışı (çizgi). İkisi de bölünme ve bedelsize göre düzeltilmiş TL/pay.</span><div class="legend" style="margin-top:6px"><span><i class="sw" style="background:var(--co-ui)"></i>Brüt temettü</span><span><i class="sw" style="background:var(--accent);height:3px"></i>Referans fiyat</span><span class="controls" style="margin-left:auto"><button class="chip" data-dax="tek">Tek eksen</button><button class="chip" data-dax="iki">İki eksen</button></span></div></div><div class="chart" id="divchart"></div>
-  <div class="tw"><table class="t"><thead><tr><th>Yıl</th><th>Brüt</th><th>Net</th><th>Brüt verim</th><th>Durum</th></tr></thead><tbody>${D.map(d=>`<tr><td>${d.y}${d.part?' <span class="eyebrow">kısmi</span>':''}</td><td>${nf(d.g,3)}</td><td>${nf(d.n,3)}</td><td>${d.gy==null?'—':pct(d.gy,2)}</td><td style="font-family:var(--f-body);text-align:left">${d.label?`<span class="badge" style="color:var(--p-kap)" title="${esc(d.note)}">${esc(d.label)}</span>`:'<span class="badge" style="color:var(--muted)">Ödendi</span>'}${d.src?.[0]?` <a href="${esc(d.src[0])}" target="_blank" rel="noopener">↗</a>`:''}</td></tr>`+(d.prop?`<tr class="prop"><td>${d.y} <span class="eyebrow">öneri</span></td><td>${nf(d.prop.g,3)}</td><td>${nf(d.prop.n,3)}</td><td>${pct(d.prop.gy,2)}</td><td style="font-family:var(--f-body);text-align:left"><span class="badge" style="color:#d58a20" title="${esc(d.prop.note)}">${esc(d.prop.badge||'Öneri')}</span> <a href="${esc(d.prop.src[0])}" target="_blank" rel="noopener">↗</a></td></tr>`:'')).join('')}</tbody></table></div>
+  <div class="tw"><table class="t"><thead><tr><th>Yıl</th><th>Brüt</th><th>Net</th><th>Brüt verim</th><th>Durum</th></tr></thead><tbody>${D.slice().reverse().map(d=>(d.prop?`<tr class="prop"><td>${d.y} <span class="eyebrow">öneri</span></td><td>${nf(d.prop.g,3)}</td><td>${nf(d.prop.n,3)}</td><td>${pct(d.prop.gy,2)}</td><td style="font-family:var(--f-body);text-align:left"><span class="badge" style="color:#d58a20" title="${esc(d.prop.note)}">${esc(d.prop.badge||'Öneri')}</span> <a href="${esc(d.prop.src[0])}" target="_blank" rel="noopener">↗</a></td></tr>`:'')+`<tr><td>${d.y}${d.part?' <span class="eyebrow">kısmi</span>':''}</td><td>${nf(d.g,3)}</td><td>${nf(d.n,3)}</td><td>${d.gy==null?'—':pct(d.gy,2)}</td><td style="font-family:var(--f-body);text-align:left">${d.label?`<span class="badge" style="color:var(--p-kap)" title="${esc(d.note)}">${esc(d.label)}</span>`:'<span class="badge" style="color:var(--muted)">Ödendi</span>'}${d.src?.[0]?` <a href="${esc(d.src[0])}" target="_blank" rel="noopener">↗</a>`:''}</td></tr>`).join('')}</tbody></table></div>
   ${D.filter(d=>d.label).map(d=>`<p class="note">${d.y}: ${esc(d.note)}</p>`).join('')}${D.filter(d=>d.prop).map(d=>`<p class="note">${d.y} öneri: ${esc(d.prop.note)}${d.prop.news?` <a href="#haber-${c.t.toLowerCase()}-${d.prop.news}" data-go="HABER-${c.t}-${d.prop.news}">Haber özeti →</a>`:''}</p>`).join('')}</div>`;
 }
 function mixHTML(c){
-  if(!c.mix?.length)return '';const meas=[...new Set(c.mix.map(m=>m.meas))];const ML={revenue:'Gelir',adjusted_segment_ebitda:'Bölüm FVAÖK',segment_revenue:'Bölüm geliri',segment_gross_profit:'Bölüm brüt kârı',segment_operating_profit:'Bölüm faaliyet kârı',segment_net_profit:'Bölüm net kârı',property_revaluation:'Değerleme farkı',operating_revenue:'Faaliyet gelirleri',operating_revenue_detail:'Faaliyet gelirleri · detay'};
-  if(!state.mix[c.t])state.mix[c.t]=meas[0];
-  return `<div class="panel s7"><div class="ph"><h2>Gelir ve kâr kırılımı</h2><div class="controls"><select id="mixsel" aria-label="Kırılım ölçüsü">${meas.map(m=>`<option value="${m}">${esc(ML[m]||m)}</option>`).join('')}</select></div></div><div class="chart" id="mixchart"></div><div class="legend" id="mixleg"></div><p class="note" id="mixnote"></p></div>`;
+  if(!c.mix?.length)return '';
+  return `<div class="panel s7" id="mixpanel"><div class="ph"><h2>Gelir ve kâr kırılımı</h2><div class="controls"><span role="group" aria-label="Kırılım türü"><button class="chip" data-mixc="g">Gelir</button><button class="chip" data-mixc="k">Kâr</button></span><select id="mixsel" aria-label="Kırılım ölçüsü"></select></div></div><div class="chart" id="mixchart"></div><div class="legend" id="mixleg"></div><p class="note" id="mixnote"></p></div>`;
 }
+const MIXL={revenue:'Gelir (satış kırılımı)',segment_revenue:'Bölüm geliri',operating_revenue:'Faaliyet gelirleri',operating_revenue_detail:'Faaliyet gelirleri · detay',rent:'Kira gelirleri',calc_gelir:'Prim ve yatırım geliri',adjusted_segment_ebitda:'Bölüm FVAÖK',segment_gross_profit:'Bölüm brüt kârı',segment_operating_profit:'Bölüm faaliyet kârı',segment_net_profit:'Bölüm net kârı',property_revaluation:'Değerleme farkı',calc_kar:'Brüt kârın dağılımı',calc_teknik:'Teknik kâr ve yatırım geliri',occ:'AVM doluluk oranı'};
+function renderOcc(c){const O=c.occ||[];const names=[...new Set(O.flatMap(o=>Object.keys(o.g)))];const ps=[...new Set(O.map(o=>o.p))].sort();const pal=['var(--co-ui)','#d58a20','#7a67bd','#4c9d78','#bf647f','#5aa0c8'];
+  lineChart($('#mixchart'),names.map((n,i)=>({name:n,color:pal[i%pal.length],v:ps.map(p=>O.find(o=>o.p===p)?.g[n]??null)})),{labels:ps.map(QS),fmt:v=>'%'+nf(v,1),height:200});
+  $('#mixleg').innerHTML=names.map((g,gi)=>`<span><i class="sw" style="background:${pal[gi%pal.length]}"></i>${esc(g)}</span>`).join('');
+  $('#mixnote').textContent=(c.occNote||'Dönem sonu doluluk oranı, şirketin faaliyet raporlarından.')}
 function renderMix(c){
-  const sel=$('#mixsel');if(!sel)return;sel.value=state.mix[c.t];sel.onchange=()=>{state.mix[c.t]=sel.value;renderMix(c)};
+  const sel=$('#mixsel');if(!sel)return;const have=new Set(c.mix.map(m=>m.meas));if(c.occ?.length)have.add('occ');
+  const cats={g:MIXG.filter(m=>have.has(m)),k:MIXK.filter(m=>have.has(m))};if(c.occ?.length)cats.g.push('occ');
+  if(!state.mixc)state.mixc={};let cat=state.mixc[c.t]||(cats.g.length?'g':'k');if(!cats[cat].length)cat=cat==='g'?'k':'g';state.mixc[c.t]=cat;
+  if(!cats[cat].includes(state.mix[c.t]))state.mix[c.t]=cats[cat][0];
+  document.querySelectorAll('[data-mixc]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.mixc===cat);b.disabled=!cats[b.dataset.mixc].length;b.onclick=()=>{state.mixc[c.t]=b.dataset.mixc;state.mix[c.t]=null;renderMix(c)}});
+  sel.innerHTML=cats[cat].map(m=>`<option value="${m}">${esc(MIXL[m]||m)}</option>`).join('');sel.style.display=cats[cat].length>1?'':'none';
+  sel.value=state.mix[c.t];sel.onchange=()=>{state.mix[c.t]=sel.value;renderMix(c)};
+  if(state.mix[c.t]==='occ'){renderOcc(c);return}
   const rows=c.mix.filter(m=>m.meas===state.mix[c.t]).sort((a,b)=>a.p<b.p?-1:1);
   const byP={};rows.forEach(r=>{(byP[r.p]=byP[r.p]||[]).push(r)});const ps=Object.keys(byP).sort();
   const pick=p=>byP[p].find(r=>r.k==='q')||byP[p][0];
@@ -770,7 +789,8 @@ function renderMix(c){
    svg.addEventListener('mouseleave',hideTip);}
   $('#mixleg').innerHTML=groups.map((g,gi)=>`<span><i class="sw" style="background:${pal[gi%pal.length]}"></i>${esc(g)}</span>`).join('');
   const miss=c.periods.filter(p=>!byP[p]);const kinds=new Set(ps.map(p=>pick(p).k));
-  $('#mixnote').textContent=(kinds.has('y')&&!kinds.has('q')?'Şirket bu kırılımı birikimli/yıllık açıklıyor. ':'')+(miss.length?`Şirketin bu kırılımı açıklamadığı dönemler: ${miss.map(QS).join(', ')}.`:'Tüm dönemler mevcut.')+' Paylar yalnız pozitif kalemler üzerinden; tutarlar üzerine gelince görünür.';
+  const calcN={calc_kar:'Gelir tablosundan hesaplandı: brüt kârın ne kadarı net faaliyet giderlerine gidiyor, ne kadarı esas faaliyet kârı olarak kalıyor (tek çeyrek). Şirket bölüm bazında kâr açıklamıyorsa kâr görünümü budur. ',calc_teknik:'Gelir tablosundan: hayat ve emeklilik teknik kârı ile teknik olmayan yatırım gelirleri (tek çeyrek). ',calc_gelir:'Gelir tablosundan: net kazanılmış prim ve yatırım gelirleri (tek çeyrek). '}[state.mix[c.t]]||'';
+  $('#mixnote').textContent=calcN+(kinds.has('y')&&!kinds.has('q')?'Şirket bu kırılımı birikimli/yıllık açıklıyor. ':'')+(miss.length?`Şirketin bu kırılımı açıklamadığı dönemler: ${miss.map(QS).join(', ')}.`:'Tüm dönemler mevcut.')+' Paylar yalnız pozitif kalemler üzerinden; tutarlar üzerine gelince görünür.';
 }
 function sectorHTML(c){
   const K=c.kpi||[],ms=c.ms||[];if(!K.length&&!ms.length)return '';
@@ -785,9 +805,9 @@ function driversHTML(c){if(!c.drivers?.length)return '';return `<div class="pane
 function renderCompany(c){setSum(c);
   document.documentElement.style.setProperty('--co',c.color);document.documentElement.style.setProperty('--co-dk',lift(c.color));
   const k=counts(c);
-  app.innerHTML=heroHTML(c,k)+(INS(c)?kpisANHYT(c):kpisCompany(c))+`<div class="grid">${newsPanelHTML(c)}${summaryHTML(c)}${mainPanelHTML(c)}${bridgeHTML(c)}${INS(c)?anhytPanels(c)+sectorHTML(c).replace('panel s5','panel s12'):ratiosHTML(c)+divHTML(c)+mixHTML(c)+sectorHTML(c)+peerHTML(c)}${driversHTML(c)}</div>`;
+  app.innerHTML=heroHTML(c,k)+(INS(c)?kpisANHYT(c):kpisCompany(c))+`<div class="grid">${newsPanelHTML(c)}${summaryHTML(c)}${mainPanelHTML(c)}${bridgeHTML(c)}${INS(c)?anhytPanels(c)+mixHTML(c).replace('panel s7','panel s12')+sectorHTML(c).replace('panel s5','panel s12'):ratiosHTML(c)+divHTML(c)+mixHTML(c)+sectorHTML(c)+peerHTML(c)}${driversHTML(c)}</div>`;
   renderMain(c);renderMatrix(c);renderBridge(c);
-  if(INS(c))renderAnhyt(c);else{renderMix(c);renderPeerInd(c);const D=c.div||[];if($('#divchart'))divPriceChart($('#divchart'),c)}
+  if(INS(c)){renderAnhyt(c);renderMix(c)}else{renderMix(c);renderPeerInd(c);const D=c.div||[];if($('#divchart'))divPriceChart($('#divchart'),c)}
   app.querySelectorAll('.nwl [data-go],.panel .note [data-go]').forEach(b=>b.onclick=e=>{e.preventDefault();go(b.dataset.go)});
 }
 function newsPanelHTML(c){const N=(c.news||[]).slice().sort((a,b)=>b.id-a.id).slice(0,4);if(!N.length)return '';
