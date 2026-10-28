@@ -137,6 +137,8 @@
 #tc_i18n.js|https://www.turkcimento.org.tr/assets/i18nRoutes-Bmhl6H_c.js
 #tc_index.js|https://www.turkcimento.org.tr/assets/index-DYV3gtkw.js
 #tc_istdos.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=300
-tc_aylik.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&filter=%7B%22category%22%3A%7B%22_eq%22%3A%22aylik-veriler%22%7D%7D
-tc_veriler.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&filter=%7B%22category%22%3A%7B%22_eq%22%3A%22veriler%22%7D%7D
-tc_satis2025.bin|https://www.turkcimento.org.tr/api/public/files/7db4f410-08f2-4eef-90b7-6de9653f76b3/raw
+#tc_aylik.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&filter=%7B%22category%22%3A%7B%22_eq%22%3A%22aylik-veriler%22%7D%7D
+#tc_veriler.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&filter=%7B%22category%22%3A%7B%22_eq%22%3A%22veriler%22%7D%7D
+#tc_satis2025.bin|https://www.turkcimento.org.tr/api/public/files/7db4f410-08f2-4eef-90b7-6de9653f76b3/raw
+tc_o100.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&offset=100
+tc_o200.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=100&offset=200
