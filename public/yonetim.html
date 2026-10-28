@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Sonar · Yönetim</title>
-<link rel="icon" href="marka/favicon.svg">
+<link rel="icon" href="/marka/favicon.svg">
 <style>
 :root{--bg:#f3f5f8;--panel:#fff;--line:#d8dee8;--fg:#121a26;--muted:#5a6678;--accent:#0B2545;--teal:#19C3B1;--err:#c2410c}
 @media (prefers-color-scheme:dark){:root{--bg:#0f141c;--panel:#151c27;--line:#273243;--fg:#e7ecf3;--muted:#8a97aa;--accent:#7cc4ff;--err:#ff7d6e}}
@@ -37,17 +37,18 @@ a{color:var(--muted);font-size:13px}
   <div class="row"><input type="checkbox" id="r"><label for="r" style="margin:0">Bu cihazda hatırla</label></div>
   <button id="b">Giriş</button>
   <div class="msg" id="m" role="status"></div>
-  <p style="margin:14px 0 0"><a href="./">← Siteye dön</a></p>
+  <p style="margin:14px 0 0"><a href="/">← Siteye dön</a></p>
 </form>
 <script>
 (()=>{
+if(/\.html$/.test(location.pathname)){location.replace('/yonetim'+location.hash);return}
 const ITER=310000,SALT=new TextEncoder().encode('sonar-yonetim-paneli-v1'),SK='sonar-yonetim-k';
 const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u))),unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 const $=s=>document.querySelector(s);
 async function derive(p){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(p),'PBKDF2',false,['deriveBits']);return new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:SALT,iterations:ITER,hash:'SHA-256'},k,256))}
 async function open_(raw){
   const key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']);
-  const r=await fetch('yonetim.bin',{cache:'no-store'});if(!r.ok)throw new Error('dosya');
+  const r=await fetch('/yonetim.bin?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('dosya');
   const b=new Uint8Array(await r.arrayBuffer());
   const d=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12));
   const P=JSON.parse(new TextDecoder().decode(d));
@@ -60,18 +61,11 @@ function hook(){
   const kp=crypto.subtle.importKey('raw',Uint8Array.from(atob(SP.k),c=>c.charCodeAt(0)),'AES-GCM',false,['decrypt']);
   const MT={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',svg:'image/svg+xml',webp:'image/webp',gif:'image/gif',pdf:'application/pdf',txt:'text/plain;charset=utf-8',md:'text/markdown;charset=utf-8'};
   const rel=u=>{try{const x=new URL(u,location.href);if(x.origin!==location.origin)return null;const p=decodeURIComponent(x.pathname.replace(/^\//,''));return SP.f[p]?p:null}catch(e){return null}};
-  const blob=p=>cache[p]||(cache[p]=(async()=>{const b=new Uint8Array(await (await fetch('y/'+SP.f[p]+'.bin')).arrayBuffer());const d=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},await kp,b.slice(12));return URL.createObjectURL(new Blob([d],{type:MT[p.split('.').pop().toLowerCase()]||'application/octet-stream'}))})());
+  const blob=p=>cache[p]||(cache[p]=(async()=>{const b=new Uint8Array(await (await fetch('/y/'+SP.f[p]+'.bin')).arrayBuffer());const d=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},await kp,b.slice(12));return URL.createObjectURL(new Blob([d],{type:MT[p.split('.').pop().toLowerCase()]||'application/octet-stream'}))})());
   const fix=el=>{if(!el.getAttribute)return;for(const a of ['src','href']){const v=el.getAttribute(a);if(!v||v.startsWith('blob:')||v.startsWith('#'))continue;const p=rel(v);if(!p)continue;el.removeAttribute(a);if(a==='href'&&el.hasAttribute('download')&&!el.getAttribute('download'))el.setAttribute('download',p.split('/').pop());blob(p).then(u=>el.setAttribute(a,u)).catch(()=>{})}};
   const scan=n=>{if(n.nodeType!==1)return;if(n.matches('img,a,source'))fix(n);n.querySelectorAll&&n.querySelectorAll('img[src],a[href],source[src]').forEach(fix)};
   new MutationObserver(ms=>ms.forEach(m=>{if(m.type==='attributes')fix(m.target);else m.addedNodes.forEach(scan)})).observe(document,{subtree:true,childList:true,attributes:true,attributeFilter:['src','href']});
-  addEventListener('DOMContentLoaded',()=>{scan(document.documentElement);
-    const bar=document.createElement('div');bar.id='ypanel';
-    bar.innerHTML='<b>Yönetim paneli</b><span>Taslaklar ve geliştirici notları yalnız burada görünür.</span><a href="./" target="_blank" rel="noopener">Açık siteyi gör ↗</a><button type="button" id="ycik">Çıkış</button>';
-    bar.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:calc(100vw - 24px);padding:8px 12px;border-radius:12px;background:#0B2545;color:#fff;font:600 12px/1.4 system-ui,sans-serif;box-shadow:0 4px 18px rgba(0,0,0,.25)';
-    bar.querySelectorAll('a,button').forEach(x=>x.style.cssText='color:#19C3B1;background:none;border:0;font:inherit;cursor:pointer;padding:0;text-decoration:underline');
-    bar.querySelector('span').style.cssText='font-weight:400;opacity:.8';
-    document.body.appendChild(bar);
-    bar.querySelector('#ycik').onclick=()=>{try{localStorage.removeItem('sonar-yonetim-k');sessionStorage.removeItem('sonar-yonetim-k')}catch(e){}location.replace('yonetim.html')}});
+  addEventListener('DOMContentLoaded',()=>scan(document.documentElement));
 }
 (async()=>{let s=null;try{s=sessionStorage.getItem(SK)||localStorage.getItem(SK)}catch(e){}
   if(s){$('#m').textContent='Açılıyor…';try{await open_(unb64(s));return}catch(e){try{sessionStorage.removeItem(SK);localStorage.removeItem(SK)}catch(_){}$('#m').textContent=''}}
