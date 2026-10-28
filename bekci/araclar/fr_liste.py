@@ -8,14 +8,19 @@ def kap(oid, a, b, cls="FR"):
             "subjectList": [], "srcCategory": "", "index": "", "market": "", "isLate": "", "term": "", "ruleType": "", "period": "", "year": "", "disclosureClass": cls}
     req = urllib.request.Request("https://www.kap.org.tr/tr/api/disclosure/members/byCriteria", json.dumps(body).encode(),
                                  {"Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0 Sonar-Bekci"})
-    return json.loads(urllib.request.urlopen(req, timeout=90).read().decode("utf-8"))
+    return json.loads(urllib.request.urlopen(req, timeout=45).read().decode("utf-8"))
 for parca in filter(None, os.environ.get("FR", "").split(";;")):
     t, oid = parca.strip().split("|")
     L = []
-    for a, b in [("2020-12-01", "2022-06-30"), ("2022-07-01", "2023-12-31"), ("2024-01-01", "2025-06-30"), ("2025-07-01", "2026-12-31")]:
+    import datetime
+    W = []
+    d = datetime.date(2021, 1, 15)
+    while d < datetime.date.today():
+        e = min(d + datetime.timedelta(days=45), datetime.date.today()); W.append((d.isoformat(), e.isoformat())); d = e + datetime.timedelta(days=1)
+    for a, b in W:
         for k in range(3):
             try: L += kap(oid, a, b); break
             except Exception as e: print(t, a, "hata", repr(e)[:120]); time.sleep(5)
-        time.sleep(1)
+        time.sleep(0.5)
     json.dump(L, open(os.path.join(OUT, f"fr_{t}.json"), "w"), ensure_ascii=False)
     print(t, len(L))
