@@ -903,13 +903,47 @@ function newsPanelHTML(c){const N=(c.news||[]).slice().sort((a,b)=>b.id-a.id).sl
 /* ---------- ANHYT ---------- */
 function anhytPanels(c){
   const po=c.peerOther,pn=PEERN[po]||po,sn=PEERN[c.t]||c.t,pc=BY[po]?.color||'#e44825';
-  return `${c.mon?.length?`<div class="panel s12"><div class="ph"><h2>Aylık prim üretimi</h2><span class="sub">Hayat + hayat dışı, şirketin aylık özel durum açıklamalarındaki birikimli tutarların farkı. ${c.mon.length} ay, boşluk yok.</span></div><div class="chart" id="monchart"></div></div>`:''}
+  return `${c.mon?.length?`<div class="panel s12" id="monpanel"><div class="ph"><h2 id="montitle">Prim üretimi</h2><div class="controls"><span role="group" aria-label="Görünüm"><button class="chip" data-mv="yil">Yıllar karşılaştırmalı</button><button class="chip" data-mv="ay">Aylık</button></span><select id="monsel" aria-label="Dönem"></select></div></div><div class="chart" id="monchart"></div><div class="legend" id="monleg"></div><p class="note" id="monnote"></p></div>`:''}
   <div class="panel s12" id="techpanel"><div class="ph"><h2 id="techtitle">Teknik gelir</h2><div class="controls"><button class="chip" data-tk="gelir">Teknik gelir</button><button class="chip" data-tk="kar">Teknik kâr</button><span style="width:10px"></span><button class="chip" data-tm="q">Tek çeyrek</button><button class="chip" data-tm="ytd">Yılbaşından birikimli</button></div></div><div class="chart" id="techchart"></div><div class="legend" id="techleg"></div><p class="note" id="technote"></p></div>
   <div class="panel s12"><div class="ph"><h2>Değerleme</h2></div><div class="smalls" id="valsm"></div><ul class="list" style="margin-top:10px"><li><b>Hayat teknik marjı</b>: son 4 çeyrek hayat teknik kârı / son 4 çeyrek hayat net kazanılmış primi.</li><li><b>Emeklilik teknik marjı</b>: son 4 çeyrek emeklilik teknik kârı / son 4 çeyrek emeklilik teknik geliri. İki marj da raporlarda ayrı bir kalem olarak geçmez; raporlanan kalemlerden hesaplanır.</li>${c.unavailable.map(u=>`<li><b>${esc(u[0])}</b>: ${esc(u[1])}</li>`).join('')}</ul></div>
   <div class="panel s12"><div class="ph"><h2>Rakiple karşılaştır · ${esc(pn)}</h2><div class="controls"><select id="peersel" aria-label="Gösterge">${c.peerMetrics.map(m=>`<option value="${esc(m.key)}">${esc(m.label)}</option>`).join('')}</select></div></div><div class="chart" id="peerchart"></div><div class="legend"><span><i class="sw" style="background:var(--co-ui)"></i>${esc(sn)}</span><span><i class="sw" style="background:${pc}"></i>${esc(pn)}</span></div><p class="note" id="peernote"></p></div>`;
 }
+const AYL=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+function drawMon(c){
+  const M=c.mon,mv=state.monView||'yil',last=M[M.length-1],lm=+last.p.slice(5);const sel=$('#monsel');
+  document.querySelectorAll('[data-mv]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.mv===mv);b.onclick=()=>{state.monView=b.dataset.mv;drawMon(c)}});
+  const srcL=u=>u?` <a href="${esc(u)}" target="_blank" rel="noopener">Kaynak: aylık prim üretimi özel durum açıklaması ↗</a>`:'';
+  if(mv==='ay'){sel.hidden=true;$('#montitle').textContent='Aylık prim üretimi';$('#monleg').innerHTML='';
+    barChart($('#monchart'),M.map(m=>({p:m.p,label:m.p.slice(2).replace('-','/'),v:m.m,cl:{src:'sr'}})),{color:c.color,height:220});
+    $('#monnote').innerHTML=`Hayat + hayat dışı. Şirketin aylık açıklamalarındaki birikimli tutarların farkı; ${M.length} ay, boşluk yok.`+srcL(last.src);return}
+  sel.hidden=false;const n=state.monN||lm;
+  sel.innerHTML=AYL.map((a,i)=>`<option value="${i+1}" ${i+1===n?'selected':''}>${i===0?'Ocak':'Ocak–'+a} · ${i+1} aylık</option>`).join('');sel.onchange=()=>{state.monN=+sel.value;drawMon(c)};
+  const yrs=[...new Set(M.map(m=>+m.p.slice(0,4)))].sort();
+  const rows=yrs.map(y=>{const ms=M.filter(m=>+m.p.slice(0,4)===y&&+m.p.slice(5)<=n);const full=ms.length===n;
+    const life=ms.reduce((a,m)=>a+(m.life||0),0),non=ms.reduce((a,m)=>a+(m.nonlife||0),0),tot=ms.length?ms[ms.length-1].cum:null;return {y,full,life,non,tot:full?tot:null,src:ms.length?ms[ms.length-1].src:null}});
+  rows.forEach((r,i)=>{const pv=rows[i-1];r.yoy=pv&&pv.tot&&r.tot!=null?(r.tot/pv.tot-1)*100:null});
+  $('#montitle').textContent=`Prim üretimi · ${n===1?'Ocak':'Ocak–'+AYL[n-1]} (${n} aylık), yıllara göre`;
+  const el=$('#monchart'),W=Math.max(320,el.clientWidth||700),H=250,ml=54,mr=10,mt=24,mb=40;const R=rows.filter(r=>r.tot!=null);
+  const tk=niceTicks(0,Math.max(...R.map(r=>r.tot),1),5),T1=tk[tk.length-1],yv=v=>mt+(T1-v)/T1*(H-mt-mb),bw=(W-ml-mr)/rows.length,cl='var(--co-ui)',cn='#d58a20';
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Yıllara göre birikimli prim üretimi">`;
+  tk.forEach(t=>{g+=`<line class="gridline" x1="${ml}" x2="${W-mr}" y1="${yv(t)}" y2="${yv(t)}"/><g class="axis"><text x="${ml-6}" y="${yv(t)+4}" text-anchor="end">${T1>=1000?nf(t/1000,T1>=5000?0:1)+' Mr':nf(t,0)+' Mn'}</text></g>`});
+  rows.forEach((r,i)=>{const x=ml+i*bw+bw*.2,w=bw*.6,cx=x+w/2;
+    if(r.tot==null){g+=`<g class="axis"><text x="${cx}" y="${H-mb+16}" text-anchor="middle">${r.y}</text><text x="${cx}" y="${yv(0)-6}" text-anchor="middle" style="fill:var(--muted)">veri yok</text></g>`;return}
+    const y1=yv(r.life),y2=yv(r.life+r.non);
+    g+=`<rect x="${x}" y="${y1}" width="${w}" height="${yv(0)-y1}" rx="2" fill="${cl}"/>`;if(r.non>0)g+=`<rect x="${x}" y="${y2}" width="${w}" height="${Math.max(.8,y1-y2)}" fill="${cn}"/>`;
+    g+=`<text x="${cx}" y="${yv(r.tot)-6}" text-anchor="middle" style="font:600 11px var(--f-mono);fill:var(--fg)">${fmtM(r.tot)}</text>`;
+    g+=`<g class="axis"><text x="${cx}" y="${H-mb+16}" text-anchor="middle">${r.y}</text></g>`;
+    if(r.yoy!=null)g+=`<text x="${cx}" y="${H-mb+31}" text-anchor="middle" style="font:600 10.5px var(--f-mono);fill:var(${r.yoy>=0?'--up':'--down'})">${r.yoy>=0?'+':'−'}%${nf(Math.abs(r.yoy),1)}</text>`});
+  el.innerHTML=g+'</svg>';const svg=el.querySelector('svg');
+  svg.addEventListener('mousemove',e=>{const b=svg.getBoundingClientRect(),i=Math.floor(((e.clientX-b.left)*W/b.width-ml)/bw),r=rows[i];if(!r||r.tot==null){hideTip();return}
+    showTip(e,`<div class="eyebrow">${r.y} · ${n===1?'Ocak':'Ocak–'+AYL[n-1]}</div><div>Toplam: <b>${fmtM(r.tot)} TL</b></div><div><span class="sw" style="background:${cl}"></span> Hayat: ${fmtM(r.life)} TL</div><div><span class="sw" style="background:${cn}"></span> Hayat dışı: ${fmtM(r.non)} TL</div>${r.yoy!=null?`<div>Önceki yılın aynı dönemine göre: <b class="${r.yoy>=0?'up':'down'}">${r.yoy>=0?'+':'−'}%${nf(Math.abs(r.yoy),1)}</b></div>`:''}<div class="note" style="margin-top:4px;color:var(--muted)">Kaynak: ${r.y} aylık prim üretimi açıklaması</div>`)});
+  svg.addEventListener('mouseleave',hideTip);
+  $('#monleg').innerHTML=`<span><i class="sw" style="background:${cl}"></i>Hayat</span><span><i class="sw" style="background:${cn}"></i>Hayat dışı</span>`;
+  const miss=rows.filter(r=>r.tot==null).map(r=>r.y);
+  $('#monnote').innerHTML=`Yılbaşından seçilen aya kadar birikimli brüt prim üretimi, nominal TL. Sütun altındaki oran önceki yılın aynı dönemine göre değişim. ${miss.length?`${miss.join(', ')} için bu dönemin verisi henüz açıklanmadı. `:''}`+srcL(last.src);
+}
 function renderAnhyt(c){
-  if(c.mon?.length)barChart($('#monchart'),c.mon.map(m=>({p:m.p,label:m.p.slice(2).replace('-','/'),v:m.m,cl:{src:'sr'}})),{color:c.color,height:220});
+  if(c.mon?.length)drawMon(c);
   const tm=state.techMode||'q',tk0=state.techKind||'gelir';
   document.querySelectorAll('[data-tm]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.tm===tm);b.onclick=()=>{state.techMode=b.dataset.tm;drawTech()}});
   document.querySelectorAll('[data-tk]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.tk===tk0);b.onclick=()=>{state.techKind=b.dataset.tk;drawTech()}});
