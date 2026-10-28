@@ -16,7 +16,7 @@ for parca in filter(None, os.environ.get("FR", "").split(";;")):
     W = []
     # FR'ler yalnızca dönem sonlarından sonraki aylarda gelir: yılda 4 pencere (her biri ≤ 47 gün)
     for y in range(2021, datetime.date.today().year + 1):
-        for a_, b_ in (("02-01", "03-18"), ("03-19", "05-04"), ("05-05", "06-20"), ("07-15", "08-31"), ("10-10", "11-25")):
+        for a_, b_ in (("01-01", "12-31"),):  # tüm yıl (gecikmeli/ertelenmiş raporlar için), 16 günlük parçalar
             a, b = datetime.date.fromisoformat(f"{y}-{a_}"), datetime.date.fromisoformat(f"{y}-{b_}")
             while a < min(b, datetime.date.today()):  # çok bildirimli şirketlerde API sonuç sınırına takılmamak için ~16 günlük parçalar
                 e = min(a + datetime.timedelta(days=15), b, datetime.date.today())
