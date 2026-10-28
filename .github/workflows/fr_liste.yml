@@ -2,17 +2,31 @@ name: KAP FR listesi (push ile)
 on:
   push:
     paths: ['bekci/istek/fr.txt']
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
-  cek:
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    outputs:
+      m: ${{ steps.p.outputs.m }}
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          FR=$(grep -v '^#' bekci/istek/fr.txt | grep '|' | paste -sd';' | sed 's/;/;;/g') python3 bekci/araclar/fr_liste.py
+      - id: p
+        run: echo "m=$(grep -v '^#' bekci/istek/fr.txt | grep '|' | python3 -c 'import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))')" >> "$GITHUB_OUTPUT"
+  cek:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        s: ${{ fromJson(needs.plan.outputs.m) }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: FR="${{ matrix.s }}" python3 bekci/araclar/fr_liste.py
       - run: |
           git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
           git add bekci/istek
-          git diff --cached --quiet || (git commit -q -m "KAP FR listesi [skip render]" && for n in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done)
+          git diff --cached --quiet || (git commit -q -m "KAP FR listesi [skip render]" && for n in 1 2 3 4 5; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done)
