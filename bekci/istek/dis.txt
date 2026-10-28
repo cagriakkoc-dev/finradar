@@ -133,6 +133,7 @@
 #thbb_endeks.html|https://www.thbb.org/sektor/hazir-beton-endeksi/
 #thbb_ist.html|https://www.thbb.org/sektor/istatistikler/
 #thbb_eylul.html|https://www.thbb.org/haberler/hazir-beton-endeksi-2026-eylul-ayi-raporu-aciklandi/
-thbb_r2609.html|https://www.thbb.org/sektor/hazir-beton-endeksi/hazir-beton-endeksi-2026-eylul-ayi-raporu/
-tc_i18n.js|https://www.turkcimento.org.tr/assets/i18nRoutes-Bmhl6H_c.js
-tc_index.js|https://www.turkcimento.org.tr/assets/index-DYV3gtkw.js
+#thbb_r2609.html|https://www.thbb.org/sektor/hazir-beton-endeksi/hazir-beton-endeksi-2026-eylul-ayi-raporu/
+#tc_i18n.js|https://www.turkcimento.org.tr/assets/i18nRoutes-Bmhl6H_c.js
+#tc_index.js|https://www.turkcimento.org.tr/assets/index-DYV3gtkw.js
+tc_istdos.json|https://www.turkcimento.org.tr/api/public/items/istatistik_dosyalari?lang=tr&limit=300
