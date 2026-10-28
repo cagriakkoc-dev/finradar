@@ -124,8 +124,12 @@
 #oyak_haberler.html|https://www.oyakcimento.com/tr/haberler
 #oyak_css.css|https://www.oyakcimento.com/css/style.css
 #oyak_kimlik.pdf|https://assets.oyakcimento.com/contents/pdf/202225/80071643201972797822.pdf
-tc_ana.html|https://www.turkcimento.org.tr/tr/
-tc_ist.html|https://www.turkcimento.org.tr/tr/istatistikler
-tc_ist2.html|https://www.turkcimento.org.tr/tr/sektor-istatistikleri
-thbb_ana.html|https://www.thbb.org/
-thbb_end.html|https://www.thbb.org/yayinlar/hazir-beton-endeksleri/
+#tc_ana.html|https://www.turkcimento.org.tr/tr/
+#tc_ist.html|https://www.turkcimento.org.tr/tr/istatistikler
+#tc_ist2.html|https://www.turkcimento.org.tr/tr/sektor-istatistikleri
+#thbb_ana.html|https://www.thbb.org/
+#thbb_end.html|https://www.thbb.org/yayinlar/hazir-beton-endeksleri/
+tc_istjs.js|https://www.turkcimento.org.tr/assets/IstatistikVerileriPage-D3ChYVg4.js
+thbb_endeks.html|https://www.thbb.org/sektor/hazir-beton-endeksi/
+thbb_ist.html|https://www.thbb.org/sektor/istatistikler/
+thbb_eylul.html|https://www.thbb.org/haberler/hazir-beton-endeksi-2026-eylul-ayi-raporu-aciklandi/
