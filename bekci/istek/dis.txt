@@ -209,3 +209,10 @@
 #isy_kart_CIMSA.html|https://www.isyatirim.com.tr/tr-tr/analiz/hisse/Sayfalar/sirket-karti.aspx?hisse=CIMSA
 #skymd_ara.json|https://www.kap.org.tr/tr/api/search/combined?query=SKYMD
 kapb_skymd2.html|https://www.kap.org.tr/tr/Bildirim/1222124
+kaplogo_A1CAP.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a1416e696301416f37201c5f2e
+kaplogo_GEDIK.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140e95bea0140ee1edd700174
+kaplogo_GLBMD.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140e95bea0140ee21b10d0188
+kaplogo_INFO.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a2416e696c01416edd30ca3148
+kaplogo_OSMEN.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a240ee37a30140ee408ef80002
+kaplogo_OYYAT.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a14158e41f01415a5e854d4441
+kaplogo_TERA.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a141733b56014178115f7e51e7
