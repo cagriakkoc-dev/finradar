@@ -114,7 +114,12 @@
 #logo_CMENT2.png|https://www.cimentas.com.tr/images/v-logo.png
 #logo_GOLTS.png|https://goltas.com.tr/images/site-bilgileri/6hk4ysbagqo0ks4cww.png
 #logo_GOLTS2.png|http://www.goltas.com.tr/images/site-bilgileri/6hk4ysbagqo0ks4cww.png
-oyak_favicon.png|https://www.oyakcimento.com/img/favicon.png
-oyak_tcclogo.png|https://www.oyakcimento.com/tcclogo.png
-oyak_og.jpg|https://assets.oyakcimento.com/contents/jpg/202220/79991642760618673628.jpg
-oyak_en.html|https://www.oyakcimento.com/en
+#oyak_favicon.png|https://www.oyakcimento.com/img/favicon.png
+#oyak_tcclogo.png|https://www.oyakcimento.com/tcclogo.png
+#oyak_og.jpg|https://assets.oyakcimento.com/contents/jpg/202220/79991642760618673628.jpg
+#oyak_en.html|https://www.oyakcimento.com/en
+oyak_hakkimizda.html|https://www.oyakcimento.com/tr/hakkimizda
+oyak_kk1.html|https://www.oyakcimento.com/tr/kurumsal-kimlik
+oyak_kk2.html|https://www.oyakcimento.com/tr/hakkimizda/kurumsal-kimlik
+oyak_haberler.html|https://www.oyakcimento.com/tr/haberler
+oyak_css.css|https://www.oyakcimento.com/css/style.css
