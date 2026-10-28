@@ -16,6 +16,7 @@ jobs:
         run: echo "m=$(grep -v '^#' bekci/istek/fr.txt | grep '|' | python3 -c 'import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))')" >> "$GITHUB_OUTPUT"
   cek:
     needs: plan
+    if: needs.plan.outputs.m != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
