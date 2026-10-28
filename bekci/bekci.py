@@ -12,6 +12,19 @@ SIRKETLER = {
     "TUPRS": "4028e4a140f2ed720140f37f139c01bc",
     "TOASO": "4028e4a140f2ed710140f328bed700a5",
     "TTRAK": "4028e4a140f2ed720140f3790d6a01ad",
+    "AFYON": "4028e4a24158e42401415af83d607fd3",
+    "AKCNS": "4028e4a140e8cfa00140e92b0c380016",
+    "BASCM": "4028e4a140f2ed7201413a4092720892",
+    "BTCIM": "4028e4a140e95be70140ee07044700eb",
+    "BSOKE": "4028e4a24158e42401415920fc3308c5",
+    "BUCIM": "4028e4a140ee35c00140ee41a5e4000f",
+    "CMENT": "4028e4a24158e42401415ad34c7f7db7",
+    "CIMSA": "4028e4a240ee866c0140f1f64bdb0014",
+    "GOLTS": "4028e4a140e95be70140ee27ccd40129",
+    "KONYA": "4028e4a140f2ed720140f3014c9400cf",
+    "LMKDC": "8acae2c58b2fa64e018d8cfe461558d3",
+    "NUHCM": "4028e4a141558bdd014156053d9f04b2",
+    "OYAKC": "4028e4a140f2ed720140f32377aa016c",
 }
 ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|sermaye|geri alım|birleşme|devral|satın al|kapasite|genel müdür|finansal takvim|beklenti|yeni iş|teşvik|dava|derecelendirme|ortaklık yapısı|pay satış|bedelsiz|bedelli", re.I)
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
