@@ -68,3 +68,11 @@ odmd_2021-04.pdf|https://www.odmd.org.tr/folders/2837/categorial1docs/2910/ODD%2
 odmd_2021-03.pdf|https://www.odmd.org.tr/folders/2837/categorial1docs/2895/ODD%20Bas%c4%b1n%20Bulteni%202%20Nisan%202021.pdf
 odmd_2021-02.pdf|https://www.odmd.org.tr/folders/2837/categorial1docs/2871/ODD%20Bas%c4%b1n%20Bulteni%202%20Mart%202021.pdf
 odmd_2021-01.pdf|https://www.odmd.org.tr/folders/2837/categorial1docs/2855/ODD%20Bas%c4%b1n%20Bulteni%202%20%c5%9eubat%202021.pdf
+avpgy_sunum_1C-2024.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO-Yatirimci-Sunumu-1C-2024.pdf
+avpgy_sunum_2024.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO-Yatirimci-Sunumu-2024-1231.pdf
+avpgy_sunum_1C-2025.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO-Yatirimci-Sunumu-1C-2025-1240.pdf
+avpgy_sunum_2C-2025.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO-Yatirimci-Sunumu-2C-2025-1249.pdf
+avpgy_sunum_3C-2025.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO-Yatirimci-Sunumu-3-1253.pdf
+avpgy_sunum_2025.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO-Yatirimci-Sunumu-2025-1293.pdf
+avpgy_sunum_1C-2026.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO---Yatirimci-Sunumu-1C-2026--35ff0.pdf
+avpgy_sunum_2C-2026.pdf|https://www.avrupakentgyo.com/PDF/Avrupakent-GYO---Yatirimci-Sunumu-2C-20226-fc57d.pdf
