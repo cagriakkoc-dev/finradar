@@ -206,4 +206,5 @@
 #isy_TUPRS_2025-03.json|https://www.isyatirim.com.tr/_layouts/15/IsYatirim.Website/Common/Data.aspx/MaliTablo?companyCode=TUPRS&exchange=TRY&financialGroup=XI_29&year1=2025&period1=3&year2=2025&period2=6&year3=2025&period3=9&year4=2025&period4=12
 #isy_TUPRS_2026-03.json|https://www.isyatirim.com.tr/_layouts/15/IsYatirim.Website/Common/Data.aspx/MaliTablo?companyCode=TUPRS&exchange=TRY&financialGroup=XI_29&year1=2026&period1=3&year2=2026&period2=6&year3=2026&period3=9
 #isy_kart_CIMSA.html|https://www.isyatirim.com.tr/tr-tr/analiz/hisse/Sayfalar/sirket-karti.aspx?hisse=CIMSA
-isy_kart_CIMSA.html|https://www.isyatirim.com.tr/tr-tr/analiz/hisse/Sayfalar/sirket-karti.aspx?hisse=CIMSA
+#isy_kart_CIMSA.html|https://www.isyatirim.com.tr/tr-tr/analiz/hisse/Sayfalar/sirket-karti.aspx?hisse=CIMSA
+skymd_ara.json|https://www.kap.org.tr/tr/api/search/combined?query=SKYMD
