@@ -123,4 +123,9 @@
 #oyak_kk2.html|https://www.oyakcimento.com/tr/hakkimizda/kurumsal-kimlik
 #oyak_haberler.html|https://www.oyakcimento.com/tr/haberler
 #oyak_css.css|https://www.oyakcimento.com/css/style.css
-oyak_kimlik.pdf|https://assets.oyakcimento.com/contents/pdf/202225/80071643201972797822.pdf
+#oyak_kimlik.pdf|https://assets.oyakcimento.com/contents/pdf/202225/80071643201972797822.pdf
+tc_ana.html|https://www.turkcimento.org.tr/tr/
+tc_ist.html|https://www.turkcimento.org.tr/tr/istatistikler
+tc_ist2.html|https://www.turkcimento.org.tr/tr/sektor-istatistikleri
+thbb_ana.html|https://www.thbb.org/
+thbb_end.html|https://www.thbb.org/yayinlar/hazir-beton-endeksleri/
