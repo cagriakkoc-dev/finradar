@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /yonetim.html
 Disallow: /yonetim.bin
 Disallow: /y/
+Sitemap: https://sonar.smartcuzdan.io/sitemap.xml
