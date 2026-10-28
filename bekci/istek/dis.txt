@@ -216,3 +216,7 @@ kaplogo_INFO.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a2416e696c01416
 kaplogo_OSMEN.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a240ee37a30140ee408ef80002
 kaplogo_OYYAT.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a14158e41f01415a5e854d4441
 kaplogo_TERA.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a141733b56014178115f7e51e7
+aksa_sunum_2026_06.pdf|https://asset.aksa.com/media-data/docs/2026/09/17/finansal-sonuclar-sunumu-2026-haziran-mlp4xj3y.pdf
+aksa_sunum_2026_03.pdf|https://asset.aksa.com/media-data/docs/2026/05/08/finansal-sonuclar-sunumu-2026-mart-ciikwj0n.pdf
+aksa_sunum_2025_12.pdf|https://asset.aksa.com/media-data/docs/2026/02/23/finansal-sonuclar-sunumu-2025-aralik-vvgltelj.pdf
+aksa_sunum_2025_09.pdf|https://asset.aksa.com/media-data/docs/2025/11/18/finansal-sonuclar-sunumu-2025-eylul-qjqaip21.pdf
