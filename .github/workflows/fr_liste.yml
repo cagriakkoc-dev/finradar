@@ -1,0 +1,18 @@
+name: KAP FR listesi (push ile)
+on:
+  push:
+    paths: ['bekci/istek/fr.txt']
+permissions:
+  contents: write
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          FR=$(grep -v '^#' bekci/istek/fr.txt | grep '|' | paste -sd';' | sed 's/;/;;/g') python3 bekci/araclar/fr_liste.py
+      - run: |
+          git config user.name "Sonar Bekçi"; git config user.email "bekci@users.noreply.github.com"
+          git add bekci/istek
+          git diff --cached --quiet || (git commit -q -m "KAP FR listesi [skip render]" && for n in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done)
