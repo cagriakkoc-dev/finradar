@@ -182,5 +182,46 @@
   "dosyalar": [
    "bildirim.html"
   ]
+ },
+ {
+  "id": 1689925,
+  "hisse": "OSMEN",
+  "tur": "Önemli",
+  "ozet": "30.10.2026 Pay Geri Alım İşlemleri",
+  "tarih": "30.10.2026 18:15:44",
+  "yil": null,
+  "donem": "-",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html"
+  ]
+ },
+ {
+  "id": 1689972,
+  "hisse": "AVPGY",
+  "tur": "Finansal rapor",
+  "ozet": "Finansal Rapor",
+  "tarih": "30.10.2026 18:18:02",
+  "yil": 2026,
+  "donem": "9 Aylık",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html",
+   "4028328da17e515d01a18cf920394f87.bin"
+  ]
+ },
+ {
+  "id": 1689976,
+  "hisse": "AVPGY",
+  "tur": "Finansal rapor",
+  "ozet": "01 Ocak - 30 Eylül 2026 Yönetim Kurulu Faaliyet Raporu",
+  "tarih": "30.10.2026 18:18:18",
+  "yil": 2026,
+  "donem": "9 Aylık",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html",
+   "4028328da17e515f01a18d4811016513.bin"
+  ]
  }
 ]
