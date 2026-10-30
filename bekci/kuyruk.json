@@ -129,5 +129,18 @@
    "bildirim.html"
   ],
   "hazir_zaman": "28.10.2026 14:25:41"
+ },
+ {
+  "id": 1689411,
+  "hisse": "GEDIK",
+  "tur": "Önemli",
+  "ozet": "Finansman bono itfası hk.",
+  "tarih": "30.10.2026 13:15:09",
+  "yil": null,
+  "donem": "-",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html"
+  ]
  }
 ]
