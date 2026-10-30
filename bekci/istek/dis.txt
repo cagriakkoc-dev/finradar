@@ -221,3 +221,4 @@ aksa_sunum_2026_03.pdf|https://asset.aksa.com/media-data/docs/2026/05/08/finansa
 aksa_sunum_2025_12.pdf|https://asset.aksa.com/media-data/docs/2026/02/23/finansal-sonuclar-sunumu-2025-aralik-vvgltelj.pdf
 aksa_sunum_2025_09.pdf|https://asset.aksa.com/media-data/docs/2025/11/18/finansal-sonuclar-sunumu-2025-eylul-qjqaip21.pdf
 aksa_yatirimci_2026_06.pdf|https://asset.aksa.com/media-data/docs/2026/08/18/aksa-akrilik-yatirimci-sunumu-haziran-2026-j5x1bdyv.pdf
+isy_px_AVPGY_2609.json|https://www.isyatirim.com.tr/_layouts/15/Isyatirim.Website/Common/Data.aspx/HisseTekil?hisse=AVPGY&startdate=24-09-2026&enddate=30-10-2026
