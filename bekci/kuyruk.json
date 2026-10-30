@@ -225,5 +225,33 @@
    "4028328da17e515f01a18d4811016513.bin"
   ],
   "hazir_zaman": "30.10.2026 15:33"
+ },
+ {
+  "id": 1690050,
+  "hisse": "A1CAP",
+  "tur": "Finansal rapor",
+  "ozet": "Finansal Rapor",
+  "tarih": "30.10.2026 18:27:51",
+  "yil": 2026,
+  "donem": "9 Aylık",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html",
+   "4028328ca17e4f5d01a18d5caf85169e.bin"
+  ]
+ },
+ {
+  "id": 1690051,
+  "hisse": "A1CAP",
+  "tur": "Finansal rapor",
+  "ozet": "Faaliyet Raporu (30.09.2026)",
+  "tarih": "30.10.2026 18:27:58",
+  "yil": 2026,
+  "donem": "9 Aylık",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html",
+   "4028328ca17e4f5d01a18d68d0101b08.bin"
+  ]
  }
 ]
