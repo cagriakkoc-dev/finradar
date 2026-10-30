@@ -274,5 +274,33 @@
    "bildirim.html"
   ],
   "hazir_zaman": "30.10.2026 22:45"
+ },
+ {
+  "id": 1690336,
+  "hisse": "LMKDC",
+  "tur": "Finansal rapor",
+  "ozet": "Finansal Rapor",
+  "tarih": "30.10.2026 23:17:27",
+  "yil": 2026,
+  "donem": "9 Aylık",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html",
+   "4028328ca17e4f5d01a18e74a42a3108.bin"
+  ]
+ },
+ {
+  "id": 1690337,
+  "hisse": "LMKDC",
+  "tur": "Finansal rapor",
+  "ozet": "Yönetim Kurulu 01.01.2026 - 30.09.2026 Dönemi Faaliyet Raporu",
+  "tarih": "30.10.2026 23:22:45",
+  "yil": 2026,
+  "donem": "9 Aylık",
+  "durum": "bekliyor",
+  "dosyalar": [
+   "bildirim.html",
+   "4028328ca17e4f5d01a18e7999d63175.bin"
+  ]
  }
 ]
