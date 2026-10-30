@@ -138,10 +138,11 @@
   "tarih": "30.10.2026 13:15:09",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1689440,
@@ -151,11 +152,12 @@
   "tarih": "30.10.2026 13:47:05",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html",
    "4028328ca17e4f5e01a18c68859355c9.bin"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1689474,
@@ -165,10 +167,11 @@
   "tarih": "30.10.2026 14:37:06",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1689657,
@@ -178,10 +181,11 @@
   "tarih": "30.10.2026 16:10:35",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1689925,
@@ -191,10 +195,11 @@
   "tarih": "30.10.2026 18:15:44",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1689972,
@@ -234,11 +239,12 @@
   "tarih": "30.10.2026 18:27:51",
   "yil": 2026,
   "donem": "9 Aylık",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html",
    "4028328ca17e4f5d01a18d5caf85169e.bin"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1690051,
@@ -248,11 +254,12 @@
   "tarih": "30.10.2026 18:27:58",
   "yil": 2026,
   "donem": "9 Aylık",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html",
    "4028328ca17e4f5d01a18d68d0101b08.bin"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  },
  {
   "id": 1690089,
@@ -262,9 +269,10 @@
   "tarih": "30.10.2026 18:39:07",
   "yil": null,
   "donem": "-",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html"
-  ]
+  ],
+  "hazir_zaman": "30.10.2026 22:45"
  }
 ]
