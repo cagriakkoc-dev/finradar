@@ -32,6 +32,10 @@ SIRKETLER = {
     "OSMEN": "4028e4a240ee37a30140ee408ef80002",
     "OYYAT": "4028e4a14158e41f01415a5e854d4441",
     "TERA": "4028e4a141733b56014178115f7e51e7",
+    "AKSGY": "4028e4a14158e41f01415a865c0e4d13",
+    "ISGYO": "4028e4a140f2ed7201412acbeb8b06f7",
+    "RGYAS": "4028e4a241b612d80141d9a52e2a2727",
+    "TRGYO": "4028e4a1413b7ef5014144f83882011f",
 }
 ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|sermaye|geri alım|birleşme|devral|satın al|kapasite|genel müdür|finansal takvim|beklenti|yeni iş|teşvik|dava|derecelendirme|ortaklık yapısı|pay satış|bedelsiz|bedelli", re.I)
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
