@@ -40,6 +40,11 @@ Yıllık = geçen yılın aynı çeyreği (XBRL "önceki 3 ay"), çeyreklik = bi
 `python3 bekci/araclar/site.py ekle-ozet <HİSSE> ozet.json`.
 X kısmı ikili seri düzeninde: `"social": {"mode": "ikili", "tweets": [...]}`. Her tweet bir serinin ana tweeti (tek not + kendi kartı); yanıt ("Okumak için: <Substack linki>", ilk seride yalnız link) site tarafından substack.published'tan üretilir, JSON'a yazılmaz. 1. seri net kâr kartını anlatır ve "<YYYY>/<ay> bilançosunu Substack'te özetledim. Okumak için👇🏻" ile biter. Sonraki seriler: yıllık kıyas, çeyreklik kıyas, segment, vergi/diğer, rakip. Her ana tweet hisse adını içerir (ayrı paylaşılır). Kapanış/"Yatırım tavsiyesi değildir." tweeti yok; sıra numarası yok. İsteğe bağlı tek ek tweet: tweet nesnesine "ek". Sayısal serileri (c.fin) güncellemek bu sürümde YOK: özetin "note" alanına "Grafik serileri henüz güncellenmedi" yaz.
 
+#### Kalem açıklamaları (c.kalem)
+Finansal rapor işlenirken şirketin `kalem` alanına son dönemin dipnot kırılımlarını yaz (matristeki (i) açıklamasının şirkete özel kısmı):
+`"kalem": {"cost_of_sales": {"p": "2026-09", "title": "2026 ilk 9 ay, Mn TL", "u": "<KAP bildirim linki>", "pg": <PDF sayfa>, "rows": [["Satılan konut maliyeti", -1626.47], …], "text": "<dipnottaki olgusal açıklama, yorum yok>"}}`
+Öncelik: revenue (hasılat dipnotu), cost_of_sales (satışların maliyeti dipnotu), operating_profit (esas faaliyet diğer gelir/gider dipnotu). Yeni dönem gelince aynı anahtarın içeriği değiştirilir. Örnek: AVPGY.
+
 ## 3. Bitiş
 - `bekci/kuyruk.json`: işlenen kayıtların "durum"unu "hazir" yap (+ "hazir_zaman").
 - `bekci/bildirimler.json` listesine ekle: "<HİSSE> · <başlık> özeti hazır (gizli, panelden düzeltip yayına al) · https://sonar.smartcuzdan.io/yonetim.html#haber-<hisse küçük>-<id>" (dönem özeti için `#ozet-<hisse küçük>`). Bekçi bir sonraki çalışmada Telegram'a yollar.
