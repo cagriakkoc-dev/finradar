@@ -91,6 +91,16 @@ body,button,select,table,svg text{font-variant-numeric:tabular-nums}
 .side .star:hover{color:#e3a21a}
 .side .slrow .sl{padding-left:4px}
 .side h5 .h5n{float:right;letter-spacing:0;font-size:10.5px}
+.hfbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 8px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.hfrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hfq{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:0 10px;background:var(--panel);color:var(--muted)}
+.hfq input{flex:1;border:0;background:transparent;color:var(--fg);font:inherit;padding:9px 0;outline:none}
+.hfq:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+#hsira{font:inherit;font-size:13px;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--fg)}
+.hfchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.hfchips small{color:var(--faint);font-family:var(--f-mono)}
+.hfsep{width:1px;background:var(--line);margin:0 4px}
+.hfn{margin-top:6px;font:500 11.5px var(--f-mono);color:var(--muted)}
+.hlist{width:100%;display:table!important}.hlist thead{display:table-header-group!important}.hlist tbody{display:table-row-group!important}.hlist tr{display:table-row!important}.hlist td,.hlist th{display:table-cell!important}.hlist td:first-child,.hlist th:first-child,.hlist th:nth-child(2){text-align:left;white-space:nowrap;font-family:var(--f-body)}.hlist td .tk{display:inline-flex;width:auto;margin-right:8px;vertical-align:middle}.hlist tbody tr{cursor:pointer}.hlist tbody tr:hover{background:var(--panel2)}
 .homegrp{margin:6px 0 10px;font:600 12px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
 .homegrp button{font:500 11.5px var(--f-body);letter-spacing:0;text-transform:none;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:3px 10px;cursor:pointer}
 /* top rail */
@@ -1577,6 +1587,42 @@ function renderSide(){
 function spy(){const links=[...document.querySelectorAll('#side [data-sec]')];if(!links.length)return;let cur=links[0].dataset.sec;for(const a of links){const t=document.getElementById(a.dataset.sec);if(t&&t.getBoundingClientRect().top<140)cur=a.dataset.sec}links.forEach(a=>a.classList.toggle('on',a.dataset.sec===cur))}
 addEventListener('scroll',()=>requestAnimationFrame(spy),{passive:true});
 addEventListener('resize',()=>{const tb=$('#themebtn'),side=$('#side'),rail=$('.rail .wrap');if(!tb)return;if(matchMedia('(min-width:1100px)').matches){if(tb.parentElement!==side)side.appendChild(tb)}else if(tb.parentElement!==rail)rail.appendChild(tb)});
+/* ---------- ana sayfa filtresi ---------- */
+const HF=(()=>{let o={};try{o=JSON.parse(localStorage.getItem('sonar-hf')||'{}')}catch(e){}const u=new URLSearchParams(location.search);
+  if(u.has('q')||u.has('sek')||u.has('fav')||u.has('son')||u.has('sira')||u.has('gor'))o={q:u.get('q')||'',sek:(u.get('sek')||'').split(',').filter(Boolean),fav:u.get('fav')==='1',son:u.get('son')==='1',sira:u.get('sira')||'sektor',gor:u.get('gor')||'kart'};
+  return Object.assign({q:'',sek:[],fav:false,son:false,sira:'sektor',gor:'kart'},o)})();
+const LASTP=()=>COS.flatMap(c=>c.periods).sort().pop();
+function homeFilterHTML(){const lp=LASTP();
+  return `<div class="hfbar" id="hfbar"><div class="hfrow"><div class="hfq"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input id="hq" type="search" placeholder="Şirket, ticker veya sektör ara" aria-label="Şirketleri filtrele" autocomplete="off" spellcheck="false"></div>
+   <select id="hsira" aria-label="Sıralama"><option value="sektor">Sektöre göre</option><option value="ad">Ada göre</option><option value="pd">Piyasa değerine göre</option><option value="rapor">Son rapora göre</option></select>
+   <span class="hfview" role="group" aria-label="Görünüm"><button class="chip" data-gor="kart">Kart</button><button class="chip" data-gor="liste">Liste</button></span></div>
+   <div class="hfchips"><button class="chip" data-hf="tum">Tümü</button><button class="chip" data-hf="fav">★ Favorilerim</button><button class="chip" data-hf="son">${QL(lp)} raporu gelenler</button><span class="hfsep"></span>${GRPS.map(g=>`<button class="chip" data-sek="${grpKey(g)}">${esc(g)} <small>${COS.filter(c=>c.grp===g).length}</small></button>`).join('')}</div>
+   <div class="hfn" id="hfn" aria-live="polite"></div></div>`}
+function homeFilterBind(){const q=$('#hq');if(!q)return;q.value=HF.q;$('#hsira').value=HF.sira;
+  q.oninput=()=>{HF.q=q.value;drawHome()};$('#hsira').onchange=e=>{HF.sira=e.target.value;drawHome()};
+  document.querySelectorAll('[data-gor]').forEach(b=>b.onclick=()=>{HF.gor=b.dataset.gor;drawHome()});
+  document.querySelectorAll('[data-hf]').forEach(b=>b.onclick=()=>{const k=b.dataset.hf;if(k==='tum'){HF.sek=[];HF.fav=false;HF.son=false;HF.q='';q.value=''}else HF[k]=!HF[k];drawHome()});
+  document.querySelectorAll('[data-sek]').forEach(b=>b.onclick=()=>{const k=b.dataset.sek;HF.sek=HF.sek.includes(k)?HF.sek.filter(x=>x!==k):[...HF.sek,k];drawHome()})}
+function homeLast(c){const R=INS(c)?(c.val||[]).at(-1)||{}:(c.rat||[]).at(-1)||{};return {fk:INS(c)?R.pe:R.fk,pddd:INS(c)?R.pb:R.pddd,mcap:R.mcap}}
+function drawHome(){const box=$('#homegrps');if(!box)return;const F=favGet(),lp=LASTP(),n=norm(HF.q.trim());
+  try{localStorage.setItem('sonar-hf',JSON.stringify(HF))}catch(e){}
+  const u=new URLSearchParams();if(HF.q)u.set('q',HF.q);if(HF.sek.length)u.set('sek',HF.sek.join(','));if(HF.fav)u.set('fav','1');if(HF.son)u.set('son','1');if(HF.sira!=='sektor')u.set('sira',HF.sira);if(HF.gor!=='kart')u.set('gor',HF.gor);
+  try{history.replaceState(null,'',location.pathname+(u.toString()?'?'+u:'')+location.hash)}catch(e){}
+  const ok=c=>(!n||norm(c.t+' '+c.name+' '+(c.grp||'')+' '+(c.sector||'')).includes(n))&&(!HF.sek.length||HF.sek.includes(grpKey(c.grp||'')))&&(!HF.fav||F.includes(c.t))&&(!HF.son||c.periods.at(-1)===lp);
+  let L=COS.filter(ok);
+  const lastRep=c=>c.periods.at(-1);
+  if(HF.sira==='ad')L.sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+  else if(HF.sira==='pd')L.sort((a,b)=>(homeLast(b).mcap||0)-(homeLast(a).mcap||0));
+  else if(HF.sira==='rapor')L.sort((a,b)=>lastRep(a)<lastRep(b)?1:lastRep(a)>lastRep(b)?-1:a.t.localeCompare(b.t));
+  document.querySelectorAll('[data-gor]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.gor===HF.gor));
+  document.querySelectorAll('[data-sek]').forEach(b=>b.setAttribute('aria-pressed',HF.sek.includes(b.dataset.sek)));
+  document.querySelector('[data-hf="tum"]')?.setAttribute('aria-pressed',!HF.sek.length&&!HF.fav&&!HF.son&&!n);
+  document.querySelector('[data-hf="fav"]')?.setAttribute('aria-pressed',HF.fav);document.querySelector('[data-hf="son"]')?.setAttribute('aria-pressed',HF.son);
+  $('#hfn').textContent=L.length===COS.length?`${COS.length} şirket`:`${L.length} / ${COS.length} şirket`;
+  if(!L.length){box.innerHTML=`<p class="note" style="padding:24px 0">Filtreye uyan şirket yok.${HF.fav&&!F.length?' Henüz favori eklemediniz; sol menüde şirketin yanındaki ☆ ile ekleyebilirsiniz.':''}</p>`;return}
+  const list=cs=>HF.gor==='liste'?`<div class="tw"><table class="t hlist"><thead><tr><th>Şirket</th><th>Sektör</th><th>Son dönem</th><th>F/K</th><th>PD/DD</th><th>Piyasa değeri</th></tr></thead><tbody>${cs.map(c=>{const R=homeLast(c);return `<tr data-go="${c.t}" tabindex="0"><td><span class="tk" style="--c:${c.color}"><i class="dot"></i>${c.t}</span> ${esc(c.name)}</td><td style="font-family:var(--f-body);text-align:left">${esc(c.grp||'')}</td><td>${QS(lastRep(c))}</td><td>${R.fk==null?'—':nf(R.fk,1)+'x'}</td><td>${R.pddd==null?'—':nf(R.pddd,2)+'x'}</td><td>${fmtM(R.mcap)}</td></tr>`}).join('')}</tbody></table></div>`:`<div class="cards">${cs.map(c=>window.__CARD[c.t]).join('')}</div>`;
+  box.innerHTML=HF.sira==='sektor'?GRPS.map(g=>{const cs=L.filter(c=>c.grp===g);if(!cs.length)return '';return `<h3 class="homegrp">${esc(g)}<button data-go="SEKTOR-${grpKey(g)}">Sektör görünümü →</button></h3>${list(cs)}`}).join(''):list(L);
+  box.querySelectorAll('[data-go]').forEach(b=>{b.onclick=()=>go(b.dataset.go);if(b.tagName==='TR')b.onkeydown=e=>{if(e.key==='Enter')go(b.dataset.go)}})}
 function renderHome(){
   document.documentElement.style.setProperty('--co','var(--accent)');
   const all={sr:0,kap:0,pdf:0,calc:0,fix:0,ext:0,pend:0,na:0};
@@ -1588,12 +1634,13 @@ function renderHome(){
      <div class="row"><span class="l ${ch==null?'':ch>=0?'up':'down'}" style="font-family:var(--f-mono)">${ch==null?'':(ch>=0?'▲ ':'▼ ')+nf(Math.abs(ch),1)+'% yıllık'}</span><span class="l">${QL(P[0])} – ${QL(L)}</span></div>
      <div class="chipline">${k.pend?`<span class="badge" style="color:#f2b55c">${k.pend} hücre kaynak bekliyor</span>`:'<span class="badge" style="color:var(--up)">Boş hücre 0</span>'}${filled?`<span class="badge" style="color:var(--p-kap)">${filled} hücre tamamlandı</span>`:''}${k.na?`<span class="badge" style="color:var(--muted)">${k.na} kural gereği yok</span>`:''}</div>
      <span class="go">Şirketi incele →</span></button>`};
-  const cards=GRPS.map(g=>{const cs=COS.filter(c=>c.grp===g);return `<h3 class="homegrp">${esc(g)}${cs.length>=1?`<button data-go="SEKTOR-${grpKey(g)}">Sektör görünümü →</button>`:''}</h3><div class="cards">${cs.map(card).join('')}</div>`}).join('');
+  const CARD={};COS.forEach(c=>CARD[c.t]=card(c));
   app.innerHTML=`<section class="home-hero"><div class="eyebrow">Sonar · 2021 Ç1 – ${QL(COS.flatMap(c=>c.periods).sort().pop())}</div><h1>Şirketi tanı.<br><em>Aktif</em> takip et.</h1><p>${NUMTR(COS.length)} Borsa İstanbul şirketinin finansal tabloları, gelir kırılımları, oranları ve temettüleri. ${PUB?'Veriler KAP finansal rapor bildirimlerinden ve şirketlerin yayımladığı raporlardan derlendi.':'SmartRadar verisi KAP ile tek tek doğrulandı; eksik dönemler KAP ve şirket raporlarından tamamlandı. Her değerin kaynağı görünür.'}</p></section>
-  <div class="homegrps">${cards}</div>
+  ${homeFilterHTML()}<div class="homegrps" id="homegrps"></div>
   <div class="home-views"><button class="hv-card" data-go="KARSILASTIR"><b>Karşılaştır →</b><span>${NUMTR(COS.length)} şirket yan yana: son dört çeyrek hasılat ve kâr, PD/DD, F/K, marjlar.</span></button>${KARS.slice(-1).map(K=>`<button class="hv-card" data-go="KARS-${K.id}"><b>${K.a}–${K.b} karşılaştırma →</b><span>${esc(K.headline)}</span></button>`).join('')}<button class="hv-card dev" data-go="DENETIM"><b>Veri denetimi →</b><span>${all.kap+all.pdf+all.calc} hücre tamamlandı, ${all.fix} hücre düzeltildi, ${all.na} kalem gerekçesiyle işaretlendi. Yöntem ve tam liste.</span></button></div>
   <p class="note" style="margin-bottom:8px">2021'den itibaren açıklanan veriler. Tutarlar milyon TL ve her raporun kendi fiyat esasında. Eksik değer sıfırla doldurulmaz; kural gereği bulunmayan kalemler gerekçesiyle gösterilir.</p>`;
   app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+  window.__CARD=CARD;homeFilterBind();drawHome();
 }
 function render(){const v=state.view;if(v==='GIRIS')renderHome();else if(v==='HABERLER'||v.startsWith('HABERLER-'))renderHaberler(v.split('-')[1]||'');else if(v.startsWith('HABER-'))renderHaber(v.split('-')[1],v.split('-')[2]);else if(v==='OZET')renderOzetIndex();else if(v.startsWith('KARS-'))renderKars(v.slice(5));else if(v.startsWith('YAZI-'))renderYazi(v.slice(5));else if(v.startsWith('OZET-'))renderOzet(v.slice(5,v.length).split('-')[0],v.slice(5).split('-').slice(1).join('-'));else if(v==='KARSILASTIR')renderCompare();else if(v.startsWith('SEKTOR-'))renderSector(v.slice(7));else if(v==='DENETIM')(PUB?renderHome():renderAudit());else renderCompany(BY[v]);renderSide()}
 let rT;addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(render,200)});
