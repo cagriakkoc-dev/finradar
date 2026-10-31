@@ -15,15 +15,16 @@ for parca in filter(None, os.environ.get("FR", "").split(";;")):
     import datetime
     W = []
     # FR'ler yalnızca dönem sonlarından sonraki aylarda gelir: yılda 4 pencere (her biri ≤ 47 gün)
-    ARL = P_[2] if len(P_) > 2 else os.environ.get("FR_ARALIK")  # "2025-04-01:2026-07-01" → yalnız bu aralık
-    GUN = int(P_[3] if len(P_) > 3 else os.environ.get("FR_GUN", "16"))
-    for y in ([0] if ARL else range(2021, datetime.date.today().year + 1)):
-        for a_, b_ in ((("x", "x"),) if ARL else (("01-01", "12-31"),)):  # tüm yıl (gecikmeli/ertelenmiş raporlar için), 16 günlük parçalar
-            a, b = (map(datetime.date.fromisoformat, ARL.split(":")) if ARL else
-                    (datetime.date.fromisoformat(f"{y}-{a_}"), datetime.date.fromisoformat(f"{y}-{b_}")))
-            while a < min(b, datetime.date.today()):  # çok bildirimli şirketlerde API sonuç sınırına takılmamak için ~16 günlük parçalar
-                e = min(a + datetime.timedelta(days=GUN - 1), b, datetime.date.today())
-                W.append((a.isoformat(), e.isoformat())); a = e + datetime.timedelta(days=1)
+    # aralık: "2021-01-01:2026-11-01" + gün (4. alan) ya da birden çok "a:b/gün" virgülle: "2021-01-01:2025-04-30/16,2025-05-01:2026-11-01/5"
+    ARL = P_[2] if len(P_) > 2 else os.environ.get("FR_ARALIK")
+    GUN0 = int(P_[3] if len(P_) > 3 else os.environ.get("FR_GUN", "16"))
+    if ARL: PL = [((x.split("/")[0]), int(x.split("/")[1]) if "/" in x else GUN0) for x in ARL.split(",")]
+    else: PL = [(f"{y}-01-01:{y}-12-31", GUN0) for y in range(2021, datetime.date.today().year + 1)]
+    for rng, GUN in PL:
+        a, b = map(datetime.date.fromisoformat, rng.split(":"))
+        while a < min(b, datetime.date.today()):
+            e = min(a + datetime.timedelta(days=GUN - 1), b, datetime.date.today())
+            W.append((a.isoformat(), e.isoformat())); a = e + datetime.timedelta(days=1)
     LOG = []
     for a, b in W:
         g = {"a": a, "b": b}
