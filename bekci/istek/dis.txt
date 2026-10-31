@@ -223,3 +223,7 @@ aksa_sunum_2025_09.pdf|https://asset.aksa.com/media-data/docs/2025/11/18/finansa
 aksa_yatirimci_2026_06.pdf|https://asset.aksa.com/media-data/docs/2026/08/18/aksa-akrilik-yatirimci-sunumu-haziran-2026-j5x1bdyv.pdf
 isy_px_AVPGY_2609.json|https://www.isyatirim.com.tr/_layouts/15/Isyatirim.Website/Common/Data.aspx/HisseTekil?hisse=AVPGY&startdate=24-09-2026&enddate=30-10-2026
 kap_bist_sirketler.html|https://www.kap.org.tr/tr/bist-sirketler
+kaplogo_AKSGY.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a14158e41f01415a865c0e4d13
+kaplogo_RGYAS.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a241b612d80141d9a52e2a2727
+kaplogo_ISGYO.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140f2ed7201412acbeb8b06f7
+kaplogo_TRGYO.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a1413b7ef5014144f83882011f
