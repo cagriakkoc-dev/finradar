@@ -227,3 +227,16 @@ kaplogo_AKSGY.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a14158e41f0141
 kaplogo_RGYAS.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a241b612d80141d9a52e2a2727
 kaplogo_ISGYO.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140f2ed7201412acbeb8b06f7
 kaplogo_TRGYO.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a1413b7ef5014144f83882011f
+kaplogo_DOAS.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a240e8d16e0140e951bf04007b
+kaplogo_OTKAR.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140ee35c70140ee4316b3001d
+kaplogo_KARSN.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140f275530140f2e357a501f7
+kaplogo_ASUZU.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140e95be70140ed43c4fe00a9
+kaplogo_BFREN.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140e95bea0140ee30fb6001b9
+kaplogo_BRISA.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140e95bea0140ee33bff201cd
+kaplogo_DITAS.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140f2ed710141179798bb02ed
+kaplogo_DOKTA.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a241558bd9014155c9b19e03b7
+kaplogo_EGEEN.bin|https://www.kap.org.tr/tr/api/member/logo/1DE05DAA8254073AE0530A4A622A2EBD
+kaplogo_FMIZP.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a240f2ef4701410bb5cdab01cf
+kaplogo_GOODY.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140f2ed7101412bfc6f340359
+kaplogo_JANTS.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a240f2ef4c01413b1b57300719
+kaplogo_PARSN.bin|https://www.kap.org.tr/tr/api/member/logo/4028e4a140ee84900140f1ecef250011
