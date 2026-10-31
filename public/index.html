@@ -73,6 +73,17 @@ body,button,select,table,svg text{font-variant-numeric:tabular-nums}
 .srch-dd .srch-none{display:block;color:var(--muted);cursor:default;font-size:13px}
 .side .srch{margin-top:-4px}
 /* favoriler */
+.side .accs{display:flex;flex-direction:column;gap:2px}
+.side .acch{display:flex;align-items:center;gap:8px;width:100%;padding:7px 8px;border:0;border-radius:7px;background:transparent;color:var(--fg);font:600 13px var(--f-body);cursor:pointer;text-align:left}
+.side .acch:hover{background:var(--panel2)}
+.side .acch small{margin-left:auto;font:500 11px var(--f-mono);color:var(--faint)}
+.side .acch .chev{display:inline-block;width:10px;color:var(--faint);font-size:10px;transition:transform .15s}
+.side .acch[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.side .acc>nav{padding:2px 0 6px 10px;border-left:1px solid var(--line);margin-left:12px}
+.side .acc.fav>nav{border-left:0;margin-left:0;padding-left:0}
+.side .sl.sub{font-size:12.5px;color:var(--muted)}
+.side .slrow .sl{padding-top:5px;padding-bottom:5px;font-size:13px}
+.side .slrow .sl .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .side .slrow{display:flex;align-items:center}
 .side .star{flex:none;width:22px;height:28px;border:0;background:transparent;color:var(--faint);font-size:14px;line-height:1;cursor:pointer;padding:0;border-radius:6px;opacity:.55}
 .side .slrow:hover .star,.side .star[aria-pressed="true"]{opacity:1}
@@ -1113,12 +1124,20 @@ function yaziLinks(g){const Y=(DATA.yazilar||[]).filter(y=>(y.sektor===g)&&!(PUB
 function favGet(){try{const x=JSON.parse(localStorage.getItem('sonar-fav')||'[]');return Array.isArray(x)?x.filter(t=>BY[t]):[]}catch(e){return []}}
 function favSet(a){try{localStorage.setItem('sonar-fav',JSON.stringify(a))}catch(e){}}
 const coShort=c=>c.name.replace(' Emeklilik','').replace(' Akrilik','');
-function sideCos(v){const F=favGet();
-  const item=c=>{const on=F.includes(c.t);return `<div class="slrow"><button class="star" data-fav="${c.t}" aria-pressed="${on}" aria-label="${on?'Favorilerden çıkar':'Favorilere ekle'}: ${esc(c.name)}" title="${on?'Favorilerden çıkar':'Favorilere ekle'}">${on?'★':'☆'}</button><button class="sl" data-v="${c.t}" style="--c:${c.color}" aria-current="${v===c.t}"><i class="dot"></i>${esc(coShort(c))}<small>${c.t}</small></button></div>`};
-  let h=F.length?`<div><h5>Favoriler</h5><nav>${F.map(t=>item(BY[t])).join('')}</nav></div>`:'';
-  GRPS.forEach(g=>{const cs=COS.filter(c=>c.grp===g&&!F.includes(c.t));const n=COS.filter(c=>c.grp===g).length;
-    h+=`<div><h5>${esc(g)}</h5><nav>${n>=1?`<button class="sl" data-v="SEKTOR-${grpKey(g)}" aria-current="${v==='SEKTOR-'+grpKey(g)}">Sektör görünümü<small>${n}</small></button>`:''}${cs.map(item).join('')}</nav></div>`});
-  return h}
+function accGet(){try{const x=JSON.parse(localStorage.getItem('sonar-acc')||'[]');return Array.isArray(x)?x:[]}catch(e){return []}}
+function accSet(a){try{localStorage.setItem('sonar-acc',JSON.stringify(a))}catch(e){}}
+function sideCos(v){const F=favGet(),A=accGet();
+  const curG=BY[v]?.grp||(v.startsWith('SEKTOR-')?GRPS.find(g=>'SEKTOR-'+grpKey(g)===v):null)||(v.startsWith('OZET-')?BY[v.slice(5)]?.grp:null)||(v.startsWith('HABER-')?BY[v.split('-')[1]]?.grp:null);
+  const item=c=>{const on=F.includes(c.t);return `<div class="slrow" data-q="${esc(norm(c.t+' '+c.name+' '+(c.grp||'')))}"><button class="star" data-fav="${c.t}" aria-pressed="${on}" aria-label="${on?'Favorilerden çıkar':'Favorilere ekle'}: ${esc(c.name)}" title="${on?'Favorilerden çıkar':'Favorilere ekle'}">${on?'★':'☆'}</button><button class="sl" data-v="${c.t}" style="--c:${c.color}" aria-current="${v===c.t}" title="${esc(c.name)}"><i class="dot"></i><span class="nm">${esc(c.grp==='Çimento'?coShort(c).replace(/ Çimento$/,''):coShort(c))}</span><small>${c.t}</small></button></div>`};
+  let h=F.length?`<div class="acc fav"><h5>Favoriler <span class="h5n">${F.length}</span></h5><nav>${F.map(t=>item(BY[t])).join('')}</nav></div>`:'';
+  h+=`<div class="accs"><h5>Sektörler</h5>`;
+  GRPS.forEach(g=>{const cs=COS.filter(c=>c.grp===g);const k=grpKey(g),open=A.includes(k)||g===curG;
+    h+=`<div class="acc" data-acc="${k}" data-q="${esc(norm(g))}"><button class="acch" aria-expanded="${open}" data-acct="${k}"><span class="chev" aria-hidden="true">▸</span>${esc(g)}<small>${cs.length}</small></button><nav ${open?'':'hidden'}><button class="sl sub" data-v="SEKTOR-${k}" aria-current="${v==='SEKTOR-'+k}">Sektör görünümü</button>${cs.map(item).join('')}</nav></div>`});
+  return h+'</div>'}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-acct]');if(!b)return;const k=b.dataset.acct,box=b.parentElement,nav=box.querySelector('nav');const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',open);nav.hidden=!open;const A=accGet().filter(x=>x!==k);accSet(open?[...A,k]:A)});
+function sideFilter(q){const side=$('#side');if(!side)return;const n=norm(q.trim());side.classList.toggle('filtering',!!n);
+  side.querySelectorAll('.accs .acc').forEach(a=>{const gm=n&&a.dataset.q.includes(n);let any=false;a.querySelectorAll('.slrow').forEach(r=>{const m=!n||gm||r.dataset.q.includes(n);r.hidden=!m;any=any||m});
+    const nav=a.querySelector('nav'),b=a.querySelector('.acch');if(n){a.hidden=!any&&!gm;nav.hidden=!(any||gm)}else{a.hidden=false;nav.hidden=b.getAttribute('aria-expanded')!=='true'}})}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-fav]');if(!b)return;e.preventDefault();e.stopPropagation();const t=b.dataset.fav;const F=favGet();favSet(F.includes(t)?F.filter(x=>x!==t):[...F,t]);renderSide()},true);
 /* ---------- arama ---------- */
 const norm=s=>(s||'').replace(/İ/g,'i').replace(/I/g,'ı').toLocaleLowerCase('tr').replace(/ı/g,'i').normalize('NFD').replace(/[̀-ͯ]/g,'');
@@ -1549,7 +1568,7 @@ function renderSide(){
   ${sideCos(v)}
   <div><h5>Görünümler</h5><nav><button class="sl" data-v="OZET" aria-current="${v.startsWith('OZET')}">Dönem özetleri</button>${KARS.map(K=>`<button class="sl" data-v="KARS-${K.id}" aria-current="${v==='KARS-'+K.id}"><i class="dot" style="background:${BY[K.a].color}"></i>${K.a}–${K.b} ${K.p.slice(0,4)}/${+K.p.slice(5,7)}<small>yazı</small></button>`).join('')}<button class="sl" data-v="KARSILASTIR" aria-current="${v==='KARSILASTIR'}">Karşılaştır</button><button class="sl dev" data-v="DENETIM" aria-current="${v==='DENETIM'}">Veri denetimi</button></nav></div>
   <div><h5>Bu sayfada</h5><nav class="sec">${secs.map(([id,t])=>`<a href="#${id}" data-sec="${id}">${esc(t)}</a>`).join('')}</nav></div>`;
-  if(!SRCH_SIDE)SRCH_SIDE=makeSearch();el.querySelector('.brand')?.after(SRCH_SIDE);
+  if(!SRCH_SIDE)SRCH_SIDE=makeSearch();el.querySelector('.brand')?.after(SRCH_SIDE);{const inp=SRCH_SIDE.querySelector('input');if(inp&&!inp.dataset.sf){inp.dataset.sf=1;inp.addEventListener('input',()=>sideFilter(inp.value))}if(inp&&inp.value)sideFilter(inp.value)}
   const tb=$('#themebtn');if(tb&&matchMedia('(min-width:1100px)').matches)el.appendChild(tb);
   el.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>go(b.dataset.v));
   el.querySelectorAll('[data-sec]').forEach(a=>a.onclick=e=>{e.preventDefault();document.getElementById(a.dataset.sec)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
