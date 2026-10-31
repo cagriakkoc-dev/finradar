@@ -283,11 +283,12 @@
   "tarih": "30.10.2026 23:17:27",
   "yil": 2026,
   "donem": "9 Aylık",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html",
    "4028328ca17e4f5d01a18e74a42a3108.bin"
-  ]
+  ],
+  "hazir_zaman": "31.10.2026 08:30"
  },
  {
   "id": 1690337,
@@ -297,10 +298,11 @@
   "tarih": "30.10.2026 23:22:45",
   "yil": 2026,
   "donem": "9 Aylık",
-  "durum": "bekliyor",
+  "durum": "hazir",
   "dosyalar": [
    "bildirim.html",
    "4028328ca17e4f5d01a18e7999d63175.bin"
-  ]
+  ],
+  "hazir_zaman": "31.10.2026 08:30"
  }
 ]
