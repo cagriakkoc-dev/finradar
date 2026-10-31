@@ -28,13 +28,16 @@ for parca in filter(None, os.environ.get("FR", "").split(";;")):
     LOG = []
     for a, b in W:
         g = {"a": a, "b": b}
-        for k in range(3):
+        for k in range(7):   # 429 (istek sınırı) gelirse artan bekleme: 20, 40, 60… sn
             try:
                 R = kap(oid, a, b); F = [x for x in R if x.get('disclosureClass') == 'FR']
-                L += F; g.update(n=len(R), fr=len(F)); break
-            except Exception as e: print(t, a, "hata", repr(e)[:120]); g["hata"] = repr(e)[:160]; time.sleep(5)
-        LOG.append(g); time.sleep(0.5)
+                L += F; g.update(n=len(R), fr=len(F)); g.pop("hata", None); break
+            except Exception as e:
+                print(t, a, "hata", repr(e)[:120]); g["hata"] = repr(e)[:160]
+                time.sleep(20 * (k + 1) if "429" in repr(e) else 5)
+        LOG.append(g); time.sleep(1.2)
     json.dump(LOG, open(os.path.join(OUT, f"fr_log_{t}.json"), "w"), ensure_ascii=False)
+    print(t, "pencere", len(LOG), "hatalı", sum("hata" in g for g in LOG))
     if not L: print(t, "boş liste, yazılmadı"); continue
     f = os.path.join(OUT, f"fr_{t}.json")
     if os.path.exists(f):  # önceki çekimle birleştir (zaman aşımı boşlukları sonraki çekimde dolar)

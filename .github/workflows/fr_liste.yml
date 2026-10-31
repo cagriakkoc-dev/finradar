@@ -18,10 +18,10 @@ jobs:
     needs: plan
     if: needs.plan.outputs.m != '[]'
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 90
     strategy:
       fail-fast: false
-      max-parallel: 10
+      max-parallel: 6
       matrix:
         s: ${{ fromJson(needs.plan.outputs.m) }}
     steps:
