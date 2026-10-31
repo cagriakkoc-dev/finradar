@@ -1648,6 +1648,21 @@ function drawCardAt(c,i,cv){const g=cv.getContext('2d'),S=c.summary,T=S.social.t
       const pw=(W-2*M-20)/2;pill(dvc(n.y,n.c),"yıllık · "+QL(S.yago)+"'e göre",M,y,pw,n.c>=n.y?up:dn);pill(dvc(n.q,n.c),"çeyreklik · "+QL(S.prev)+"'ye göre",M+pw+20,y,pw,n.c>=n.q?up:dn);y+=164;
       kpiTiles(M,W-M,y,196);y+=240;qbars(M,W-M,y,BOT)}
   }
+  if(C.type==='hero'){const h=C.hero,f1=v=>(v<0?'−':'')+nf(Math.abs(v),1),tc=k=>k==='up'?up:k==='dn'?dn:mu;
+    const gbars=(x0,x1,yy,yb)=>{const G=C.groups,lt=G.title;t(lt,x0,yy,24,600,mu);let lx=x0+tw(lt,24,600)+40;[[G.legend[0],co],[G.legend[1],'#3a4659']].forEach(([l,cl])=>{rr(lx,yy-17,18,18,4,cl);t(l,lx+26,yy,21,600,fg);lx+=26+tw(l,21,600)+30});
+      const top=yy+60,bot=yb-36,mx=Math.max(...G.rows.flatMap(r=>[r[1],r[2]]))*1.1,gw=(x1-x0)/G.rows.length,bw=(gw-60)/2;
+      G.rows.forEach((q,j)=>{const gx=x0+j*gw+20;[[q[1],co],[q[2],'#3a4659']].forEach(([v,cl],k)=>{const hh=Math.max(3,(Math.max(0,v)/mx)*(bot-top)),x=gx+k*(bw+8);rr(x,bot-hh,bw,hh,8,cl);t(nf(v,1),x+bw/2,bot-hh-10,20,700,k?mu:fg,'center')});t(q[0],gx+bw+4,bot+30,19,500,mu,'center')})};
+    const pill2=(p,x,yy,w)=>{rr(x,yy,w,124*SC,18,pn);t(p[0],x+28,yy+56*SC,44,800,tc(p[2]));t(p[1],x+28,yy+98*SC,23,500,mu)};
+    if(land){const xm=W*0.52;t(nf(h.v,1),M,y+110,120,800);t(h.unit||'Mn TL',M+tw(nf(h.v,1),120,800)+18,y+110,40,600,mu);
+      const pw=(xm-M-60)/2;C.pills.forEach((p,k)=>pill2(p,M+k*(pw+20),y+150,pw));gbars(M,xm-60,y+340,BOT);
+      const K=C.tiles,gap=18,hh=(BOT-y-gap*(K.length-1))/K.length;K.forEach((k,j)=>{const yy=y+j*(hh+gap),x=xm;rr(x,yy,W-M-x,hh,18,'#151c27');g.fillStyle=co;g.fillRect(x,yy,6,hh);
+        t(k[0],x+30,yy+hh/2-14,24,500,mu);t(f1(k[1]),x+30,yy+hh/2+40,46,800,fg);t(k[2],W-M-30,yy+hh/2-6,24,700,tc(k[4]),'right');t(k[3],W-M-30,yy+hh/2+34,24,700,tc(k[4]),'right')})}
+    else{t(nf(h.v,1),M,y+100,120,800);t(h.unit||'Mn TL',M+tw(nf(h.v,1),120,800)+18,y+100,40,600,mu);y+=150;
+      const pw=(W-2*M-20)/2;C.pills.forEach((p,k)=>pill2(p,M+k*(pw+20),y,pw));y+=164;
+      const K=C.tiles,gap=16,w=(W-2*M-gap*(K.length-1))/K.length,th=196;K.forEach((k,j)=>{const x=M+j*(w+gap);rr(x,y,w,th,18,'#151c27');g.fillStyle=co;g.fillRect(x,y,6,th);
+        t(k[0],x+24,y+42,21,500,mu);t(f1(k[1]),x+24,y+102,40,800,fg);t(k[2],x+24,y+142,19,700,tc(k[4]));t(k[3],x+24,y+172,19,700,tc(k[4]))});
+      y+=240;gbars(M,W-M,y,BOT)}
+  }
   if(C.type==='compare'){
     if(land&&C.hero){const h=C.hero,xm=W*0.36;rr(M,y,xm-M-40,330,20,pn);t(h[0],M+32,y+60,26,500,mu);t(h[1]+'  →',M+32,y+150,52,800,mu);t(h[2],M+32,y+270,96,800,h[3]||fg);
       sbars(C.rows,C.labels,xm+20,W-M,y+10,BOT)}
@@ -1658,6 +1673,7 @@ function drawCardAt(c,i,cv){const g=cv.getContext('2d'),S=c.summary,T=S.social.t
   if(C.type==='stats'){const nb=C.big.length;
     if(land){const full=!C.meters.length,xm=full?W-M+24:W*0.5;C.big.forEach((b,k)=>{const x=M+k*((xm-M)/nb),w=(xm-M)/nb-24;rr(x,y,w,360,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+190,96,800,fg);t(b[1]+' → '+b[2],x+28,y+250,26,500,mu);t(b[3],x+28,y+300,26,800,sgc(b[3]))});
       let yy=y+20;if(!full)t('Pazar payı · '+C.asof,xm+20,yy,26,700,fg);yy+=36;const mg=(BOT-yy)/C.meters.length;C.meters.forEach(m=>{t(m[0],xm+20,yy+36,28,500,mu);t('%'+nf(m[1],1),W-M,yy+36,36,800,fg,'right');rr(xm+20,yy+58,W-M-xm-20,32,16,pn);rr(xm+20,yy+58,(W-M-xm-20)*m[1]/25,32,16,co);yy+=mg})}
+    else if(!C.meters.length){const gp=24,bh=Math.min(400,(BOT-y-gp*(nb-1))/nb);C.big.forEach((b,k)=>{const yy=y+k*(bh+gp);rr(M,yy,W-2*M,bh,20,pn);g.fillStyle=co;g.fillRect(M,yy,8,bh);t(b[0],M+40,yy+70,28,500,mu);t(b[2],M+40,yy+bh/2+60,120,800,fg);t(b[1]+' → '+b[2],M+40,yy+bh-70,28,500,mu);t(b[3],M+40,yy+bh-30,28,800,sgc(b[3]))})}
     else{C.big.forEach((b,k)=>{const x=M+k*((W-2*M+20)/nb),w=(W-2*M+20)/nb-20;rr(x,y,w,300,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+150,80,800,fg);t(b[1]+' → '+b[2],x+28,y+206,26,500,mu);t(b[3],x+28,y+256,26,800,sgc(b[3]))});y+=370;
       if(C.meters.length)t('Pazar payı · '+C.asof,M,y,26,700,fg);y+=40;const mg=Math.min(150,(BOT-y)/C.meters.length);C.meters.forEach(m=>{t(m[0],M,y+32,28,500,mu);t('%'+nf(m[1],1),W-M,y+32,34,800,fg,'right');rr(M,y+52,W-2*M,30,15,pn);rr(M,y+52,(W-2*M)*m[1]/25,30,15,co);y+=mg})}
   }
