@@ -10,22 +10,30 @@ def kap(oid, a, b, cls="FR"):
                                  {"Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0 Sonar-Bekci"})
     return json.loads(urllib.request.urlopen(req, timeout=45).read().decode("utf-8"))
 for parca in filter(None, os.environ.get("FR", "").split(";;")):
-    t, oid = parca.strip().split("|")
+    P_ = parca.strip().split("|"); t, oid = P_[:2]   # isteğe bağlı: T|oid|2025-04-01:2026-07-01|7 (aralık|gün)
     L = []
     import datetime
     W = []
     # FR'ler yalnızca dönem sonlarından sonraki aylarda gelir: yılda 4 pencere (her biri ≤ 47 gün)
-    for y in range(2021, datetime.date.today().year + 1):
-        for a_, b_ in (("01-01", "12-31"),):  # tüm yıl (gecikmeli/ertelenmiş raporlar için), 16 günlük parçalar
-            a, b = datetime.date.fromisoformat(f"{y}-{a_}"), datetime.date.fromisoformat(f"{y}-{b_}")
+    ARL = P_[2] if len(P_) > 2 else os.environ.get("FR_ARALIK")  # "2025-04-01:2026-07-01" → yalnız bu aralık
+    GUN = int(P_[3] if len(P_) > 3 else os.environ.get("FR_GUN", "16"))
+    for y in ([0] if ARL else range(2021, datetime.date.today().year + 1)):
+        for a_, b_ in ((("x", "x"),) if ARL else (("01-01", "12-31"),)):  # tüm yıl (gecikmeli/ertelenmiş raporlar için), 16 günlük parçalar
+            a, b = (map(datetime.date.fromisoformat, ARL.split(":")) if ARL else
+                    (datetime.date.fromisoformat(f"{y}-{a_}"), datetime.date.fromisoformat(f"{y}-{b_}")))
             while a < min(b, datetime.date.today()):  # çok bildirimli şirketlerde API sonuç sınırına takılmamak için ~16 günlük parçalar
-                e = min(a + datetime.timedelta(days=15), b, datetime.date.today())
+                e = min(a + datetime.timedelta(days=GUN - 1), b, datetime.date.today())
                 W.append((a.isoformat(), e.isoformat())); a = e + datetime.timedelta(days=1)
+    LOG = []
     for a, b in W:
+        g = {"a": a, "b": b}
         for k in range(3):
-            try: L += [x for x in kap(oid, a, b) if x.get('disclosureClass') == 'FR']; break
-            except Exception as e: print(t, a, "hata", repr(e)[:120]); time.sleep(5)
-        time.sleep(0.5)
+            try:
+                R = kap(oid, a, b); F = [x for x in R if x.get('disclosureClass') == 'FR']
+                L += F; g.update(n=len(R), fr=len(F)); break
+            except Exception as e: print(t, a, "hata", repr(e)[:120]); g["hata"] = repr(e)[:160]; time.sleep(5)
+        LOG.append(g); time.sleep(0.5)
+    json.dump(LOG, open(os.path.join(OUT, f"fr_log_{t}.json"), "w"), ensure_ascii=False)
     if not L: print(t, "boş liste, yazılmadı"); continue
     f = os.path.join(OUT, f"fr_{t}.json")
     if os.path.exists(f):  # önceki çekimle birleştir (zaman aşımı boşlukları sonraki çekimde dolar)
