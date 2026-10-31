@@ -36,6 +36,19 @@ SIRKETLER = {
     "ISGYO": "4028e4a140f2ed7201412acbeb8b06f7",
     "RGYAS": "4028e4a241b612d80141d9a52e2a2727",
     "TRGYO": "4028e4a1413b7ef5014144f83882011f",
+    "DOAS": "4028e4a240e8d16e0140e951bf04007b",
+    "OTKAR": "4028e4a140ee35c70140ee4316b3001d",
+    "KARSN": "4028e4a140f275530140f2e357a501f7",
+    "ASUZU": "4028e4a140e95be70140ed43c4fe00a9",
+    "BFREN": "4028e4a140e95bea0140ee30fb6001b9",
+    "BRISA": "4028e4a140e95bea0140ee33bff201cd",
+    "DITAS": "4028e4a140f2ed710141179798bb02ed",
+    "DOKTA": "4028e4a241558bd9014155c9b19e03b7",
+    "EGEEN": "1DE05DAA8254073AE0530A4A622A2EBD",
+    "FMIZP": "4028e4a240f2ef4701410bb5cdab01cf",
+    "GOODY": "4028e4a140f2ed7101412bfc6f340359",
+    "JANTS": "4028e4a240f2ef4c01413b1b57300719",
+    "PARSN": "4028e4a140ee84900140f1ecef250011",
 }
 ONEMLI = re.compile(r"yatırım|sözleşme|ihale|temettü|kar pay|kâr pay|sermaye|geri alım|birleşme|devral|satın al|kapasite|genel müdür|finansal takvim|beklenti|yeni iş|teşvik|dava|derecelendirme|ortaklık yapısı|pay satış|bedelsiz|bedelli", re.I)
 STATE = os.path.join(os.path.dirname(__file__), "state.json")
