@@ -1661,7 +1661,7 @@ function drawCardAt(c,i,cv){const g=cv.getContext('2d'),S=c.summary,T=S.social.t
     else{C.big.forEach((b,k)=>{const x=M+k*((W-2*M+20)/nb),w=(W-2*M+20)/nb-20;rr(x,y,w,300,20,pn);t(b[0],x+28,y+56,25,500,mu);t(b[2],x+28,y+150,80,800,fg);t(b[1]+' → '+b[2],x+28,y+206,26,500,mu);t(b[3],x+28,y+256,26,800,sgc(b[3]))});y+=370;
       if(C.meters.length)t('Pazar payı · '+C.asof,M,y,26,700,fg);y+=40;const mg=Math.min(150,(BOT-y)/C.meters.length);C.meters.forEach(m=>{t(m[0],M,y+32,28,500,mu);t('%'+nf(m[1],1),W-M,y+32,34,800,fg,'right');rr(M,y+52,W-2*M,30,15,pn);rr(M,y+52,(W-2*M)*m[1]/25,30,15,co);y+=mg})}
   }
-  if(C.type==='peers'){const P=c.peers.filter(p=>p.key===C.key).sort((x,y)=>(y.co===c.t)-(x.co===c.t)),oc=P[1]&&BY[P[1].co]?lift(BY[P[1].co].color):'#f2b55c',cols=[co,oc===co?'#f2b55c':oc];const per=[...new Set(P.flatMap(p=>Object.keys(p.s)))].sort();
+  if(C.type==='peers'){const P=c.peers.filter(p=>p.key===C.key).sort((x,y)=>(y.co===c.t)-(x.co===c.t)),oc=P[1]&&BY[P[1].co]?lift(BY[P[1].co].color):'#f2b55c',cols=[co,(()=>{const h=x=>{x=String(x).replace('#','');return[0,2,4].map(i=>parseInt(x.slice(i,i+2),16))},A=h(oc),B=h(co);return oc===co||A.some(isNaN)||A.reduce((s,v,i)=>s+Math.abs(v-B[i]),0)<120})()?'#f2b55c':oc];const per=[...new Set(P.flatMap(p=>Object.keys(p.s)))].sort();
     const vs=P.flatMap(p=>Object.values(p.s));const mx=Math.max(...vs)*1.08;const x0=M+70,x1=W-M-(land?150:110),top=y+70,bot=BOT-50;const X=i=>x0+i*(x1-x0)/(per.length-1),Y=v=>bot-(v/mx)*(bot-top);
     P.forEach((p,k)=>{rr(M+k*(land?320:300),y,22,22,5,cols[k]);t(p.co,M+k*(land?320:300)+34,y+20,26,700,fg)});
     niceTicks(0,mx,4).forEach(tk=>{if(tk>mx)return;g.fillStyle='#1d2633';g.fillRect(x0,Y(tk),x1-x0,1);t(nf(tk,0),x0-12,Y(tk)+7,19,500,mu,'right')});
